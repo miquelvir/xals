@@ -1,0 +1,30 @@
+Source code of centrífuga4, [Xamfrà](https://xamfra.net)'s student management platform.
+
+![flake8](https://github.com/miquelvir/xals/actions/workflows/flake8.yml/badge.svg)
+![tests](https://github.com/miquelvir/xals/actions/workflows/test.yml/badge.svg)
+![black](https://github.com/miquelvir/xals/actions/workflows/black.yml/badge.svg)
+![build-react](https://github.com/miquelvir/xals/actions/workflows/build-react.yml/badge.svg)
+![docs](https://github.com/miquelvir/xals/actions/workflows/docs.yml/badge.svg)
+![CodeQL](https://github.com/miquelvir/xals/actions/workflows/codeql-analysis.yml/badge.svg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+[`DEPLOY APP TO PRODUCTION`](https://github.com/miquelvir/xals/actions/workflows/deploy-heroku.yml)
+[`DEPLOY DOCS TO GH-PAGES`](https://github.com/miquelvir/xals/actions/workflows/deploy-docs.yml)
+
+# SET UP FOR DEVELOPMENT
+## INSTALLING
+1. Clone this repository
+2. Install [Python 3 and Pip](https://www.python.org/downloads/)
+3. Install Python requirements using `pip install -r requirements.txt`
+4. Install [npm](https://www.npmjs.com/get-npm)
+5. `cd web_app` and run `npm install` for the frontend setup
+## RUNNING
+1. Python backend
+    1. [Add all the required environment variables](https://www.jetbrains.com/help/objc/add-environment-variables-and-program-arguments.html): `ENVIRONMENT=development`
+    2. Use development/generate_sample_db.py to create a new database. It will contain a user 'admin@gmail.com' : 'admin'
+    3. Run development/wsgi_development.py to run the backend development server
+2. Frontend development server
+    1. Run `npm start` inside web_app to start the frontend development server or `npm build` inside web_app to build the React files into static files
+
+# ARCHITECTURE & DESIGN
+Go to `/architecture` for more info.
