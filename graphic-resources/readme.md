@@ -1,1 +1,0 @@
-All graphical resources (icons, banners, etc.) should be stored here for reference or copy in other components.
