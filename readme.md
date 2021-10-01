@@ -18,6 +18,7 @@ Source code of centrífuga4, [Xamfrà](https://xamfra.net)'s student management 
 3. Install Python requirements using `pip install -r requirements.txt`
 4. Install [npm](https://www.npmjs.com/get-npm)
 5. `cd web_app` and run `npm install` for the frontend setup
+
 ## RUNNING
 1. Python backend
     1. [Add all the required environment variables](https://www.jetbrains.com/help/objc/add-environment-variables-and-program-arguments.html): `ENVIRONMENT=development`
@@ -25,6 +26,9 @@ Source code of centrífuga4, [Xamfrà](https://xamfra.net)'s student management 
     3. Run development/wsgi_development.py to run the backend development server
 2. Frontend development server
     1. Run `npm start` inside web_app to start the frontend development server or `npm build` inside web_app to build the React files into static files
+
+## DOCS
+1. To build and run a development server with the documentation, `cd docs` and run `yarn install` & `yarn run`.
 
 # ARCHITECTURE & DESIGN
 Go to `/architecture` for more info.
