@@ -9,4 +9,3 @@ class Container(
 ):  # todo can we migrate to not using this and just use patch in the mock library?
     recaptcha_service = providers.Singleton(RecaptchaService)
     jwt_service = providers.Factory(JwtService)
-
