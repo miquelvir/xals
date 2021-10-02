@@ -16,7 +16,7 @@ Source code of XALS, the restaurant course timer.
 0. Fork this repository (needed only for contributing)
 1. Clone your fork
 2. Install [Python 3 and Pip](https://www.python.org/downloads/)
-3. Install Python requirements using `pip install -r requirements.txt`
+3. Install Python requirements using `pip install -r requirements.txt` within your venv
 4. Install [npm](https://www.npmjs.com/get-npm)
 5. `cd web_app` and run `npm install` for the frontend setup
 
