@@ -31,4 +31,4 @@ Source code of XALS, the restaurant course timer.
 1. To build and run a development server with the documentation, `cd docs` and run `yarn install` & `yarn run`.
 
 # ARCHITECTURE & DESIGN
-Go to [/architecture](https://github.com/miquelvir/xals/actions/architecture) for more info.
+Go to [/architecture](https://github.com/miquelvir/xals/architecture) for more info.
