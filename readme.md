@@ -1,4 +1,4 @@
-Source code of centrífuga4, [Xamfrà](https://xamfra.net)'s student management platform.
+Source code of XALS, the restaurant course timer.
 
 ![flake8](https://github.com/miquelvir/xals/actions/workflows/flake8.yml/badge.svg)
 ![tests](https://github.com/miquelvir/xals/actions/workflows/test.yml/badge.svg)
@@ -31,4 +31,4 @@ Source code of centrífuga4, [Xamfrà](https://xamfra.net)'s student management 
 1. To build and run a development server with the documentation, `cd docs` and run `yarn install` & `yarn run`.
 
 # ARCHITECTURE & DESIGN
-Go to `/architecture` for more info.
+Go to [/architecture](https://github.com/miquelvir/xals/actions/architecture) for more info.
