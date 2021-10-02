@@ -1,23 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App/App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {Helmet} from 'react-helmet';
-import "./i18nextConf";
 
 ReactDOM.render(
   <React.StrictMode>
-      <Helmet>
-          <title>centrífuga4</title>
-                <base href={`${process.env.PUBLIC_URL}/`}/>
-          <link nonce="{{csp_nonce()}}" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-          <link nonce="{{csp_nonce()}}" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-          <meta
-              name="viewport"
-              content="minimum-scale=1, initial-scale=1, width=device-width"/>
-      </Helmet>
-      <App/>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
