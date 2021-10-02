@@ -13,7 +13,8 @@ Source code of XALS, the restaurant course timer.
 
 # SET UP FOR DEVELOPMENT
 ## INSTALLING
-1. Clone this repository
+(0. Fork this repository)
+1. Clone your fork
 2. Install [Python 3 and Pip](https://www.python.org/downloads/)
 3. Install Python requirements using `pip install -r requirements.txt`
 4. Install [npm](https://www.npmjs.com/get-npm)
