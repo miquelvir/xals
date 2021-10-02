@@ -4,26 +4,26 @@ import styles from './HomepageFeatures.module.css';
 
 const FeatureList = [
   {
-    title: 'pre-enrolment',
+    title: 'mobile friendly',
     description: (
       <>
-        On-board students right in the app... What's their personal data? What courses do they want to be enrolled in?
+        You can open it on the web from your mobile, tablet or desktop.
       </>
     ),
   },
   {
-    title: 'payments',
+    title: 'fast and intuitive',
     description: (
       <>
-        Register payments from the students: how much, when, ... and create receipts for them!
+        Best in class UX, easily navigate through the interface and get your things done in no time.
       </>
     ),
   },
   {
-    title: 'attendance',
+    title: 'real-time support',
     description: (
       <>
-        Let teachers register attendance to their courses.
+        Be aware of how much time has passed by since the last course.
       </>
     ),
   },
