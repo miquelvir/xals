@@ -1,14 +1,13 @@
-import Card from '../../../../components/card/card';
+import BaseCard from './baseCard';
 import { StopWatch } from '../stopWatch/stopWatch';
 import { useElapsedMs, msToTime } from '../../../../hooks/useElapsedTime/useElapsedTime';
 
 function TableCard({
    table,
-   attributes = '',
    ...props
 }) {
 
-   return <Card>
+   return <BaseCard {...props}>
       <div class="flex space-x-4">
          <div class="flex-2 flex flex-col">
                <div class="flex-1"><p class="font-mono text-4xl">
@@ -24,7 +23,7 @@ function TableCard({
             </p>
          </div>
       </div>
-   </Card>;
+   </BaseCard>;
 }
 
 export default TableCard;
