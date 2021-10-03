@@ -29,7 +29,7 @@ Source code of XALS, the restaurant course timer.
     1. Run `npm start` inside web_app to start the frontend development server or `npm build` inside web_app to build the React files into static files
 
 ## DOCS
-1. To build and run a development server with the documentation, `cd docs` and run `yarn install` & `yarn run`.
+1. To build and run a development server with the documentation, `cd docs` and run `yarn install` & `yarn start`.
 
 # ARCHITECTURE & DESIGN
 Go to [/architecture](architecture/readme.md) for more info.
