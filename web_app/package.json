@@ -17,7 +17,7 @@
     "start": "craco start",
     "build": "craco build",
     "postbuild": "node add_nonce_placeholders.js",
-    "test": "craco test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -39,6 +39,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
     "autoprefixer": "^9.8.7",
     "postcss": "^7.0.38",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.16"
