@@ -1,7 +1,8 @@
 # ARCHITECTURE
-This system is divided in two main components:
+This system is divided in three main components:
 - Flask backend
 - React frontend
+- Docusaurus docs
 
 The backend is monolithic (this system is right now actually only one domain).
 
