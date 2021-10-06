@@ -8,8 +8,10 @@ Source code of XALS, the restaurant course timer.
 ![CodeQL](https://github.com/miquelvir/xals/actions/workflows/codeql-analysis.yml/badge.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-[`DEPLOY APP TO PRODUCTION`](https://github.com/miquelvir/xals/actions/workflows/deploy-heroku.yml)
+[`DEPLOY APP TO STAGING`](https://github.com/miquelvir/xals/actions/workflows/deploy-heroku.yml)
 [`DEPLOY DOCS TO GH-PAGES`](https://github.com/miquelvir/xals/actions/workflows/deploy-docs.yml)
+
+STAGING: https://xals.herokuapp.com/
 
 # SET UP FOR DEVELOPMENT
 ## INSTALLING
