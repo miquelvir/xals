@@ -7,6 +7,7 @@ import RestaurantDashboardPage from "./pages/restaurantDashboardPage/restaurantD
 import {userContext} from './contexts/userContext';
 import AdminDashboardPage from "./pages/adminDashboardPage/adminDashboardPage";
 import LoginPage from "./pages/loginPage/loginPage";
+import { BaseConfirmContextProvider } from './contexts/confirmContext';
 
 function App() {
     const routerRef = React.createRef();
@@ -15,14 +16,16 @@ function App() {
     return (
         <div className="App">
             <userContext.Provider value={{user: user, setUser: setUser,}}>
-                <BrowserRouter ref={routerRef} basename="/app">
-                    <Switch>
-                        <PrivateRoute path={'/admin'} baseRouter={routerRef} component={AdminDashboardPage}/>
-                        <Route path={'/restaurant'} component={RestaurantDashboardPage}/>
-                        <Route path={'/login'} component={LoginPage}/>
-                        <Route component={NotFoundPage}/>
-                    </Switch>
-                </BrowserRouter>
+                <BaseConfirmContextProvider>
+                    <BrowserRouter ref={routerRef} basename="/app">
+                        <Switch>
+                            <PrivateRoute path={'/admin'} baseRouter={routerRef} component={AdminDashboardPage}/>
+                            <Route path={'/restaurant'} component={RestaurantDashboardPage}/>
+                            <Route path={'/login'} component={LoginPage}/>
+                            <Route component={NotFoundPage}/>
+                        </Switch>
+                    </BrowserRouter>
+                </BaseConfirmContextProvider>
             </userContext.Provider>
         </div>
     );
