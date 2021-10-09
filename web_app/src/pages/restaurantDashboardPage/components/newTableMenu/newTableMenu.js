@@ -57,6 +57,7 @@ export default function NewTableMenu({
       handleHide={handleHide}
       title="new table2"
       description="start timer for a new table"
+      disabled={loading !== false}
       actions={<React.Fragment>
         <NoButton onClick={handleHide} text="cancel" disabled={loading!==false} />
         <YesButton onClick={handleAskCustomInput} text="custom" disabled={loading!==false} />

@@ -27,7 +27,7 @@ function RestaurantDashboardPage() {
     return { number: (hours - 2).toString(), lastCourseDatetime: date, nextCourse: 'desserts', status: status[Math.trunc(hours * 3 / 24)] }
   });
 
-  
+
   const [tables, _setTables] = useState(_tables);
   const setTables = (newTables) => {
     newTables.sort(sortProviders[sort]);
@@ -40,23 +40,24 @@ function RestaurantDashboardPage() {
   useEffect(() => setTables(tables), [sort])
 
   return <div>
-    <div className='p-2 pl-8 pr-8'>
-    <div className='inline-block'><p class={`font-mono text-4xl ${palette.text}`}>
-               Restaurante 21 
-            </p></div>
-            <div className='float-right'>
-      <SortButton sort={sort} setSort={setSort} />
-      <ThemeButton />
-      <LanguageButton /></div>
-      
+    <div className='p-2 pl-8 pr-8 inline-block w-full'>
+      <div className='inline-block'><p class={`font-mono text-4xl ${palette.text}`}>
+        Restaurante 21
+      </p></div>
+      <div className='float-right'>
+        <SortButton sort={sort} setSort={setSort} />
+        <ThemeButton />
+        <LanguageButton /></div>
+
     </div>
 
+    <div class="px-4">
+      <div class="flex flex-wrap  -mx-4">
+        <NewTableCard addNewTable={addNewTable} existingTableNumbers={tables.map(table => table.number)} />
 
-    <div className='p-4'>
-      <NewTableCard addNewTable={addNewTable} existingTableNumbers={tables.map(table => table.number)}/>
-
-      {tables.map(table =>
-        <TableCard table={table} />)}
+        {tables.map(table =>
+          <TableCard table={table} />)}
+      </div>
     </div>
   </div>;
 }

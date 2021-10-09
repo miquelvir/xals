@@ -1,6 +1,7 @@
 export const palette = {
     bg: 'bg-gray-50 dark:bg-gray-800',
-    bg_responsive: 'bg-gray-50 active:hover:bg-gray-100 dark:bg-gray-800 active:hover:dark:bg-gray-700',
+    bg_responsive: 'bg-gray-50 active:hover:bg-gray-100 dark:bg-gray-800 active:hover:dark:bg-gray-600',
+    bg_force_responsive: 'bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-600',
     surface1: 'bg-gray-100 dark:bg-gray-700',
     surface1_responsive: 'bg-gray-100 active:hover:bg-gray-200 dark:bg-gray-700 active:hover:dark:bg-gray-600',
     surface2: 'bg-gray-200 dark:bg-gray-600',

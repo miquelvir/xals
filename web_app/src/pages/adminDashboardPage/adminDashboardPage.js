@@ -15,7 +15,9 @@ function AdminDashboardPage() {
   const [defaultTables, setDefaultTables] = useState([12, 14, 15, 2, 18, 21]);  // TODO API
   const handleDeleteDefaultTable = (name) => {
     // TODO API
-    confirm({ handleSuccess: () => setDefaultTables(defaultTables.filter(x => x !== name)) })
+    confirm({ title: `Do you want to delete Table ${name}?`, 
+    description: `Deleting Table ${name} will only remove it from the default tables list.`,
+    handleSuccess: () => setDefaultTables(defaultTables.filter(x => x !== name)) })
   };
   const handleAddNewDefaultTable = () => {
     
