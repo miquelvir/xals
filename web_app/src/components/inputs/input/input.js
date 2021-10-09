@@ -32,7 +32,7 @@ export default function Input({
                          {lead}
                      </span>
                  </div>}
-                 <input {...props} type={type} name={name} id={name} class={`block w-full p-2 ${lead? 'pl-7': ''} ${trail? 'pr-7': ''} sm:text-sm text-gray-900 rounded-md`} placeholder={placeholder} {...field}  />
+                 <input  {...props} type={type} name={name} id={name} class={`block w-full p-2 ${lead? 'pl-7': ''} ${trail? 'pr-7': ''} sm:text-sm text-gray-900 rounded-md`} placeholder={placeholder} {...field}  />
                  {trail && <div class="absolute inset-y-0 right-0 flex items-center pointer-events-none">
                      <span class={`${palette.textLight} sm:text-sm`}>
                          {trail}

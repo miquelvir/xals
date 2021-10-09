@@ -7,7 +7,9 @@ import { confirmContext } from '../../contexts/confirmContext';
 import { questionContext } from '../../contexts/questionContext';
 import React from 'react';
 import Zone from './components/zone/zone';
-
+import AccessUrl from './components/accessUrl/accessUrl';
+import PrivacyButton from './components/privacyButton/privacyButton';
+import YesButton from '../../components/buttons/yesButton/yesButton';
 function AdminDashboardPage() {
   const confirm = React.useContext(confirmContext);
   const prompt = React.useContext(questionContext);
@@ -32,6 +34,9 @@ function AdminDashboardPage() {
     })
   }
 
+  
+  const [privacyFilter, setPrivacyFilter] = useState(true);
+
   return <div>
     <div className='p-2 pl-8 pr-8'>
       <div className='inline-block'><p class={`font-mono text-4xl ${palette.text}`}>
@@ -39,18 +44,28 @@ function AdminDashboardPage() {
       </p></div>
       <div className='float-right'>
         <ThemeButton />
-        <LanguageButton /></div>
+        <LanguageButton />
+        <PrivacyButton privacyFilter={privacyFilter} setPrivacyFilter={setPrivacyFilter} />
+      
+      </div>
 
     </div>
 
     <Zone title="default tables"> 
       {defaultTables.map(name => <Button onClick={() => handleDeleteDefaultTable(name)} text={name} key={name} />)}
 
-        <Button onClick={handleAddNewDefaultTable} text={"ADD NEW"} />
+        <YesButton onClick={handleAddNewDefaultTable} text={"ADD NEW"} />
     </Zone>
 
     <Zone title="access URLs"> 
-    
+      <div class='grid grid-cols-1 divide-y divide-gray-500 dark:divide-gray-100'>
+        <AccessUrl privacyFilter={privacyFilter} accessUrl={
+          { url: 'https://xals.herokuapp.com/app/restaurant?id=XYZ&token=ZYX', comment: 'cocina y cambrerxs' }
+        }/>
+        <AccessUrl privacyFilter={privacyFilter} accessUrl={
+          { url: 'https://xals.herokuapp.com/app/restaurant?id=XYZ2&token=ZYX2', comment: 'recepción' }
+        }/>
+        </div>
     </Zone>
     
 

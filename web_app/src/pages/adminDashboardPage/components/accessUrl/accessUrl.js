@@ -1,20 +1,69 @@
 import { palette } from "../../../../palette";
 import Input from "../../../../components/inputs/input/input";
-
-export default function AccessUrl({accessUrl}){
+import { Formik, Form} from "formik";
+import YesButton from "../../../../components/buttons/yesButton/yesButton";
+import Button from "../../../../components/buttons/button/button";
+import NoButton from "../../../../components/buttons/noButton/noButton";
+import { useSnackbar } from 'notistack';
+    
+export default function AccessUrl({privacyFilter, accessUrl}){
 
     const handleDeleteAccessUrl = () => {
 
     };
-
-    const openInNewTab = (url) => {
-    const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-        if (newWindow) newWindow.opener = null
-    }
-    const handleNavigateAccessUrl = () => openInNewTab(accessUrl.url);
-
-    return <div className={`m-4 p-4 rounded-lg ${palette.bg}`}>
-    <Input />
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     
-  </div>
+    
+    const handleCopyUrlToClipboard = () => {
+        // openInNewTab(accessUrl.url);
+        if (privacyFilter) {
+            enqueueSnackbar('disable the privacy mode on the top right corner first', {variant: 'warning'});
+            return;
+        }
+        navigator.clipboard.writeText(accessUrl.url);
+        enqueueSnackbar('the url has been copied to your clipboard, keep it private!', {variant: 'success'});
+    }
+
+    const handleSubmit = (comment) => {
+
+    }
+
+
+    return <div class='py-4'><Formik
+    initialValues={accessUrl}
+    onSubmit={(values, { setSubmitting, setErrors}) => {
+      console.log(values);
+       handleSubmit(values.comment).then(() => {
+         setSubmitting(false);
+       }, () => {
+         setErrors({comment: "unable to finalize request"});
+         setSubmitting(false);
+       });
+    }}
+  >
+    {({ isSubmitting }) => (
+      <Form>
+        
+        <div class='flex pt-2'>
+            <div class='flex-grow'>
+            <Input name="comment"/>
+            </div>
+
+            <NoButton text="delete" disabled={isSubmitting} loading={isSubmitting} />
+            <YesButton text="save" type="submit" disabled={isSubmitting} loading={isSubmitting} />
+
+            
+        </div>
+
+        <div class='flex pb-2'>
+            <div class={`flex-grow ${privacyFilter? 'filter blur-sm': ''}`} onClick={handleCopyUrlToClipboard}>
+                <Input name="url" disabled />
+            
+            </div>
+        </div>
+
+        </Form>
+                
+    )}
+  </Formik></div>
 }

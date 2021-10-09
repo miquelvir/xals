@@ -12,6 +12,7 @@ import { ThemeContextProvider } from './contexts/themeContext';
 import { palette } from './palette';
 import {LanguageContextProvider} from './contexts/languageContext';
 import { QuestionContextProvider } from './contexts/questionContext';
+import { SnackbarProvider } from 'notistack';
 
 function App() {
     const routerRef = React.createRef();
@@ -21,6 +22,7 @@ function App() {
         <ThemeContextProvider>
             <div className={`App ${palette.bg} min-h-screen min-w-screen`}>
                 <LanguageContextProvider>
+                <SnackbarProvider>
                     <userContext.Provider value={{ user: user, setUser: setUser, }}>
                         <BaseConfirmContextProvider>
                         <QuestionContextProvider>
@@ -37,7 +39,9 @@ function App() {
                             </QuestionContextProvider>
                         </BaseConfirmContextProvider>
                     </userContext.Provider>
+                    </SnackbarProvider>
                     </LanguageContextProvider>
+
             </div>
         </ThemeContextProvider>
     );

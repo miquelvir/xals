@@ -16,12 +16,9 @@ export default function QuestionModal({
   ...props
 }) {
   
-  return <React.Fragment>
-    <Formik
+  return <Formik
        initialValues={{ question: '' }}
        onSubmit={(values, { setSubmitting, setErrors}) => {
-         console.log(values, values.question);
-         console.log(handleSubmit);
           handleSubmit(values.question).then(() => {
             handleHide();
             setSubmitting(false);
@@ -53,8 +50,5 @@ export default function QuestionModal({
             </TextActionsModal>
          </Form>
        )}
-     </Formik>
-
-     
-  </React.Fragment>;
+     </Formik>;
 }
