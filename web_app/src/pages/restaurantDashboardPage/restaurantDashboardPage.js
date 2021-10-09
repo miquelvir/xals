@@ -4,6 +4,7 @@ import SortButton, { SORT_PRIORITY, SORT_NUMBER_ASCENDING, SORT_NUMBER_DESCENDIN
 import { useState, useEffect } from 'react';
 import ThemeButton from '../../components/themeButton/themeButton';
 import LanguageButton from '../../components/languageButton/languageButton';
+import { palette } from '../../palette';
 
 const sortProviders = {
   [SORT_PRIORITY]: (table1, table2) => table1.lastCourseDatetime - table2.lastCourseDatetime,
@@ -39,14 +40,19 @@ function RestaurantDashboardPage() {
   useEffect(() => setTables(tables), [sort])
 
   return <div>
-    <div>
+    <div className='p-2 pl-8 pr-8'>
+    <div className='inline-block'><p class={`font-mono text-4xl ${palette.text}`}>
+               Restaurante 21 
+            </p></div>
+            <div className='float-right'>
       <SortButton sort={sort} setSort={setSort} />
       <ThemeButton />
-      <LanguageButton />
+      <LanguageButton /></div>
+      
     </div>
 
 
-    <div className='p-8'>
+    <div className='p-4'>
       <NewTableCard addNewTable={addNewTable} existingTableNumbers={tables.map(table => table.number)}/>
 
       {tables.map(table =>
