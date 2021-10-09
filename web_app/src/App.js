@@ -11,6 +11,7 @@ import { BaseConfirmContextProvider } from './contexts/confirmContext';
 import { ThemeContextProvider } from './contexts/themeContext';
 import { palette } from './palette';
 import {LanguageContextProvider} from './contexts/languageContext';
+import { QuestionContextProvider } from './contexts/questionContext';
 
 function App() {
     const routerRef = React.createRef();
@@ -22,14 +23,18 @@ function App() {
                 <LanguageContextProvider>
                     <userContext.Provider value={{ user: user, setUser: setUser, }}>
                         <BaseConfirmContextProvider>
+                        <QuestionContextProvider>
                             <BrowserRouter ref={routerRef} basename="/app">
                                 <Switch>
-                                    <PrivateRoute path={'/admin'} baseRouter={routerRef} component={AdminDashboardPage} />
+                                    { // <PrivateRoute path={'/admin'} baseRouter={routerRef} component={AdminDashboardPage
+                                    }
+                                    <Route path={'/admin'} component={AdminDashboardPage} />
                                     <Route path={'/restaurant'} component={RestaurantDashboardPage} />
                                     <Route path={'/login'} component={LoginPage} />
                                     <Route component={NotFoundPage} />
                                 </Switch>
                             </BrowserRouter>
+                            </QuestionContextProvider>
                         </BaseConfirmContextProvider>
                     </userContext.Provider>
                     </LanguageContextProvider>

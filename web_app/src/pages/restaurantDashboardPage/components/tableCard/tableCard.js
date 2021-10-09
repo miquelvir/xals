@@ -16,7 +16,7 @@ const useTheme = (status) => (status === STATUS_ALARM? {
    fg: 'bg-yellow-100',
    text: 'text-gray-800'
 }: {
-   bg: 'bg-green-100 hover:bg-green-200',
+   bg: 'bg-green-200 hover:bg-green-300',
    fg: 'bg-green-50',
    text: 'text-gray-800'
 });

@@ -2,9 +2,7 @@ import React, {useState} from "react";
 import ConfirmModal from "../components/confirmModal/confirmModal";
 
 const confirmContext = React.createContext(
-    {
-        confirm: (title, description, handleSuccess, handleCancel) => {}
-    }
+    (title, description, handleSuccess, handleCancel) => {}
 );
 
 const BaseConfirmContextProvider = ({children}) => {

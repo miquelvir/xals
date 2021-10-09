@@ -24,7 +24,7 @@ function RestaurantDashboardPage() {
     let date = new Date();
     date.setFullYear(2021, 9, 2);
     date.setHours(hours, 21 - hours, 0, 0);
-    return { number: hours - 2, lastCourseDatetime: date, nextCourse: 'desserts', status: status[Math.trunc(hours * 3 / 24)] }
+    return { number: (hours - 2).toString(), lastCourseDatetime: date, nextCourse: 'desserts', status: status[Math.trunc(hours * 3 / 24)] }
   });
 
   

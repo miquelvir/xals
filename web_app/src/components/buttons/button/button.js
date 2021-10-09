@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { palette } from '../../../palette';
 
 /**
  * Base button component
@@ -22,18 +23,21 @@ const defaultAttributes = {
       'sm:ml-3': true,
       'sm:w-auto': true,
       'sm:text-sm': true,
+      'disabled:opacity-50': true
     };
 
 export default function Button({
     text,
-    bgColor='bg-white hover:bg-gray-50',
-    textColor='text-gray-700',
+    bgColor=palette.bg_responsive,
+    textColor=palette.text,
     ring='focus:ring-gray-500',
-    border='border-gray-300',
+    border=palette.bg,
     attributes=defaultAttributes,
     onClick= () => {},
+    loading=false,
     ...props
     }) {
+      console.log(props);
   return <button onClick={onClick} type="button" class={clsx(
     {...defaultAttributes, 
     [bgColor]: true, 
@@ -41,6 +45,7 @@ export default function Button({
     [ring]: true, 
     [border]: true, 
     ...attributes})} {...props}>
+      {loading && <span class={`animate-ping absolute inline-flex h-5 w-5 rounded-full opacity-75 ${palette.surface1}`}></span>}
   {text}
 </button>;
 }
