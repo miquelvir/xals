@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 /**
  * Modal component
  *

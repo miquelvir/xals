@@ -4,7 +4,8 @@ import ConfirmModal from "../components/confirmModal/confirmModal";
 const confirmContext = React.createContext(
     {
         confirm: (title, description, handleSuccess, handleCancel) => {}
-    }); // Create a context object
+    }
+);
 
 const BaseConfirmContextProvider = ({children}) => {
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -19,7 +20,6 @@ const BaseConfirmContextProvider = ({children}) => {
         }
     );
     const confirm = ({title = undefined, description = undefined, handleSuccess = () => {}, handleCancel = () => {}}) => {
-        console.log("confirming...");
         setShowConfirmDialog(true);
         setConfirmHandler(
             {
@@ -36,8 +36,6 @@ const BaseConfirmContextProvider = ({children}) => {
             }
         );
     }
-
-    console.log("showConfirmDialog", showConfirmDialog);
 
     return <React.Fragment>
             {showConfirmDialog && <ConfirmModal 

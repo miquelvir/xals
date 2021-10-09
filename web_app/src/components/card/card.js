@@ -8,13 +8,13 @@ import clsx from 'clsx';
 
 const defaultAttributes = {
       'p-6': true,
-      'm-8': true,
+      'm-4': true,
       'max-w-sm': true,
       'bg-white': true,
       'inline-block': true,
       'rounded-md': true,
       'shadow-lg': true,
-      'overflow-auto': true
+      'overflow-auto': true,
     };
 function Card({
     attributes=defaultAttributes,

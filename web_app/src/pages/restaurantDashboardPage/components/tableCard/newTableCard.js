@@ -1,18 +1,38 @@
 import BaseCard from './baseCard';
-import { StopWatch } from '../stopWatch/stopWatch';
-import { useElapsedMs, msToTime } from '../../../../hooks/useElapsedTime/useElapsedTime';
+import { useTranslation } from 'react-i18next';
+import { palette } from '../../../../palette';
+import React, {useState} from 'react';
+import NewTableMenu from '../newTableMenu/newTableMenu';
 
 function NewTableCard({
+   addNewTable = (_) => {},
+   existingTableNumbers = [],
    ...props
 }) {
+   const { t, i18n } = useTranslation();
 
-   return <BaseCard attributes={{'border-4': true, 'border-grey-500': true, 'border-dashed': true}} {...props}>
+   const [showNewTableMenu, setShowNewTableMenu] = useState(false);
+   const handleShowNewTableMenu = () => setShowNewTableMenu(true);
+   const handleHideNewTableMenu = () => setShowNewTableMenu(false);
+
+   return <React.Fragment>
+      {showNewTableMenu && <NewTableMenu 
+      handleHide={handleHideNewTableMenu} 
+      handleShow={handleShowNewTableMenu} 
+      addNewTable={addNewTable}
+      existingTableNumbers={existingTableNumbers}
+      />}
+   <BaseCard onClick={handleShowNewTableMenu} attributes={{
+      'border-4': true, 
+   'border-dashed': true, 
+   [palette.bg]: true,
+   [palette.text]: true}} {...props}>
       <div class='h-full w-full flex flex-wrap content-center text-center justify-center'>
             <p class="font-mono text-4xl">
-               new 
+               {t('new')} 
             </p>
             </div>
-   </BaseCard>;
+   </BaseCard></React.Fragment>;
 }
 
 export default NewTableCard;
