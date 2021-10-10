@@ -1,10 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 
-const userContext = React.createContext({
-  user: null,
-  setUser: () => {},
-}); // Create a context object
 
-export {
-  userContext // Export it so it can be used by other Components
-};
+export const TYPE_ACCESS_TOKEN = 'accessToken';
+export const TYPE_RESTAURANT_ADMIN = 'restaurantAdmin';
+export const TYPE_SUPER_ADMIN = 'superAdmin';
+
+export const userContext = React.createContext(
+    {
+        type: null,
+        setType: (type) => {},
+        params: {},
+        setParams: (params) => {},
+        loggedIn: false,
+        isRestaurantAdminLoggedIn: false,
+        isSuperAdminLoggedIn: false,
+    }
+);
+
+export const UserContextProvider = ({ children }) => {
+    const [type, setType] = useState(null);
+    const [params, setParams] = useState({});
+
+    const loggedIn = type !== null;
+    const isRestaurantAdminLoggedIn = type === TYPE_RESTAURANT_ADMIN;
+    const isSuperAdminLoggedIn = type === TYPE_SUPER_ADMIN;
+
+    const contextProvider = {
+      type: type,
+      setType: setType,
+      params: params,
+      setParams: setParams,
+      loggedIn: loggedIn,
+      isRestaurantAdminLoggedIn: isRestaurantAdminLoggedIn,
+      isSuperAdminLoggedIn: isSuperAdminLoggedIn
+    };
+
+    return <userContext.Provider value={contextProvider}>
+        {children}
+    </userContext.Provider>;
+}

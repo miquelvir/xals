@@ -21,7 +21,7 @@ function Card({
     children=null,
     ...props
     }) {
-  return <div class={clsx({...defaultAttributes, ...attributes})} {...props}>
+  return <div className={clsx({...defaultAttributes, ...attributes})} {...props}>
           {children}
    </div>;
 }

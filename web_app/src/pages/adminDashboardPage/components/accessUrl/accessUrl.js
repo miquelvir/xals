@@ -29,7 +29,7 @@ export default function AccessUrl({privacyFilter, accessUrl}){
     }
 
 
-    return <div class='py-4'><Formik
+    return <div className='py-4'><Formik
     initialValues={accessUrl}
     onSubmit={(values, { setSubmitting, setErrors}) => {
       console.log(values);
@@ -44,8 +44,8 @@ export default function AccessUrl({privacyFilter, accessUrl}){
     {({ isSubmitting }) => (
       <Form>
         
-        <div class='flex pt-2'>
-            <div class='flex-grow'>
+        <div className='flex pt-2'>
+            <div className='flex-grow'>
             <Input name="comment"/>
             </div>
 
@@ -55,8 +55,8 @@ export default function AccessUrl({privacyFilter, accessUrl}){
             
         </div>
 
-        <div class='flex pb-2'>
-            <div class={`flex-grow ${privacyFilter? 'filter blur-sm': ''}`} onClick={handleCopyUrlToClipboard}>
+        <div className='flex pb-2'>
+            <div className={`flex-grow ${privacyFilter? 'filter blur-sm': ''}`} onClick={handleCopyUrlToClipboard}>
                 <Input name="url" disabled />
             
             </div>

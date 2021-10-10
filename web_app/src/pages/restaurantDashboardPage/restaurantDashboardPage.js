@@ -5,13 +5,17 @@ import { useState, useEffect } from 'react';
 import ThemeButton from '../../components/themeButton/themeButton';
 import LanguageButton from '../../components/languageButton/languageButton';
 import { palette } from '../../palette';
+import { RealtimeServiceContextProvider } from './contexts/realtimeService/realtimeServiceContext';
 
 const sortProviders = {
   [SORT_PRIORITY]: (table1, table2) => table1.lastCourseDatetime - table2.lastCourseDatetime,
   [SORT_NUMBER_ASCENDING]: (table1, table2) => table1.number - table2.number,
   [SORT_NUMBER_DESCENDING]: (table1, table2) => table2.number - table1.number,
 }
-function RestaurantDashboardPage() {
+function _RestaurantDashboardPage() {
+
+
+
 
   var status = ['alarm', 'warning', 'random'];
   status.random = function () {
@@ -27,21 +31,17 @@ function RestaurantDashboardPage() {
     return { number: (hours - 2).toString(), lastCourseDatetime: date, nextCourse: 'desserts', status: status[Math.trunc(hours * 3 / 24)] }
   });
 
-
   const [tables, _setTables] = useState(_tables);
   const setTables = (newTables) => {
     newTables.sort(sortProviders[sort]);
     _setTables(newTables);
   }
-  const addNewTable = (table) => {
-    setTables([...tables, table]);
-  }
-
-  useEffect(() => setTables(tables), [sort])
+  const addNewTable = (table) => setTables([...tables, table]);
+  useEffect(() => setTables(tables), [sort]);
 
   return <div>
     <div className='p-2 pl-8 pr-8 inline-block w-full'>
-      <div className='inline-block'><p class={`font-mono text-4xl ${palette.text}`}>
+      <div className='inline-block'><p className={`font-mono text-4xl ${palette.text}`}>
         Restaurante 21
       </p></div>
       <div className='float-right'>
@@ -51,15 +51,22 @@ function RestaurantDashboardPage() {
 
     </div>
 
-    <div class="px-4">
-      <div class="flex flex-wrap  -mx-4">
+    <div className="px-4">
+      <div className="flex flex-wrap  -mx-4">
         <NewTableCard addNewTable={addNewTable} existingTableNumbers={tables.map(table => table.number)} />
 
         {tables.map(table =>
-          <TableCard table={table} />)}
+          <TableCard table={table} key={table.number} />)}
       </div>
     </div>
   </div>;
+}
+
+function RestaurantDashboardPage() {
+
+  return <RealtimeServiceContextProvider>
+    <_RestaurantDashboardPage />
+    </RealtimeServiceContextProvider>;
 }
 
 export default RestaurantDashboardPage;

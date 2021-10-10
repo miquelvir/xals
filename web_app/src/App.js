@@ -10,37 +10,41 @@ import LoginPage from "./pages/loginPage/loginPage";
 import { BaseConfirmContextProvider } from './contexts/confirmContext';
 import { ThemeContextProvider } from './contexts/themeContext';
 import { palette } from './palette';
-import {LanguageContextProvider} from './contexts/languageContext';
+import { LanguageContextProvider } from './contexts/languageContext';
 import { QuestionContextProvider } from './contexts/questionContext';
 import { SnackbarProvider } from 'notistack';
-
+import { TYPE_SUPER_ADMIN, TYPE_RESTAURANT_ADMIN } from './contexts/userContext';
+import { UserContextProvider } from './contexts/userContext';
 function App() {
     const routerRef = React.createRef();
 
-    const [user, setUser] = useState({ logged: false, ping: true });
     return (
         <ThemeContextProvider>
             <div className={`App ${palette.bg} min-h-screen min-w-screen`}>
                 <LanguageContextProvider>
-                <SnackbarProvider>
-                    <userContext.Provider value={{ user: user, setUser: setUser, }}>
-                        <BaseConfirmContextProvider>
-                        <QuestionContextProvider>
-                            <BrowserRouter ref={routerRef} basename="/app">
-                                <Switch>
-                                    { // <PrivateRoute path={'/admin'} baseRouter={routerRef} component={AdminDashboardPage
-                                    }
-                                    <Route path={'/admin'} component={AdminDashboardPage} />
-                                    <Route path={'/restaurant'} component={RestaurantDashboardPage} />
-                                    <Route path={'/login'} component={LoginPage} />
-                                    <Route component={NotFoundPage} />
-                                </Switch>
-                            </BrowserRouter>
-                            </QuestionContextProvider>
-                        </BaseConfirmContextProvider>
-                    </userContext.Provider>
+                    <SnackbarProvider>
+                        <UserContextProvider>
+                            <BaseConfirmContextProvider>
+                                <QuestionContextProvider>
+                                    <BrowserRouter ref={routerRef} basename="/app">
+                                        <Switch>
+                                            <PrivateRoute path={'/admin'} baseRouter={routerRef}
+                                                component={AdminDashboardPage}
+                                                type={[TYPE_RESTAURANT_ADMIN, TYPE_SUPER_ADMIN]}
+                                            />
+                                            <Route path={'/restaurant'}
+                                                component={RestaurantDashboardPage} />
+                                            <Route path={'/login'}
+                                                component={LoginPage} />
+                                            <Route
+                                                component={NotFoundPage} />
+                                        </Switch>
+                                    </BrowserRouter>
+                                </QuestionContextProvider>
+                            </BaseConfirmContextProvider>
+                        </UserContextProvider>
                     </SnackbarProvider>
-                    </LanguageContextProvider>
+                </LanguageContextProvider>
 
             </div>
         </ThemeContextProvider>

@@ -21,7 +21,8 @@ const defaultAttributes = {
       'focus:ring-offset-2': true,
       'sm:ml-3': true,
       'sm:text-sm': true,
-      'disabled:opacity-50': true
+      'disabled:opacity-50': true,
+      'select-none': true
     };
 
 export default function Button({
@@ -36,7 +37,7 @@ export default function Button({
     loading=false,
     ...props
     }) {
-  return <button  onClick={onClick} type="button" class={clsx(
+  return <button  onClick={onClick} type="button" className={clsx(
     {...defaultAttributes, 
     [bgColor]: true, 
     [textColor]: true,
@@ -44,7 +45,7 @@ export default function Button({
     [w]: true,
     [border]: true, 
     ...attributes})} {...props}>
-      {loading && <span class={`animate-ping absolute inline-flex h-5 w-5 rounded-full opacity-75 ${palette.surface1}`}></span>}
+      {loading && <span className={`animate-ping absolute inline-flex h-5 w-5 rounded-full opacity-75 ${palette.surface1}`}></span>}
   {text}
 </button>;
 }
