@@ -13,12 +13,11 @@ class Admin(MyBase, UserMixin):
     restaurant_id = db.Column(db.Text, db.ForeignKey("restaurant.id"))
 
     access_tokens = db.relationship(
-        "AccessToken", backref="issuer",
+        "AccessToken",
+        backref="issuer",
     )
 
     def login(self, token: str) -> bool:
-        """checks if the token is a valid google sign in token for this email """
+        """checks if the token is a valid google sign in token for this email"""
         # todo !!! do not merge !!! use G Sign in
         return True
-
-

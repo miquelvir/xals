@@ -67,7 +67,10 @@ def init_app(config=None):
             content_security_policy={
                 "style-src": ["'self'", "https://fonts.googleapis.com"],
                 "font-src": ["'self'", "'unsafe-inline'", "https://fonts.gstatic.com"],
-                "script-src": ["'self'", "www.google.com"],  # allow google for recaptcha
+                "script-src": [
+                    "'self'",
+                    "www.google.com",
+                ],  # allow google for recaptcha
                 "default-src": ["'self'"],
                 "img-src": ["'self'", "www.gstatic.com"],  # allow google for recaptcha
                 "frame-src": ["www.google.com"],  # allow google for recaptcha
@@ -77,8 +80,8 @@ def init_app(config=None):
 
     migrate.init_app(app, db)
 
-    allowed_origins = '*' if app.config["DEVELOPMENT"] else ''
-    socketio.init_app(app, cors_allowed_origins = allowed_origins)
+    allowed_origins = "*" if app.config["DEVELOPMENT"] else ""
+    socketio.init_app(app, cors_allowed_origins=allowed_origins)
 
     with app.app_context():
         from . import blueprints

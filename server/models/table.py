@@ -9,5 +9,4 @@ class Table(MyBase):
     number = db.Column(db.Text, nullable=False)
     capacity = db.Column(db.Integer, nullable=True)
 
-    courses = db.relationship("Course", backref='table')
-
+    courses = db.relationship("Course", backref="table")

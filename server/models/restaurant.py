@@ -11,10 +11,12 @@ class Restaurant(MyBase):
     name = db.Column(db.Text, nullable=False, unique=True)
 
     access_tokens = db.relationship(
-        "AccessToken", backref="restaurant",
+        "AccessToken",
+        backref="restaurant",
     )
     admins = db.relationship(
-        "Admin", backref="restaurant",
+        "Admin",
+        backref="restaurant",
     )
 
     class Schema(BaseModel):

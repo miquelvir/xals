@@ -24,4 +24,3 @@ class MyBase(db.Model):
         return str(
             uuid.uuid4()
         )  # to avoid coupling to db since probability of collision is negligible
-

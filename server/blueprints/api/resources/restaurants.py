@@ -34,9 +34,7 @@ class RestaurantCollectionResource(Resource):
         if Restaurant.query.filter_by(name=restaurant.name).one_or_none() is not None:
             raise BadRequest("a restaurant already exists with this name")
 
-        server.db.session.add(Restaurant(
-            id=Restaurant.generate_new_id(),
-            name=restaurant.name
-        ))
+        server.db.session.add(
+            Restaurant(id=Restaurant.generate_new_id(), name=restaurant.name)
+        )
         server.db.session.commit()
-
