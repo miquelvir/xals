@@ -24,7 +24,7 @@ STAGING: https://xals.herokuapp.com/
 
 ## RUNNING
 1. Python backend
-    1. [Add all the required environment variables](https://www.jetbrains.com/help/objc/add-environment-variables-and-program-arguments.html): `ENVIRONMENT=development`
+    1. [Add all the required environment variables](https://www.jetbrains.com/help/objc/add-environment-variables-and-program-arguments.html): `ENVIRONMENT=development`, `SECRET=mySuperSecret`
     2. Use development/generate_sample_db.py to create a new database. It will contain a user 'admin@gmail.com' : 'admin'
     3. Run development/wsgi_development.py to run the backend development server
 2. Frontend development server
