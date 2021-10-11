@@ -28,18 +28,19 @@ def admin_required(f):
     @functools.wraps(f)
     @login_required
     def wrapper(*args, **kwargs):
-        if current_app.config['DEVELOPMENT']:
+        if current_app.config["DEVELOPMENT"]:
             return f(*args, **kwargs)
         if current_user is None:
             abort(401)
         if not isinstance(current_user._get_current_object(), Admin):
             abort(403)
         return f(*args, **kwargs)
+
     return wrapper
 
 
 def require_restaurant_admin_or_super(restaurant_id):
-    if current_app.config['DEVELOPMENT']:
+    if current_app.config["DEVELOPMENT"]:
         return True
     if current_user is None:
         abort(401)

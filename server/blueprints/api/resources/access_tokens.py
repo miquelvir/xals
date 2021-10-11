@@ -8,7 +8,10 @@ from werkzeug.exceptions import NotFound, BadRequest
 
 import server
 
-from server.blueprints.api.utils import admin_required, require_restaurant_admin_or_super
+from server.blueprints.api.utils import (
+    admin_required,
+    require_restaurant_admin_or_super,
+)
 from server.models import AccessToken
 
 
@@ -33,7 +36,9 @@ class RestaurantAccessTokensCollectionResource(MethodView):
     def get(self, restaurant_id) -> AccessTokenCollectionSchema.dict:
         require_restaurant_admin_or_super(restaurant_id)
 
-        access_tokens: List[AccessToken] = AccessToken.query.filter_by(restaurant_id=restaurant_id).all()
+        access_tokens: List[AccessToken] = AccessToken.query.filter_by(
+            restaurant_id=restaurant_id
+        ).all()
         return AccessTokenCollectionSchema(
             access_tokens=[access_token.to_schema() for access_token in access_tokens]
         ).dict()
@@ -48,9 +53,7 @@ class RestaurantAccessTokensCollectionResource(MethodView):
         comment = access_token_schema.comment
 
         access_token = AccessToken.new(
-            restaurant_id=restaurant_id,
-            issuer_id=issuer_id,
-            comment=comment
+            restaurant_id=restaurant_id, issuer_id=issuer_id, comment=comment
         )
 
         server.db.session.add(access_token)
@@ -64,7 +67,9 @@ class RestaurantAccessTokensResource(MethodView):
     def delete(self, restaurant_id, id_):
         require_restaurant_admin_or_super(restaurant_id)
 
-        access_token: AccessToken = AccessToken.query.filter_by(restaurant_id=restaurant_id, id=id_).one_or_none()
+        access_token: AccessToken = AccessToken.query.filter_by(
+            restaurant_id=restaurant_id, id=id_
+        ).one_or_none()
         if access_token is None:
             raise NotFound("access token not found")
         server.db.session.delete(access_token)

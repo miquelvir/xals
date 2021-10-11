@@ -27,9 +27,13 @@ class NewRestaurantAdminSchema(BaseModel):
 class RestaurantAdministratorsCollectionResource(MethodView):
     @super_admin_required
     def get(self, restaurant_id) -> RestaurantAdminCollectionSchema.dict:
-        restaurant_admins: List[Admin] = Admin.query.filter_by(restaurant_id=restaurant_id).all()
+        restaurant_admins: List[Admin] = Admin.query.filter_by(
+            restaurant_id=restaurant_id
+        ).all()
         return RestaurantAdminCollectionSchema(
-            administrators=[restaurant_admin.to_schema() for restaurant_admin in restaurant_admins]
+            administrators=[
+                restaurant_admin.to_schema() for restaurant_admin in restaurant_admins
+            ]
         ).dict()
 
     @super_admin_required
@@ -40,13 +44,16 @@ class RestaurantAdministratorsCollectionResource(MethodView):
         if not Admin.is_email_valid(restaurant_admin.email):
             raise BadRequest("invalid email")
 
-        if Admin.query.filter_by(email=restaurant_admin.email).one_or_none() is not None:
+        if (
+            Admin.query.filter_by(email=restaurant_admin.email).one_or_none()
+            is not None
+        ):
             raise BadRequest("an admin already exists with this email")
 
         admin = Admin(
             id=Admin.generate_new_id(),
             email=restaurant_admin.email,
-            restaurant_id=restaurant_id
+            restaurant_id=restaurant_id,
         )
         server.db.session.add(admin)
         server.db.session.commit()
@@ -56,7 +63,9 @@ class RestaurantAdministratorsCollectionResource(MethodView):
 class RestaurantAdministratorResource(MethodView):
     @super_admin_required
     def delete(self, restaurant_id, id_):
-        admin: Admin = Admin.query.filter_by(restaurant_id=restaurant_id, id=id_).one_or_none()
+        admin: Admin = Admin.query.filter_by(
+            restaurant_id=restaurant_id, id=id_
+        ).one_or_none()
         if admin is None:
             raise NotFound("admin not found")
         server.db.session.delete(admin)

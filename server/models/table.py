@@ -28,12 +28,12 @@ class Table(MyBase):
     @hybrid_property
     def next_course(self):
         courses = {
-            0: 'welcome',
-            1: 'first course',
-            2: 'second course',
-            3: 'desserts',
+            0: "welcome",
+            1: "first course",
+            2: "second course",
+            3: "desserts",
         }
-        return courses.get(len(self.courses), 'other')
+        return courses.get(len(self.courses), "other")
 
     class Schema(BaseModel):
         restaurant_id: str
@@ -44,6 +44,11 @@ class Table(MyBase):
         finished: bool
 
     def to_schema(self):
-        return Table.Schema(restaurant_id=self.restaurant_id, number=self.number, id=self.id,
-                            last_course_datetime=self.last_course_datetime,
-                            next_course=self.next_course, finished=self.finished)
+        return Table.Schema(
+            restaurant_id=self.restaurant_id,
+            number=self.number,
+            id=self.id,
+            last_course_datetime=self.last_course_datetime,
+            next_course=self.next_course,
+            finished=self.finished,
+        )

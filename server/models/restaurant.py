@@ -21,12 +21,8 @@ class Restaurant(MyBase):
         "Admin",
         backref="restaurant",
     )
-    default_tables = db.relationship(
-        "DefaultTable", backref='table'
-    )
-    tables = db.relationship(
-        "Table", backref='restaurant'
-    )
+    default_tables = db.relationship("DefaultTable", backref="table")
+    tables = db.relationship("Table", backref="restaurant")
 
     class Schema(BaseModel):
         id: str
@@ -35,5 +31,9 @@ class Restaurant(MyBase):
         warning_minutes: int
 
     def to_schema(self):
-        return Restaurant.Schema(id=self.id, name=self.name,
-                                 alarm_minutes=self.alarm_minutes, warning_minutes=self.warning_minutes)
+        return Restaurant.Schema(
+            id=self.id,
+            name=self.name,
+            alarm_minutes=self.alarm_minutes,
+            warning_minutes=self.warning_minutes,
+        )
