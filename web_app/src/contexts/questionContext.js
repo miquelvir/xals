@@ -27,10 +27,11 @@ export const QuestionContextProvider = ({ children }) => {
                 handleSubmit: (...value) => new Promise(function (resolve, reject) {
                     handleSubmit(...value)
                         .then(
-                            (...args) => resolve(...args),
+                            (...args) => {
+                                resolve(...args);
+                                handleHideDialog();
+                            },
                             (...args) => reject(...args)
-                        ).finally(
-                            (...args) => handleHideDialog()
                         );
                 }),
                 handleCancel: () => {

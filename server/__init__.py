@@ -59,21 +59,21 @@ def init_app(config=None):
         # allow cors only during development (due to the front end development server)
         cors = CORS()
         cors.init_app(app)
-    else:
-        csrf.init_app(app)
 
-        man.init_app(
-            app,
-            content_security_policy={
-                "style-src": ["'self'", "https://fonts.googleapis.com"],
-                "font-src": ["'self'", "'unsafe-inline'", "https://fonts.gstatic.com"],
-                "script-src": ["'self'", "www.google.com"],  # allow google for recaptcha
-                "default-src": ["'self'"],
-                "img-src": ["'self'", "www.gstatic.com"],  # allow google for recaptcha
-                "frame-src": ["www.google.com"],  # allow google for recaptcha
-            },
-            content_security_policy_nonce_in=["script-src", "style-src"],
-        )
+    csrf.init_app(app)
+
+    man.init_app(
+        app,
+        content_security_policy={
+            "style-src": ["'self'", "https://fonts.googleapis.com", "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='"],
+            "font-src": ["'self'", "'unsafe-inline'", "https://fonts.gstatic.com"],
+            "script-src": ["'self'", "www.google.com", "apis.google.com"],  # allow google for recaptcha
+            "default-src": ["'self'"],
+            "img-src": ["'self'", "www.gstatic.com"],  # allow google for recaptcha
+            "frame-src": ["www.google.com", "accounts.google.com"],  # allow google for recaptcha
+        },
+        content_security_policy_nonce_in=["script-src", "style-src"],
+    )
 
     migrate.init_app(app, db)
 
@@ -84,6 +84,7 @@ def init_app(config=None):
         from . import blueprints
         from .blueprints.api.config import api_blueprint
         from .blueprints.auth.config import auth_blueprint
+        from server.models import Admin
 
         @login.user_loader
         def user_loader(id_):
@@ -93,8 +94,12 @@ def init_app(config=None):
             :param id_: the user id
             :return: the User with that id
             """
-            raise ValueError()
-            # return User.query.get(id_)
+            if id_.startswith(Admin.PREFIX):
+                id_ = Admin.parse_id(id_)
+                return Admin.query.filter_by(id=id_).one_or_none()
+            if app.config['DEVELOPMENT']:
+                return Admin.query.filter_by(restaurant_id=None).one_or_none()
+            return None
 
         # serve the react frontend
         @app.route("/")
@@ -109,7 +114,7 @@ def init_app(config=None):
         @app.route("/404")
         @app.errorhandler(404)
         def page_not_found(e):
-            return render_template("not_found.html"), 404
+            return "not found - 404", 404
 
         # load blueprints for the different parts
         app.register_blueprint(api_blueprint, url_prefix="/api/v1")

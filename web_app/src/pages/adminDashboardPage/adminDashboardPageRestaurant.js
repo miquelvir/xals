@@ -6,10 +6,13 @@ import React from 'react';
 import Zone from './components/zone/zone';
 import AccessUrl from './components/accessUrl/accessUrl';
 import YesButton from '../../components/buttons/yesButton/yesButton';
+import { userContext } from '../../contexts/userContext';
+import Admin from './components/admin/admin';
 
 function AdminDashboardPageRestaurant({privacyFilter}) {
   const confirm = React.useContext(confirmContext);
   const prompt = React.useContext(questionContext);
+  const userCtx = React.useContext(userContext);
 
   const [defaultTables, setDefaultTables] = useState([12, 14, 15, 2, 18, 21]);  // TODO API
   const handleDeleteDefaultTable = (name) => {
@@ -51,11 +54,30 @@ function AdminDashboardPageRestaurant({privacyFilter}) {
         } />
       </div>
 
-      <div className='grid justify-items-center'>
+      <div className='grid justify-items-center  pt-8'>
         <YesButton onClick={handleNewAccessToken} text="new" w='w-64' />
       </div>
 
-    </Zone></React.Fragment>
+    </Zone>
+    
+    {userCtx.isSuperAdminLoggedIn && <Zone title="restaurant administrators">
+
+    <div className='grid grid-cols-1 divide-y divide-gray-500'>
+  <Admin admin={
+          { email: 'admin@gmail.com', id: 'ad22' }
+        } privacyFilter={privacyFilter}/>
+
+<Admin admin={
+          { email: 'admin2@gmail.com', id: 'ad23' }
+        } privacyFilter={privacyFilter}/>
+</div>
+    <div className='grid justify-items-center  pt-8'>
+      <YesButton onClick={() => {}} text={"ADD NEW"} w='w-64' />
+        </div>
+
+    </Zone>}
+    
+    </React.Fragment>
 }
 
 export default AdminDashboardPageRestaurant;

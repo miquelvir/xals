@@ -49,7 +49,7 @@ export default function AccessUrl({privacyFilter, accessUrl}){
             <Input name="comment"/>
             </div>
 
-            <NoButton text="delete" disabled={isSubmitting} loading={isSubmitting} />
+            <NoButton text="delete" disabled={isSubmitting} />
             <YesButton text="save" type="submit" disabled={isSubmitting} loading={isSubmitting} />
 
             

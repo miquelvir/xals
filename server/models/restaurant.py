@@ -16,6 +16,9 @@ class Restaurant(MyBase):
     admins = db.relationship(
         "Admin", backref="restaurant",
     )
+    default_tables = db.relationship(
+        "DefaultTable", backref='table'
+    )
 
     class Schema(BaseModel):
         id: str

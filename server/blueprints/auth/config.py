@@ -18,7 +18,6 @@ def google_oauth_required(f):
         """Given a username and optionally a password, verify its validity."""
         try:
             # Specify the CLIENT_ID of the app that accesses the backend:
-            print(token)
             idinfo = id_token.verify_oauth2_token(token, requests.Request(), current_app.config['GOOGLE_CLIENT_ID'])
 
             # ID token is valid. Get the user's Google Account ID from the decoded token.
@@ -56,6 +55,7 @@ def login():
     The client must store it for future calls.
     """
     user = g.user
+    print(user)
 
     login_user(user, remember=False)
 

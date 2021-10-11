@@ -4,3 +4,4 @@ from .admin import Admin
 from .course import Course
 from .restaurant import Restaurant
 from .table import Table
+from .default_table import DefaultTable

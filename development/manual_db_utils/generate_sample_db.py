@@ -3,6 +3,21 @@ from development.manual_db_utils.generate_empty_db import create
 from server.models import (Restaurant, Admin, AccessToken,)
 from random import randint, choice, sample
 
+from server.models.default_table import DefaultTable
+
+
+def add_default_tables(restaurant, min_amount=0, max_amount=25):
+    for idx in range(randint(min_amount, max_amount)):
+        print(f"    default table {idx} for restaurant {restaurant.id}")
+        table = DefaultTable(
+            restaurant_id=restaurant.id,
+            name=str(idx),
+        )
+
+        server.db.session.add(table)
+
+        yield table
+
 
 def add_restaurants(amount=25):
     for idx in range(amount):
@@ -13,6 +28,8 @@ def add_restaurants(amount=25):
         )
 
         server.db.session.add(restaurant)
+
+        add_default_tables(restaurant)
 
         yield restaurant
 

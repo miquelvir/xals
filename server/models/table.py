@@ -7,7 +7,6 @@ class Table(MyBase):
 
     id = db.Column(db.Text, primary_key=True)
     number = db.Column(db.Text, nullable=False)
-    capacity = db.Column(db.Integer, nullable=True)
 
     courses = db.relationship("Course", backref='table')
 
