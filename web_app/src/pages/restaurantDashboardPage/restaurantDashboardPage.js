@@ -27,11 +27,9 @@ function _RestaurantDashboardPage() {
   const [sort, setSort] = useState(SORT_PRIORITY);
 
   const tables = realtimeCtx.tables;
-  
 
   const [sortedTables, _setSortedTables] = useState([]);
 
-  console.log(sortedTables, tables);
 
   const setSortedTables = (newTables) => {
     newTables.sort(sortProviders[sort]);
