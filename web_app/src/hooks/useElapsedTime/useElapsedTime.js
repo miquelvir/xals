@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { DateTime, Interval } from 'luxon';
+
 /**
  * msToTime returns the proper time in hours, minutes, seconds and milliseconds from a given ms delta
  * 
@@ -22,14 +24,16 @@ export const msToTime = (delta) => [
  * @param refreshIntervalMs, int, update period in ms
  * @returns difference in ms since startDate to now
  */
-export const useElapsedMs = (startDate, refreshIntervalMs = 1000) => {
-    const [now, setNow] = useState(startDate); // Save the current date to be able to trigger an update
+export const useElapsedMs = (_startDate, refreshIntervalMs = 1000) => {
+    
+    const [startDate, _] = useState(_startDate.toUTC());
+    const [now, setNow] = useState(_startDate.toUTC()); // Save the current date to be able to trigger an update
 
     // use an interval to update the 'now' date every refreshIntervalMs ms
     useEffect(() => {
-        const ticker = setInterval(() => setNow(new Date()), refreshIntervalMs);
+        const ticker = setInterval(() => setNow(DateTime.now().toUTC()), refreshIntervalMs);
         return () => clearInterval(ticker);  // clean timer on unmount
     }, [refreshIntervalMs]);
 
-    return [now - startDate];
+    return [now-startDate];
 };

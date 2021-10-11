@@ -7,20 +7,19 @@ import NoButton from "../../../../components/buttons/noButton/noButton";
 import { useSnackbar } from 'notistack';
 import { confirmContext } from "../../../../contexts/confirmContext";
 import React from "react";
-import { deleteSuperAdministrator as deleteSuperAdministratorService } from "../../services/superAdministrators";
 
-export default function Admin({admin, privacyFilter, deleteAdministrator}){
+export default function Admin({admin, privacyFilter, deleteAdministrator, deleteAdministratorService}){
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const confirm = React.useContext(confirmContext);
     
     const handleDelete = () => {
       confirm({
         handleSuccess: () => {
-          deleteSuperAdministratorService(admin.id).then(() => {
+          deleteAdministratorService(admin.id).then(() => {
             deleteAdministrator(admin.id);
-            enqueueSnackbar("root administrator deleted", { variant: "success" });
+            enqueueSnackbar("administrator deleted", { variant: "success" });
           }).catch(() => {
-            enqueueSnackbar("unable to delete root administrator", { variant: "error" });
+            enqueueSnackbar("unable to delete administrator", { variant: "error" });
           });
         },
         handleCancel: () => {

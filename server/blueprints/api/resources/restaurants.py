@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from flask import request
 from flask.views import MethodView
@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from werkzeug.exceptions import NotFound, BadRequest
 
 import server
-from server.blueprints.api.utils import super_admin_required
+from server.blueprints.api.utils import super_admin_required, admin_required, require_restaurant_admin_or_super
 from server.models import Restaurant
 
 
@@ -24,7 +24,9 @@ class NewRestaurantSchema(BaseModel):
 
 
 class PatchRestaurantSchema(NewRestaurantSchema):
-    pass
+    name: Optional[str] = None
+    warning_minutes: Optional[int] = None
+    alarm_minutes: Optional[int] = None
 
 
 class RestaurantsCollectionResource(MethodView):
@@ -53,6 +55,16 @@ class RestaurantsCollectionResource(MethodView):
 
 
 class RestaurantResource(MethodView):
+    @admin_required
+    def get(self, id_):
+        require_restaurant_admin_or_super(id_)
+
+        restaurant: Restaurant = Restaurant.query.filter_by(id=id_).one_or_none()
+        if restaurant is None:
+            raise NotFound("restaurant not found")
+
+        return NewRestaurantOutSchema(restaurant=restaurant.to_schema()).dict(), 200
+
     @super_admin_required
     def delete(self, id_):
         restaurant: Restaurant = Restaurant.query.filter_by(id=id_).one_or_none()
@@ -71,7 +83,12 @@ class RestaurantResource(MethodView):
         data = request.get_json(force=True)
         restaurant_data = PatchRestaurantSchema(**data)
 
-        restaurant.name = restaurant_data.name
+        if restaurant_data.name is not None:
+            restaurant.name = restaurant_data.name
+        if restaurant_data.warning_minutes is not None:
+            restaurant.warning_minutes = restaurant_data.warning_minutes
+        if restaurant_data.alarm_minutes is not None:
+            restaurant.alarm_minutes = restaurant_data.alarm_minutes
 
         server.db.session.commit()
         return NewRestaurantOutSchema(restaurant=restaurant.to_schema()).dict()

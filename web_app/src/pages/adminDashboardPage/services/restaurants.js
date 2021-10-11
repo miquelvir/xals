@@ -9,6 +9,14 @@ export const getRestaurants = () => {
     );
 };
 
+export const getRestaurant = (id) => {
+    return get(
+        `${ENDPOINT}/${id}`,
+        (data, resolve, _) => resolve(data['restaurant'])
+    );
+};
+
+
 export const postRestaurant = (name) => {
     return post(
         ENDPOINT,
@@ -27,13 +35,11 @@ export const deleteRestaurant = (id) => {
     );
 }
 
-export const patchRestaurant = (id, name) => {
+export const patchRestaurant = (id, data) => {
     return patch(
         ENDPOINT,
         id,
-        {
-            name: name
-        },
+        data,
         (data, resolve, _) => resolve(data['restaurant'])
     );
 }

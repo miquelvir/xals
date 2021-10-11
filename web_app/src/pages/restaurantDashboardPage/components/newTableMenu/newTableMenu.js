@@ -15,19 +15,11 @@ export default function NewTableMenu({
   const defaultTables = ['15', '0', '12', '111', '1213', '2', '5', '9']; // TODO API
 
   const handleNewTable = (tableNumber) => {
-    // TODO API
     return new Promise(function (resolve, reject) {
-      setTimeout(() => {
-        addNewTable({
-          number: tableNumber,
-          lastCourseDatetime: new Date(),
-          nextCourse: 'first',
-          status: 'ok'
-        });
-        handleHide();
-        setLoading(false);
-        resolve();
-      }, 5000);
+      addNewTable(tableNumber);
+      handleHide();
+      setLoading(false);
+      resolve();
     });
   }
 
@@ -39,9 +31,7 @@ export default function NewTableMenu({
     prompt.prompt({
       title: "table #",
       handleSubmit: (result) => new Promise(function (resolve, reject) {
-        // the function is executed automatically when the promise is constructed
-        // after 1 second signal that the job is done with the result "done"
-        setTimeout(handleNewTable(result).then(() => resolve(), () => reject()), 3000);
+        handleNewTable(result).then(() => resolve(), () => reject())
       }),
       handleCancel: handleShow
     });

@@ -1,16 +1,11 @@
-import { palette } from "../../../../palette";
 import Input from "../../../../components/inputs/input/input";
 import { Formik, Form} from "formik";
 import YesButton from "../../../../components/buttons/yesButton/yesButton";
-import Button from "../../../../components/buttons/button/button";
 import NoButton from "../../../../components/buttons/noButton/noButton";
 import { useSnackbar } from 'notistack';
-    
-export default function AccessUrl({privacyFilter, accessUrl}){
+import { patchRestaurantAccessToken as patchRestaurantAccessTokenService } from "../../services/restaurantAccessTokens";
 
-    const handleDeleteAccessUrl = () => {
-
-    };
+export default function AccessUrl({privacyFilter, restaurantId, token, onDelete, onPatch}){
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     
     
@@ -20,7 +15,7 @@ export default function AccessUrl({privacyFilter, accessUrl}){
             enqueueSnackbar('disable the privacy mode on the top right corner first', {variant: 'warning'});
             return;
         }
-        navigator.clipboard.writeText(accessUrl.url);
+        navigator.clipboard.writeText(token.url);
         enqueueSnackbar('the url has been copied to your clipboard, keep it private!', {variant: 'success'});
     }
 
@@ -30,15 +25,16 @@ export default function AccessUrl({privacyFilter, accessUrl}){
 
 
     return <div className='py-4'><Formik
-    initialValues={accessUrl}
+    initialValues={token}
     onSubmit={(values, { setSubmitting, setErrors}) => {
-      console.log(values);
-       handleSubmit(values.comment).then(() => {
-         setSubmitting(false);
-       }, () => {
-         setErrors({comment: "unable to finalize request"});
-         setSubmitting(false);
-       });
+       patchRestaurantAccessTokenService(restaurantId, token.id, values.comment).then((newToken) => {
+        onPatch(token.id, newToken);
+        setSubmitting(false);
+        enqueueSnackbar("access token comment saved", { variant: "success" });
+      }, () => {
+        setErrors({comment: "unable to finalize request"});
+        setSubmitting(false);
+      });
     }}
   >
     {({ isSubmitting }) => (
@@ -49,7 +45,7 @@ export default function AccessUrl({privacyFilter, accessUrl}){
             <Input name="comment"/>
             </div>
 
-            <NoButton text="delete" disabled={isSubmitting} />
+            <NoButton text="delete" disabled={isSubmitting} onClick={onDelete} />
             <YesButton text="save" type="submit" disabled={isSubmitting} loading={isSubmitting} />
 
             

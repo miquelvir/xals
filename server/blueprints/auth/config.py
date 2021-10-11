@@ -6,7 +6,7 @@ from flask import Blueprint, g, request, current_app, session, abort, jsonify
 # initialise the blueprint
 from flask_login import login_user, logout_user, login_required, current_user
 
-from server.models import Admin
+from server.models import Admin, AccessToken
 from google.oauth2 import id_token
 from google.auth.transport import requests
 
@@ -55,14 +55,13 @@ def login():
     The client must store it for future calls.
     """
     user = g.user
-    print(user)
 
     login_user(user, remember=False)
 
     return {
         'type': 'restaurantAdmin' if user.restaurant_id is not None else 'superAdmin',
         'restaurantId': user.restaurant_id,
-        'restaurantName': None if user.restaurant is None else user.restaurant.name
+        'restaurantName': None if user.restaurant is None else user.restaurant.name,
            }, 200
 
 
@@ -93,11 +92,9 @@ def ping():
 
 
 def restaurant_access_token_required(f):
-    def verify_access_token(restaurant_id: str, access_token: str) -> bool:
+    def get_access_token(restaurant_id: str, access_token: str) -> bool:
         """Given a username and optionally a password, verify its validity."""
-
-        # todo !!!!! DO NOT MERGE UNTIL THIS IS OK !!!!!
-        return True
+        return AccessToken.query.filter_by(restaurant_id=restaurant_id, token=access_token).one_or_none()
 
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -106,11 +103,11 @@ def restaurant_access_token_required(f):
             abort(401)
 
         restaurant_id, access_token = auth.username, auth.password
-        if not verify_access_token(restaurant_id, access_token):
+        token = get_access_token(restaurant_id, access_token)
+        if token is None:
             abort(401)
 
-        user = Admin(id="1", email="user@user.com")
-        g.user = user
+        g.user = token
         return f(*args, **kwargs)
 
     return wrapper
@@ -119,8 +116,14 @@ def restaurant_access_token_required(f):
 @auth_blueprint.route("/login/accessToken", methods=["POST"])
 @restaurant_access_token_required  # require restaurant id and access token
 def login_access_token():
-    user = g.user
+    token = g.user
 
-    login_user(user, remember=False)
+    login_user(token, remember=False)
 
-    return "logged in", 200
+    return {
+        'type': 'accessToken',
+        'restaurantId': token.restaurant_id,
+        'restaurantName': token.restaurant.name,
+        'warningMinutes': token.restaurant.warning_minutes,
+        'alarmMinutes': token.restaurant.alarm_minutes
+    }, 200

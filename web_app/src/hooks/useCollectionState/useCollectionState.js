@@ -7,8 +7,6 @@ import { useState } from "react";
  */
 export const useCollectionState = (key='id', default_=[]) => {
     const [items, setItems] = useState(default_);
-
-    console.log(">>>", items);
     const addItem = (item) => setItems(
         [...items, item]
     );

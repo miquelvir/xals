@@ -84,22 +84,10 @@ def init_app(config=None):
         from . import blueprints
         from .blueprints.api.config import api_blueprint
         from .blueprints.auth.config import auth_blueprint
-        from server.models import Admin
+        from server.models import Admin, AccessToken
 
-        @login.user_loader
-        def user_loader(id_):
-            """
-            loads a user given its id for Flask-Login
-
-            :param id_: the user id
-            :return: the User with that id
-            """
-            if id_.startswith(Admin.PREFIX):
-                id_ = Admin.parse_id(id_)
-                return Admin.query.filter_by(id=id_).one_or_none()
-            if app.config['DEVELOPMENT']:
-                return Admin.query.filter_by(restaurant_id=None).one_or_none()
-            return None
+        # import Flask Login user loader
+        from .blueprints.auth import user_loader
 
         # serve the react frontend
         @app.route("/")
@@ -119,11 +107,12 @@ def init_app(config=None):
         # load blueprints for the different parts
         app.register_blueprint(api_blueprint, url_prefix="/api/v1")
         app.register_blueprint(auth_blueprint, url_prefix="/auth/v1")
-        # print(swagger.get_apispecs())  # todo customize ui
-        from server.blueprints.realtime import config
 
+        # import all the realtime API endpoints
+        from server.blueprints import realtime
+
+        # set up DI for services
         from server.containers import Container
-
         container = Container()
         container.wire(packages=[blueprints])
         app.container = container

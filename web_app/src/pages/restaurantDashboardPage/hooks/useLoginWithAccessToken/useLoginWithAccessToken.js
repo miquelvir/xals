@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { attemptLogin } from "../../services/loginWithAccessToken";
 import { useSnackbar } from 'notistack';
-
+import { userContext, TYPE_ACCESS_TOKEN } from "../../../../contexts/userContext";
 
 /**
  * useLoginWithAccessToken returns a bool (true if correctly logged in)
@@ -10,20 +10,21 @@ import { useSnackbar } from 'notistack';
  */
 export const useLoginWithAccessToken = (restaurantId, accessToken) => {
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    const [loggedIn, setLoggedIn] = useState(false);
-
+    const userCtx = React.useContext(userContext);
+    
     useEffect(() => {
-        setLoggedIn(false);
+        userCtx.setType(null);
         attemptLogin(restaurantId, accessToken)
-            .then(isValid => {
+            .then(([isValid, params]) => {
                 if (!isValid) {
                     enqueueSnackbar("you can't access this page", {variant: 'warning'});
                     return;
                 }
-                setLoggedIn(true);
+                userCtx.setType(TYPE_ACCESS_TOKEN);
+                userCtx.setParams(params);
             })
             .catch(_ => enqueueSnackbar('something went wrong', {variant: 'error'}));
     }, [restaurantId, accessToken]);
 
-    return [loggedIn, setLoggedIn];
+    return [userCtx.loggedIn, () => userCtx.setType(TYPE_ACCESS_TOKEN)];
 };

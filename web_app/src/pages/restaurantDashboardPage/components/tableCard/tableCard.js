@@ -41,11 +41,11 @@ function TableCard({
       <div className={`flex space-x-4 ${theme.text}`}>
          <div className="flex-2 flex flex-col">
                <div className="flex-1"><p className="font-mono text-4xl">
-                  <StopWatch startTime={table.lastCourseDatetime} precision='seconds'/>
+                  <StopWatch startTime={table.last_course_datetime} precision='seconds'/>
                </p></div>
                <div className="text-left">
                   <span className={`inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2 bottom-0 left-0 ${theme.fg}`}>
-                     {table.nextCourse}
+                     {table.next_course}
                   </span>
             </div>
 

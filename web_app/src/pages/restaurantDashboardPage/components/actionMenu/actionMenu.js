@@ -27,12 +27,14 @@ function ActionMenu({
         // TODO link to backend
     };
 
+    const lastCourse = table.last_course_datetime.toLocal();
+
    return <React.Fragment>
        <ConfirmModal />
        <TextActionsModal
       handleHide={handleHide}
       title={`Table ${table.number}`}
-      description={`last course was served at ${twoPadding(table.lastCourseDatetime.getHours())}:${twoPadding(table.lastCourseDatetime.getMinutes())}`}
+      description={`last course was served at ${twoPadding(lastCourse.hour)}:${twoPadding(lastCourse.minute)}`}
       actions={<React.Fragment>
           <NoButton onClick={handleHide} text="cancel" />
             <YesButton onClick={() => {}} text={table.nextCourse} />

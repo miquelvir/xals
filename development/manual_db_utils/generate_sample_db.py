@@ -20,8 +20,6 @@ def add_default_tables(restaurant, min_amount=0, max_amount=25):
 
         server.db.session.add(table)
 
-        yield table
-
 
 def add_restaurants(amount=25):
     for idx in range(amount):

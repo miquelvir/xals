@@ -11,9 +11,9 @@ export const attemptLogin = (restaurantId, accessToken) => {
             },
             headers: {'Cache-Control': 'no-cache', ...authHeader()}
         })
-        .then(_ => resolve(true))
+        .then(res => resolve([true, res.data]))
         .catch(function (res) {
-            try { if (res["response"]["status"] === 401) resolve(false) } catch(err){}
+            try { if (res["response"]["status"] === 401) resolve([false, null]) } catch(err){}
             reject(res);
         });
     });

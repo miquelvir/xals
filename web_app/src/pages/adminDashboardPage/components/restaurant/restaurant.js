@@ -35,7 +35,7 @@ export default function Restaurant({restaurant, setRestaurant, patchRestaurant, 
     return <div className='py-4'><Formik
     initialValues={restaurant}
     onSubmit={(values, { setSubmitting, setErrors}) => {
-       patchRestaurantService(restaurant.id, values.name).then((newRestaurant) => {
+       patchRestaurantService(restaurant.id, {'name': values.name}).then((newRestaurant) => {
          patchRestaurant(restaurant.id, newRestaurant);
          setSubmitting(false);
          enqueueSnackbar("restaurant name saved", { variant: "success" });

@@ -9,11 +9,11 @@ export const getSuperAdministrators = () => {
     );
 };
 
-export const postSuperAdministrator = (name) => {
+export const postSuperAdministrator = (email) => {
     return post(
         ENDPOINT,
         {
-            email: name
+            email: email
         },
         (data, resolve, _) => resolve(data['administrator'])
     );
