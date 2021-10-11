@@ -11,7 +11,3 @@ class DefaultTable(MyBase):
     name = db.Column(db.Text, primary_key=True)
     issuer_id = db.Column(db.Text, db.ForeignKey("admin.id"))
     restaurant_id = db.Column(db.Text, db.ForeignKey("restaurant.id"), primary_key=True)
-
-
-
-

@@ -11,7 +11,7 @@ def super_admin_required(f):
     @functools.wraps(f)
     @login_required
     def wrapper(*args, **kwargs):
-        if current_app.config['DEVELOPMENT']:
+        if current_app.config["DEVELOPMENT"]:
             return f(*args, **kwargs)
         if current_user is None:
             abort(401)

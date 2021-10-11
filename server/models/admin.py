@@ -10,7 +10,7 @@ class Admin(MyBase, UserMixin):
     __tablename__ = "admin"
     __mapper_args__ = {"polymorphic_identity": "admin"}
 
-    PREFIX = '[ADMIN]-'
+    PREFIX = "[ADMIN]-"
 
     id = db.Column(db.Text, primary_key=True)
     email = db.Column(db.Text, nullable=False, unique=True)
@@ -18,11 +18,12 @@ class Admin(MyBase, UserMixin):
     restaurant_id = db.Column(db.Text, db.ForeignKey("restaurant.id"))
 
     access_tokens = db.relationship(
-        "AccessToken", backref="issuer",
+        "AccessToken",
+        backref="issuer",
     )
 
     def login(self, token: str) -> bool:
-        """checks if the token is a valid google sign in token for this email """
+        """checks if the token is a valid google sign in token for this email"""
         # todo !!! do not merge !!! use G Sign in
         return True
 
@@ -33,7 +34,7 @@ class Admin(MyBase, UserMixin):
     def parse_id(cls, id_):
         if not id_.startswith(Admin.PREFIX):
             raise ValueError("not a valid admin id")
-        return id_[len(Admin.PREFIX):]
+        return id_[len(Admin.PREFIX) :]
 
     class Schema(BaseModel):
         id: str

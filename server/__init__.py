@@ -65,20 +65,31 @@ def init_app(config=None):
     man.init_app(
         app,
         content_security_policy={
-            "style-src": ["'self'", "https://fonts.googleapis.com", "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='"],
+            "style-src": [
+                "'self'",
+                "https://fonts.googleapis.com",
+                "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
+            ],
             "font-src": ["'self'", "'unsafe-inline'", "https://fonts.gstatic.com"],
-            "script-src": ["'self'", "www.google.com", "apis.google.com"],  # allow google for recaptcha
+            "script-src": [
+                "'self'",
+                "www.google.com",
+                "apis.google.com",
+            ],  # allow google for recaptcha
             "default-src": ["'self'"],
             "img-src": ["'self'", "www.gstatic.com"],  # allow google for recaptcha
-            "frame-src": ["www.google.com", "accounts.google.com"],  # allow google for recaptcha
+            "frame-src": [
+                "www.google.com",
+                "accounts.google.com",
+            ],  # allow google for recaptcha
         },
         content_security_policy_nonce_in=["script-src", "style-src"],
     )
 
     migrate.init_app(app, db)
 
-    allowed_origins = '*' if app.config["DEVELOPMENT"] else ''
-    socketio.init_app(app, cors_allowed_origins = allowed_origins)
+    allowed_origins = "*" if app.config["DEVELOPMENT"] else ""
+    socketio.init_app(app, cors_allowed_origins=allowed_origins)
 
     with app.app_context():
         from . import blueprints
@@ -97,7 +108,7 @@ def init_app(config=None):
             if id_.startswith(Admin.PREFIX):
                 id_ = Admin.parse_id(id_)
                 return Admin.query.filter_by(id=id_).one_or_none()
-            if app.config['DEVELOPMENT']:
+            if app.config["DEVELOPMENT"]:
                 return Admin.query.filter_by(restaurant_id=None).one_or_none()
             return None
 

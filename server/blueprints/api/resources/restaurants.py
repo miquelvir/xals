@@ -43,10 +43,7 @@ class RestaurantsCollectionResource(MethodView):
         if Restaurant.query.filter_by(name=restaurant.name).one_or_none() is not None:
             raise BadRequest("a restaurant already exists with this name")
 
-        restaurant = Restaurant(
-            id=Restaurant.generate_new_id(),
-            name=restaurant.name
-        )
+        restaurant = Restaurant(id=Restaurant.generate_new_id(), name=restaurant.name)
         server.db.session.add(restaurant)
         server.db.session.commit()
         return NewRestaurantOutSchema(restaurant=restaurant.to_schema()).dict()
@@ -75,4 +72,3 @@ class RestaurantResource(MethodView):
 
         server.db.session.commit()
         return NewRestaurantOutSchema(restaurant=restaurant.to_schema()).dict()
-
