@@ -9,7 +9,7 @@ import uuid
 
 
 class AccessToken(MyBase, UserMixin):
-    PREFIX = '[ACCESS_TOKEN]-'
+    PREFIX = "[ACCESS_TOKEN]-"
 
     __tablename__ = "access_token"
     __mapper_args__ = {"polymorphic_identity": "access_token"}
@@ -51,7 +51,7 @@ class AccessToken(MyBase, UserMixin):
             comment=self.comment,
             token=self.token,
             id=self.id,
-            url=self.url
+            url=self.url,
         )
 
     def get_id(self):
@@ -61,4 +61,4 @@ class AccessToken(MyBase, UserMixin):
     def parse_id(cls, id_):
         if not id_.startswith(AccessToken.PREFIX):
             raise ValueError("not a valid access token id")
-        return id_[len(AccessToken.PREFIX):]
+        return id_[len(AccessToken.PREFIX) :]

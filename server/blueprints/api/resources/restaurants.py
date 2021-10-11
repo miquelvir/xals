@@ -7,7 +7,11 @@ from pydantic import BaseModel
 from werkzeug.exceptions import NotFound, BadRequest
 
 import server
-from server.blueprints.api.utils import super_admin_required, admin_required, require_restaurant_admin_or_super
+from server.blueprints.api.utils import (
+    super_admin_required,
+    admin_required,
+    require_restaurant_admin_or_super,
+)
 from server.models import Restaurant
 
 

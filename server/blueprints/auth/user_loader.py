@@ -18,6 +18,6 @@ def user_loader(id_):
     if id_.startswith(Admin.PREFIX):
         id_ = Admin.parse_id(id_)
         return Admin.query.filter_by(id=id_).one_or_none()
-    if current_app.config['DEVELOPMENT']:
+    if current_app.config["DEVELOPMENT"]:
         return Admin.query.filter_by(restaurant_id=None).one_or_none()
     return None

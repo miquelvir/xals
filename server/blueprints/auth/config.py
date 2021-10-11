@@ -18,15 +18,17 @@ def google_oauth_required(f):
         """Given a username and optionally a password, verify its validity."""
         try:
             # Specify the CLIENT_ID of the app that accesses the backend:
-            idinfo = id_token.verify_oauth2_token(token, requests.Request(), current_app.config['GOOGLE_CLIENT_ID'])
+            idinfo = id_token.verify_oauth2_token(
+                token, requests.Request(), current_app.config["GOOGLE_CLIENT_ID"]
+            )
 
             # ID token is valid. Get the user's Google Account ID from the decoded token.
-            userid = idinfo['sub']
+            userid = idinfo["sub"]
         except ValueError:
             # Invalid token
             return False
 
-        email = idinfo['email']
+        email = idinfo["email"]
         admin = Admin.query.filter_by(email=email).one_or_none()
 
         if admin is None:
@@ -59,10 +61,10 @@ def login():
     login_user(user, remember=False)
 
     return {
-        'type': 'restaurantAdmin' if user.restaurant_id is not None else 'superAdmin',
-        'restaurantId': user.restaurant_id,
-        'restaurantName': None if user.restaurant is None else user.restaurant.name,
-           }, 200
+        "type": "restaurantAdmin" if user.restaurant_id is not None else "superAdmin",
+        "restaurantId": user.restaurant_id,
+        "restaurantName": None if user.restaurant is None else user.restaurant.name,
+    }, 200
 
 
 @auth_blueprint.route("/logout", methods=["POST"])
@@ -94,7 +96,9 @@ def ping():
 def restaurant_access_token_required(f):
     def get_access_token(restaurant_id: str, access_token: str) -> bool:
         """Given a username and optionally a password, verify its validity."""
-        return AccessToken.query.filter_by(restaurant_id=restaurant_id, token=access_token).one_or_none()
+        return AccessToken.query.filter_by(
+            restaurant_id=restaurant_id, token=access_token
+        ).one_or_none()
 
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -121,9 +125,9 @@ def login_access_token():
     login_user(token, remember=False)
 
     return {
-        'type': 'accessToken',
-        'restaurantId': token.restaurant_id,
-        'restaurantName': token.restaurant.name,
-        'warningMinutes': token.restaurant.warning_minutes,
-        'alarmMinutes': token.restaurant.alarm_minutes
+        "type": "accessToken",
+        "restaurantId": token.restaurant_id,
+        "restaurantName": token.restaurant.name,
+        "warningMinutes": token.restaurant.warning_minutes,
+        "alarmMinutes": token.restaurant.alarm_minutes,
     }, 200

@@ -23,7 +23,7 @@ def get_current_user_restaurant_id() -> str:
 def authenticated_only(f):
     @functools.wraps(f)
     def wrapped(*args, **kwargs):
-        if current_app.config['DEVELOPMENT']:
+        if current_app.config["DEVELOPMENT"]:
             login_user(AccessToken.query.first())
             return f(*args, **kwargs)
         if not current_user.is_authenticated:
