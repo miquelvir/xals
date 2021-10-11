@@ -1,6 +1,10 @@
 import server
 from development.manual_db_utils.generate_empty_db import create
-from server.models import (Restaurant, Admin, AccessToken,)
+from server.models import (
+    Restaurant,
+    Admin,
+    AccessToken,
+)
 from random import randint, choice, sample
 
 from server.models.default_table import DefaultTable
@@ -59,32 +63,35 @@ def add_admins(restaurants, super_amount=5):
         yield admin
 
     email = input("custom super admin email? ")
-    if email is not None and email != '':
+    if email is not None and email != "":
         print(f"    super admin {email}")
-        server.db.session.add(Admin(
-            id=Admin.generate_new_id(),
-            email=email
-        ))
+        server.db.session.add(Admin(id=Admin.generate_new_id(), email=email))
 
     email = input("custom restaurant admin email? ")
-    if email is not None and email != '':
+    if email is not None and email != "":
         print(f"    restaurant admin {email}")
-        server.db.session.add(Admin(
-            id=Admin.generate_new_id(),
-            email=email,
-            restaurant_id=choice(restaurants).id
-        ))
+        server.db.session.add(
+            Admin(
+                id=Admin.generate_new_id(),
+                email=email,
+                restaurant_id=choice(restaurants).id,
+            )
+        )
 
 
 def add_access_tokens(restaurants, admins, min_amount=0, max_amount=15):
     for admin in admins:
         for idx in range(randint(min_amount, max_amount)):
-            restaurant_id = admin.restaurant_id if admin.restaurant_id is not None else choice(restaurants).id
-            print(f"    access token {idx} for restaurant {restaurant_id} iss/{admin.id}")
+            restaurant_id = (
+                admin.restaurant_id
+                if admin.restaurant_id is not None
+                else choice(restaurants).id
+            )
+            print(
+                f"    access token {idx} for restaurant {restaurant_id} iss/{admin.id}"
+            )
             access_token = AccessToken.new(
-                restaurant_id,
-                admin.id,
-                f"this is the comment for token {idx}"
+                restaurant_id, admin.id, f"this is the comment for token {idx}"
             )
 
             server.db.session.add(access_token)

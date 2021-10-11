@@ -17,14 +17,11 @@ class AccessToken(MyBase, UserMixin):
     issuer_id = db.Column(db.Text, db.ForeignKey("admin.id"))
 
     @classmethod
-    def new(cls, restaurant_id, issuer_id, comment=''):
+    def new(cls, restaurant_id, issuer_id, comment=""):
         return AccessToken(
             id=str(uuid.uuid4()),
             comment=comment,
             token=str(uuid.uuid4()),
             restaurant_id=restaurant_id,
-            issuer_id=issuer_id
+            issuer_id=issuer_id,
         )
-
-
-

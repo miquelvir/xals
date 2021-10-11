@@ -8,5 +8,4 @@ class Table(MyBase):
     id = db.Column(db.Text, primary_key=True)
     number = db.Column(db.Text, nullable=False)
 
-    courses = db.relationship("Course", backref='table')
-
+    courses = db.relationship("Course", backref="table")
