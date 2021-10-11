@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.81b0da1e.chunk.css",
-    "main.js": "/static/js/main.6d2633da.chunk.js",
-    "main.js.map": "/static/js/main.6d2633da.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.f2e59546.js",
-    "runtime-main.js.map": "/static/js/runtime-main.f2e59546.js.map",
-    "static/js/2.f793a71f.chunk.js": "/static/js/2.f793a71f.chunk.js",
-    "static/js/2.f793a71f.chunk.js.map": "/static/js/2.f793a71f.chunk.js.map",
-    "static/js/3.492a6035.chunk.js": "/static/js/3.492a6035.chunk.js",
-    "static/js/3.492a6035.chunk.js.map": "/static/js/3.492a6035.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.81b0da1e.chunk.css.map": "/static/css/main.81b0da1e.chunk.css.map",
-    "static/js/2.f793a71f.chunk.js.LICENSE.txt": "/static/js/2.f793a71f.chunk.js.LICENSE.txt"
+    "main.css": "https://xals.herokuapp.com/static/css/main.f1c51222.chunk.css",
+    "main.js": "https://xals.herokuapp.com/static/js/main.4aa3449e.chunk.js",
+    "main.js.map": "https://xals.herokuapp.com/static/js/main.4aa3449e.chunk.js.map",
+    "runtime-main.js": "https://xals.herokuapp.com/static/js/runtime-main.9127093c.js",
+    "runtime-main.js.map": "https://xals.herokuapp.com/static/js/runtime-main.9127093c.js.map",
+    "static/js/2.c044f2be.chunk.js": "https://xals.herokuapp.com/static/js/2.c044f2be.chunk.js",
+    "static/js/2.c044f2be.chunk.js.map": "https://xals.herokuapp.com/static/js/2.c044f2be.chunk.js.map",
+    "static/js/3.9f6e8810.chunk.js": "https://xals.herokuapp.com/static/js/3.9f6e8810.chunk.js",
+    "static/js/3.9f6e8810.chunk.js.map": "https://xals.herokuapp.com/static/js/3.9f6e8810.chunk.js.map",
+    "index.html": "https://xals.herokuapp.com/index.html",
+    "static/css/main.f1c51222.chunk.css.map": "https://xals.herokuapp.com/static/css/main.f1c51222.chunk.css.map",
+    "static/js/2.c044f2be.chunk.js.LICENSE.txt": "https://xals.herokuapp.com/static/js/2.c044f2be.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.f2e59546.js",
-    "static/js/2.f793a71f.chunk.js",
-    "static/css/main.81b0da1e.chunk.css",
-    "static/js/main.6d2633da.chunk.js"
+    "static/js/runtime-main.9127093c.js",
+    "static/js/2.c044f2be.chunk.js",
+    "static/css/main.f1c51222.chunk.css",
+    "static/js/main.4aa3449e.chunk.js"
   ]
 }
