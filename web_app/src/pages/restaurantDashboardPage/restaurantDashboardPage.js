@@ -5,13 +5,19 @@ import { useState, useEffect } from 'react';
 import ThemeButton from '../../components/themeButton/themeButton';
 import LanguageButton from '../../components/languageButton/languageButton';
 import { palette } from '../../palette';
+import { RealtimeServiceContextProvider, realtimeServiceContext } from './contexts/realtimeService/realtimeServiceContext';
+import React from 'react';
+import { userContext } from '../../contexts/userContext';
 
 const sortProviders = {
-  [SORT_PRIORITY]: (table1, table2) => table1.lastCourseDatetime - table2.lastCourseDatetime,
+  [SORT_PRIORITY]: (table1, table2) => table1.last_course_datetime - table2.last_course_datetime,
   [SORT_NUMBER_ASCENDING]: (table1, table2) => table1.number - table2.number,
   [SORT_NUMBER_DESCENDING]: (table1, table2) => table2.number - table1.number,
 }
-function RestaurantDashboardPage() {
+function _RestaurantDashboardPage() {
+
+  const realtimeCtx = React.useContext(realtimeServiceContext);
+  const userCtx = React.useContext(userContext);
 
   var status = ['alarm', 'warning', 'random'];
   status.random = function () {
@@ -20,45 +26,45 @@ function RestaurantDashboardPage() {
 
   const [sort, setSort] = useState(SORT_PRIORITY);
 
-  let _tables = [12, 14, 15, 2, 18, 21].map(hours => {
-    let date = new Date();
-    date.setFullYear(2021, 9, 2);
-    date.setHours(hours, 21 - hours, 0, 0);
-    return { number: hours - 2, lastCourseDatetime: date, nextCourse: 'desserts', status: status[Math.trunc(hours * 3 / 24)] }
-  });
+  const tables = realtimeCtx.tables;
 
-  
-  const [tables, _setTables] = useState(_tables);
-  const setTables = (newTables) => {
+  const [sortedTables, _setSortedTables] = useState([]);
+
+
+  const setSortedTables = (newTables) => {
     newTables.sort(sortProviders[sort]);
-    _setTables(newTables);
+    _setSortedTables(newTables);
   }
-  const addNewTable = (table) => {
-    setTables([...tables, table]);
-  }
-
-  useEffect(() => setTables(tables), [sort])
+  useEffect(() => setSortedTables(tables), [tables, sort]);
 
   return <div>
-    <div className='p-2 pl-8 pr-8'>
-    <div className='inline-block'><p class={`font-mono text-4xl ${palette.text}`}>
-               Restaurante 21 
-            </p></div>
-            <div className='float-right'>
-      <SortButton sort={sort} setSort={setSort} />
-      <ThemeButton />
-      <LanguageButton /></div>
-      
+    <div className='p-2 pl-8 pr-8 inline-block w-full'>
+      <div className='inline-block'><p className={`font-mono text-4xl ${palette.text}`}>
+       {userCtx.params.restaurantName ?? "..."}
+      </p></div>
+      <div className='float-right'>
+        <SortButton sort={sort} setSort={setSort} />
+        <ThemeButton />
+        <LanguageButton /></div>
+
     </div>
 
+    <div className="px-4">
+      <div className="flex flex-wrap  -mx-4">
+        <NewTableCard addNewTable={realtimeCtx.addTable} existingTableNumbers={tables.map(table => table.number)} />
 
-    <div className='p-4'>
-      <NewTableCard addNewTable={addNewTable} existingTableNumbers={tables.map(table => table.number)}/>
-
-      {tables.map(table =>
-        <TableCard table={table} />)}
+        {sortedTables.map(table =>
+          <TableCard table={table} key={table.id} />)}
+      </div>
     </div>
   </div>;
+}
+
+function RestaurantDashboardPage() {
+
+  return <RealtimeServiceContextProvider>
+    <_RestaurantDashboardPage />
+    </RealtimeServiceContextProvider>;
 }
 
 export default RestaurantDashboardPage;

@@ -26,6 +26,8 @@ class Config(object):
 
     SECRET_KEY = os.getenv("SECRET")
 
+    GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+
 
 class DevelopmentConfig(Config):
     DEBUG = True

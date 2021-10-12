@@ -1,6 +1,6 @@
 import { useElapsedMs, msToTime } from '../../../../hooks/useElapsedTime/useElapsedTime';
 import { timeToString } from './_timeToString';
-
+import { useEffect } from 'react';
 /**
  * 
  * @param startTime, required, the Date to count from 
@@ -10,11 +10,16 @@ import { timeToString } from './_timeToString';
  */
 export function StopWatch({
     startTime,
+    notifyDelta = (_) => {},
     refreshIntervalMs = 1000,
     precision = 'seconds'
 }) {
     const [elapsedMs] = useElapsedMs(startTime, refreshIntervalMs);
     const elapsedTime = msToTime(elapsedMs);
+
+    useEffect(() => {
+        notifyDelta(elapsedMs);
+    }, [elapsedMs])
     return <span>
         {timeToString(elapsedTime, precision)}
     </span>;

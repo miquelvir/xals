@@ -12,7 +12,7 @@ export default function NoButton({
   return <Button 
             onClick={onClick}
             text={text} 
-            bgColor='bg-red-600 hover:bg-red-700'
+            bgColor='bg-red-600 hover:active:bg-red-700'
             textColor='text-white'
             ring='focus:ring-red-500'
             border='border-transparent'

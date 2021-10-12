@@ -30,12 +30,12 @@ jobs:
         env:
           CI: false
           REACT_CHECK_NEEDS: true
-          REACT_APP_RECAPTCHA: ${{ secrets.REACT_APP_RECAPTCHA }}
           REACT_APP_API_VERSION: v1
-          REACT_APP_BACKEND_URL: https://centrifuga4.herokuapp.com
-          PUBLIC_URL: https://centrifuga4.herokuapp.com
+          REACT_APP_BACKEND_URL: https://xals.herokuapp.com
+          PUBLIC_URL: https://xals.herokuapp.com
+          REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
           INLINE_RUNTIME_CHUNK: false
-          DOCS_URL: https://miquelvir.github.io/centrifuga4/
+          DOCS_URL: https://miquelvir.github.io/xals/
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 📦️✔️ auto-build

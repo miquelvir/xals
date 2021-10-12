@@ -9,9 +9,9 @@ import clsx from 'clsx';
 const defaultAttributes = {
       'p-6': true,
       'm-4': true,
-      'max-w-sm': true,
+      'max-w-sm': false,
       'bg-white': true,
-      'inline-block': true,
+      'inline-block': false,
       'rounded-md': true,
       'shadow-lg': true,
       'overflow-auto': true,
@@ -21,7 +21,7 @@ function Card({
     children=null,
     ...props
     }) {
-  return <div class={clsx({...defaultAttributes, ...attributes})} {...props}>
+  return <div className={clsx({...defaultAttributes, ...attributes})} {...props}>
           {children}
    </div>;
 }

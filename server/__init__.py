@@ -10,6 +10,7 @@ from flask import Flask, render_template, redirect
 from flask_talisman import Talisman
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_socketio import SocketIO
 
 # https://github.com/pallets/flask/issues/1045
 import mimetypes
@@ -22,24 +23,7 @@ man = Talisman()
 login = LoginManager()
 csrf = SeaSurf()
 migrate = Migrate()
-
-temp = {
-    "swagger": "2.0",
-    "info": {
-        "title": "centrífuga4 API",
-        "description": "RESTful API for access to centrifuga4 data",
-        "contact": {
-            "responsibleOrganization": "Xamfrà (Fundació l'Arc Música)",
-            "responsibleDeveloper": "mvr",
-        },
-        "version": "0.0.1",
-    },
-    # "host": "mysite.com",  # overrides localhost:500
-    "basePath": "/api/v1",  # base bash for blueprint registration
-    "schemes": ["https"],
-}
-
-# swagger = Swagger(template=temp)
+socketio = SocketIO()
 
 
 def init_app(config=None):
@@ -61,6 +45,7 @@ def init_app(config=None):
             config = DevelopmentBuiltConfig
         elif env == "development":
             config = DevelopmentConfig
+            print("using dev config")
         else:
             raise ValueError("no environment variable found")
 
@@ -70,39 +55,50 @@ def init_app(config=None):
     db.init_app(app)
     login.init_app(app)
 
-    if False and app.config["DEVELOPMENT"]:
+    if app.config["DEVELOPMENT"]:
         # allow cors only during development (due to the front end development server)
         cors = CORS()
         cors.init_app(app)
 
+    csrf.init_app(app)
+
     man.init_app(
         app,
         content_security_policy={
-            "style-src": ["'self'", "https://fonts.googleapis.com"],
+            "style-src": [
+                "'self'",
+                "https://fonts.googleapis.com",
+                "'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='",
+            ],
             "font-src": ["'self'", "'unsafe-inline'", "https://fonts.gstatic.com"],
-            "script-src": ["'self'", "www.google.com"],  # allow google for recaptcha
+            "script-src": [
+                "'self'",
+                "www.google.com",
+                "apis.google.com",
+            ],  # allow google for recaptcha
             "default-src": ["'self'"],
             "img-src": ["'self'", "www.gstatic.com"],  # allow google for recaptcha
-            "frame-src": ["www.google.com"],  # allow google for recaptcha
+            "frame-src": [
+                "www.google.com",
+                "accounts.google.com",
+            ],  # allow google for recaptcha
         },
         content_security_policy_nonce_in=["script-src", "style-src"],
     )
 
-    # swagger.init_app(app)
-    csrf.init_app(app)
     migrate.init_app(app, db)
+
+    allowed_origins = "*" if app.config["DEVELOPMENT"] else "https://xals.herokuapp.com"
+    socketio.init_app(app, cors_allowed_origins=allowed_origins)
 
     with app.app_context():
         from . import blueprints
         from .blueprints.api.config import api_blueprint
-        from .blueprints.auth import auth_blueprint
-        from server.models import User
+        from .blueprints.auth.config import auth_blueprint
+        from server.models import Admin, AccessToken
 
-        from server.auth_auth.login_user_loader import user_loader
-
-        from .notifications import signal_handlers
-
-        signal_handlers.add_subscribers()
+        # import Flask Login user loader
+        from .blueprints.auth import user_loader
 
         # serve the react frontend
         @app.route("/")
@@ -117,17 +113,20 @@ def init_app(config=None):
         @app.route("/404")
         @app.errorhandler(404)
         def page_not_found(e):
-            return render_template("not_found.html"), 404
+            return "not found - 404", 404
 
         # load blueprints for the different parts
         app.register_blueprint(api_blueprint, url_prefix="/api/v1")
         app.register_blueprint(auth_blueprint, url_prefix="/auth/v1")
-        # print(swagger.get_apispecs())  # todo customize ui
 
+        # import all the realtime API endpoints
+        from server.blueprints import realtime
+
+        # set up DI for services
         from server.containers import Container
 
         container = Container()
         container.wire(packages=[blueprints])
         app.container = container
 
-        return app
+        return app, socketio

@@ -5,12 +5,13 @@ load_dotenv(join(dirname(__file__), "../.env"))  # use instead pycharm environme
 
 import server
 
-app = server.init_app()
+app, socketio = server.init_app()
 
 
 if __name__ == "__main__":
     with app.app_context():
-        app.run(
+        socketio.run(
+            app,
             host=app.config["BACKEND_SERVER_HOST"],
             port=app.config["BACKEND_SERVER_PORT"],
             ssl_context=(

@@ -1,55 +1,54 @@
+from collections import namedtuple
+from functools import wraps
+
 from flask import Blueprint, g, request, current_app, session, abort, jsonify
 
 # initialise the blueprint
 from flask_login import login_user, logout_user, login_required, current_user
 
-from server.models import User, Role
+from server.models import Admin, AccessToken
+from google.oauth2 import id_token
+from google.auth.transport import requests
 
 auth_blueprint = Blueprint("auth", __name__)
 
 
-def basic_http_auth_required(f):
-    def verify_password(username: str, password: str) -> bool:
+def google_oauth_required(f):
+    def verify_password(token: str) -> bool:
         """Given a username and optionally a password, verify its validity."""
+        try:
+            # Specify the CLIENT_ID of the app that accesses the backend:
+            idinfo = id_token.verify_oauth2_token(
+                token, requests.Request(), current_app.config["GOOGLE_CLIENT_ID"]
+            )
 
-        user = User.query.filter(User.email == username).first()
-        if user is None:
-            return False  # user not registered
+            # ID token is valid. Get the user's Google Account ID from the decoded token.
+            userid = idinfo["sub"]
+        except ValueError:
+            # Invalid token
+            return False
 
-        if not user.login(password):
-            return False  # password does not match
+        email = idinfo["email"]
+        admin = Admin.query.filter_by(email=email).one_or_none()
 
-        g.user = user
+        if admin is None:
+            return False
+
+        g.user = admin
         return True
 
+    @wraps(f)
     def wrapper(*args, **kwargs):
         auth = request.authorization
-        if not (auth and verify_password(auth.username, auth.password)):
+        if not (auth and verify_password(auth.password)):
             abort(401)
         return f(*args, **kwargs)
 
     return wrapper
 
 
-def get_current_needs():
-    """returns a json object with the needs of the current user"""
-    result = {}
-
-    if hasattr(current_user, "role") and current_user.role is not None:
-        result["role"] = current_user.role.id
-
-        if current_user.role.id == Role.TEACHER:
-            result["teacher"] = {}
-            result["teacher"]["id"] = current_user.teacher_id
-            result["teacher"]["name"] = current_user.name
-        else:
-            result["teacher"] = None
-
-    return jsonify(result)
-
-
-@auth_blueprint.route("/login", methods=["POST"])
-@basic_http_auth_required  # require user and password to be validated
+@auth_blueprint.route("/login/google", methods=["POST"])
+@google_oauth_required  # require user and password to be validated
 def login():
     """
     In the before_request, the user is required to login. When reaching this endpoint, the user is already validated.
@@ -59,12 +58,16 @@ def login():
     """
     user = g.user
 
-    login_user(user, remember=True)
+    login_user(user, remember=False)
 
-    return get_current_needs()
+    return {
+        "type": "restaurantAdmin" if user.restaurant_id is not None else "superAdmin",
+        "restaurantId": user.restaurant_id,
+        "restaurantName": None if user.restaurant is None else user.restaurant.name,
+    }, 200
 
 
-@auth_blueprint.route("/logout", methods=["GET"])
+@auth_blueprint.route("/logout", methods=["POST"])
 @login_required
 def logout():
     """
@@ -87,4 +90,44 @@ def logout():
 @login_required
 def ping():
     # will break if login is disabled, as in wsgi_development config
-    return get_current_needs()
+    return "", 200
+
+
+def restaurant_access_token_required(f):
+    def get_access_token(restaurant_id: str, access_token: str) -> bool:
+        """Given a username and optionally a password, verify its validity."""
+        return AccessToken.query.filter_by(
+            restaurant_id=restaurant_id, token=access_token
+        ).one_or_none()
+
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        auth = request.authorization
+        if not auth:
+            abort(401)
+
+        restaurant_id, access_token = auth.username, auth.password
+        token = get_access_token(restaurant_id, access_token)
+        if token is None:
+            abort(401)
+
+        g.user = token
+        return f(*args, **kwargs)
+
+    return wrapper
+
+
+@auth_blueprint.route("/login/accessToken", methods=["POST"])
+@restaurant_access_token_required  # require restaurant id and access token
+def login_access_token():
+    token = g.user
+
+    login_user(token, remember=False)
+
+    return {
+        "type": "accessToken",
+        "restaurantId": token.restaurant_id,
+        "restaurantName": token.restaurant.name,
+        "warningMinutes": token.restaurant.warning_minutes,
+        "alarmMinutes": token.restaurant.alarm_minutes,
+    }, 200

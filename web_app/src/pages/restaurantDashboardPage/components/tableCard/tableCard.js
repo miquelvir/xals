@@ -3,6 +3,7 @@ import { StopWatch } from '../stopWatch/stopWatch';
 import ActionMenu from '../actionMenu/actionMenu';
 import React from 'react';
 import { useState } from 'react';
+import { userContext } from '../../../../contexts/userContext';
 
 const STATUS_ALARM = 'alarm';
 const STATUS_WARNING = 'warning';
@@ -16,7 +17,7 @@ const useTheme = (status) => (status === STATUS_ALARM? {
    fg: 'bg-yellow-100',
    text: 'text-gray-800'
 }: {
-   bg: 'bg-green-100 hover:bg-green-200',
+   bg: 'bg-green-200 hover:bg-green-300',
    fg: 'bg-green-50',
    text: 'text-gray-800'
 });
@@ -26,11 +27,20 @@ function TableCard({
    ...props
 }) {
 
+   const userCtx = React.useContext(userContext);
    const [showActionMenu, setShowActionMenu] = useState(false);
    const handleShowActionMenu = () => setShowActionMenu(true);
    const handleHideActionMenu = () => setShowActionMenu(false);
 
-   const theme = useTheme(table.status);
+   const [status, setStatus] = useState('ok');
+   const theme = useTheme(status);
+
+   const handleStatus = (delta) => {
+      const minutes = delta / (1000 * 60);
+      if (minutes > userCtx.params.alarmMinutes) return setStatus(STATUS_ALARM);
+      if (minutes > userCtx.params.warningMinutes) return setStatus(STATUS_WARNING);
+      setStatus('ok');
+   }
 
    return <React.Fragment>
       
@@ -38,20 +48,20 @@ function TableCard({
 
        <BaseCard attributes={{[theme.bg]: true}} onClick={handleShowActionMenu} {...props}>
 
-      <div class={`flex space-x-4 ${theme.text}`}>
-         <div class="flex-2 flex flex-col">
-               <div class="flex-1"><p class="font-mono text-4xl">
-                  <StopWatch startTime={table.lastCourseDatetime} precision='seconds'/>
+      <div className={`flex space-x-4 ${theme.text}`}>
+         <div className="flex-2 flex flex-col">
+               <div className="flex-1"><p className="font-mono text-4xl">
+                  <StopWatch startTime={table.last_course_datetime} notifyDelta={handleStatus} precision='seconds'/>
                </p></div>
-               <div class="text-left">
-                  <span class={`inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2 bottom-0 left-0 ${theme.fg}`}>
-                     {table.nextCourse}
+               <div className="text-left">
+                  <span className={`inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2 bottom-0 left-0 ${theme.fg}`}>
+                     {table.next_course}
                   </span>
             </div>
 
          </div>
-         <div class="flex-1">
-            <p class="font-mono text-right text-8xl">
+         <div className="flex-1">
+            <p className="font-mono text-right text-8xl">
                {table.number}
             </p>
          </div>

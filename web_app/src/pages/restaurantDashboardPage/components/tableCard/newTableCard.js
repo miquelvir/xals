@@ -25,10 +25,10 @@ function NewTableCard({
    <BaseCard onClick={handleShowNewTableMenu} attributes={{
       'border-4': true, 
    'border-dashed': true, 
-   [palette.bg]: true,
-   [palette.text]: true}} {...props}>
-      <div class='h-full w-full flex flex-wrap content-center text-center justify-center'>
-            <p class="font-mono text-4xl">
+   [palette.bg_force_responsive]: true,
+   [palette.text]: true}} {...props} disabled={false}>
+      <div className='h-full w-full flex flex-wrap content-center text-center justify-center'>
+            <p className="font-mono text-4xl">
                {t('new')} 
             </p>
             </div>
