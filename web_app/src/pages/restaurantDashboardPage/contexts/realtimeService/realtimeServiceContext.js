@@ -46,7 +46,6 @@ export const RealtimeServiceContextProvider = ({ children }) => {
 
         socket.on("v1.tables", data => {
             setTables(parseTables(data.tables));
-            console.log("v1.tables", data);
         });
         socket.on("v1.tables.new", data => {
             setTables(tables => ({...tables, [data.table.id]: parseTable(data.table)}));

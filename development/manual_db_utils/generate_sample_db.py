@@ -113,6 +113,6 @@ def add_all():
 
 
 if __name__ == "__main__":
-    app, socketio = server.init_app("config.DevelopmentConfig")
+    app, socketio = server.init_app()
     with app.app_context():
         add_all()
