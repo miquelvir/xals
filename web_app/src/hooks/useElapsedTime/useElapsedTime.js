@@ -26,8 +26,12 @@ export const msToTime = (delta) => [
  */
 export const useElapsedMs = (_startDate, refreshIntervalMs = 1000) => {
     
-    const [startDate, _] = useState(_startDate.toUTC());
+    const [startDate, setStartDate] = useState(_startDate.toUTC());
     const [now, setNow] = useState(_startDate.toUTC()); // Save the current date to be able to trigger an update
+
+    useEffect(() => {
+        setStartDate(_startDate);
+    }, [_startDate]);
 
     // use an interval to update the 'now' date every refreshIntervalMs ms
     useEffect(() => {

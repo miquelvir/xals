@@ -61,10 +61,10 @@ export const RealtimeServiceContextProvider = ({ children }) => {
             enqueueSnackbar(`table ${table.number} has been marked as finished`, {variant: 'success'});
         });
         socket.on("v1.tables.next", data => {
-            const table = data.table;
+            const table = parseTable(data.table);
 
             setTables(tables => {
-                tables[table.id] = parseTable(table);
+                tables[table.id] = table;
                 return {...tables}
             });
 
