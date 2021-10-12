@@ -67,6 +67,7 @@ class DevelopmentBuiltConfig(DevelopmentConfig):
         os.path.abspath(os.path.dirname(__file__)), "", "people.db"
     )
 
+
 class ProductionConfig(Config):
     CSRF_COOKIE_SAMESITE = "Lax"
     SESSION_PROTECTION = "strong"
