@@ -13,7 +13,7 @@ export default function TimeProfile({restaurantId, onPatch, profileName, profile
     onSubmit={(values, { setSubmitting, setErrors}) => {
       const newValue = values.profile;
       patchRestaurant(restaurantId, {[profileName]: newValue}).then((newValue) => {
-        onPatch(newValue);
+        onPatch(newValue[profileName]);
         setSubmitting(false);
         enqueueSnackbar("time profile saved", { variant: "success" });
       }, () => {

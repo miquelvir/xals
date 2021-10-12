@@ -19,7 +19,6 @@ export const QuestionContextProvider = ({ children }) => {
         }
     );
     const prompt = ({ title = null, description = null, handleSubmit = () => new Promise.resolve(), handleCancel = () => { } }) => {
-        console.log(title, description);
         setHandlers(
             {
                 title: title,

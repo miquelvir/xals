@@ -3,6 +3,7 @@ import { StopWatch } from '../stopWatch/stopWatch';
 import ActionMenu from '../actionMenu/actionMenu';
 import React from 'react';
 import { useState } from 'react';
+import { userContext } from '../../../../contexts/userContext';
 
 const STATUS_ALARM = 'alarm';
 const STATUS_WARNING = 'warning';
@@ -26,11 +27,20 @@ function TableCard({
    ...props
 }) {
 
+   const userCtx = React.useContext(userContext);
    const [showActionMenu, setShowActionMenu] = useState(false);
    const handleShowActionMenu = () => setShowActionMenu(true);
    const handleHideActionMenu = () => setShowActionMenu(false);
 
-   const theme = useTheme(table.status);
+   const [status, setStatus] = useState('ok');
+   const theme = useTheme(status);
+
+   const handleStatus = (delta) => {
+      const minutes = delta / (1000 * 60);
+      if (minutes > userCtx.params.alarmMinutes) return setStatus('alarm');
+      if (minutes > userCtx.params.warningMinutes) return setStatus('warning');
+      setStatus('ok');
+   }
 
    return <React.Fragment>
       
@@ -41,7 +51,7 @@ function TableCard({
       <div className={`flex space-x-4 ${theme.text}`}>
          <div className="flex-2 flex flex-col">
                <div className="flex-1"><p className="font-mono text-4xl">
-                  <StopWatch startTime={table.last_course_datetime} precision='seconds'/>
+                  <StopWatch startTime={table.last_course_datetime} notifyDelta={handleStatus} precision='seconds'/>
                </p></div>
                <div className="text-left">
                   <span className={`inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2 bottom-0 left-0 ${theme.fg}`}>

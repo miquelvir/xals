@@ -38,8 +38,6 @@ function LoginPage() {
     enqueueSnackbar("unable to log in with Google", {variant: 'error'});
   }
 
-  console.log(clientId);
-
   return <div className="flex items-center justify-center h-screen">
     <GoogleLogin
       clientId={clientId}
