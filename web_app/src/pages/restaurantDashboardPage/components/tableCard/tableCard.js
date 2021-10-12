@@ -37,8 +37,8 @@ function TableCard({
 
    const handleStatus = (delta) => {
       const minutes = delta / (1000 * 60);
-      if (minutes > userCtx.params.alarmMinutes) return setStatus('alarm');
-      if (minutes > userCtx.params.warningMinutes) return setStatus('warning');
+      if (minutes > userCtx.params.alarmMinutes) return setStatus(STATUS_ALARM);
+      if (minutes > userCtx.params.warningMinutes) return setStatus(STATUS_WARNING);
       setStatus('ok');
    }
 
