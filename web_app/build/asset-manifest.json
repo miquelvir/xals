@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "https://xals.herokuapp.com/static/css/main.3ea577c9.chunk.css",
+    "main.js": "https://xals.herokuapp.com/static/js/main.c9166457.chunk.js",
+    "main.js.map": "https://xals.herokuapp.com/static/js/main.c9166457.chunk.js.map",
+    "runtime-main.js": "https://xals.herokuapp.com/static/js/runtime-main.9127093c.js",
+    "runtime-main.js.map": "https://xals.herokuapp.com/static/js/runtime-main.9127093c.js.map",
+    "static/js/2.3d3f1b31.chunk.js": "https://xals.herokuapp.com/static/js/2.3d3f1b31.chunk.js",
+    "static/js/2.3d3f1b31.chunk.js.map": "https://xals.herokuapp.com/static/js/2.3d3f1b31.chunk.js.map",
+    "static/js/3.9f6e8810.chunk.js": "https://xals.herokuapp.com/static/js/3.9f6e8810.chunk.js",
+    "static/js/3.9f6e8810.chunk.js.map": "https://xals.herokuapp.com/static/js/3.9f6e8810.chunk.js.map",
+    "index.html": "https://xals.herokuapp.com/index.html",
+    "static/css/main.3ea577c9.chunk.css.map": "https://xals.herokuapp.com/static/css/main.3ea577c9.chunk.css.map",
+    "static/js/2.3d3f1b31.chunk.js.LICENSE.txt": "https://xals.herokuapp.com/static/js/2.3d3f1b31.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9127093c.js",
+    "static/js/2.3d3f1b31.chunk.js",
+    "static/css/main.3ea577c9.chunk.css",
+    "static/js/main.c9166457.chunk.js"
+  ]
+}
