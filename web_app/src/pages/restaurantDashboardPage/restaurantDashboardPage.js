@@ -31,7 +31,7 @@ function _RestaurantDashboardPage() {
   useEffect(() => setSortedTables(tables), [tables, sort]);
 
   return <div>
-    <div className='p-2 pl-8 pr-8 inline-block w-full'>
+    <div className='p-2 pt-4 pl-8 pr-8 inline-block w-full'>
       <div className='inline-block'><p className={`font-mono text-4xl ${palette.text}`}>
        {userCtx.params.restaurantName ?? "..."}
       </p></div>
@@ -42,7 +42,7 @@ function _RestaurantDashboardPage() {
 
     </div>
 
-    <div className="px-4">
+    <div className="p-4">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         <NewTableCard addNewTable={realtimeCtx.addTable} existingTableNumbers={tables.map(table => table.number)} />
 
