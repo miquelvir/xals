@@ -1,6 +1,6 @@
 import TextActionsModal from '../../../../components/textActionsModal/textActionsModal';
 import NoButton from '../../../../components/buttons/noButton/noButton';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import YesButton from '../../../../components/buttons/yesButton/yesButton';
 import Button from '../../../../components/buttons/button/button';
 import { questionContext } from '../../../../contexts/questionContext';
@@ -14,8 +14,12 @@ export default function NewTableMenu({
   ...props
 }) {
   const userCtx = React.useContext(userContext);
-  const defaultTables = (userCtx.params['defaultTables'] ?? []).map(table => table.name);
-
+  
+    const [defaultTables, setDefaultTables] = useState([]);
+    useEffect(() => {
+      setDefaultTables((userCtx.params['defaultTables'] ?? []).map(table => table.name).sort());
+    }, [userCtx.params['defaultTables']]);
+    
   const handleNewTable = (tableNumber) => {
     return new Promise(function (resolve, reject) {
       addNewTable(tableNumber);
