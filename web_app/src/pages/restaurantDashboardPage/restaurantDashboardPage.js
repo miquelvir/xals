@@ -9,31 +9,24 @@ import { RealtimeServiceContextProvider, realtimeServiceContext } from './contex
 import React from 'react';
 import { userContext } from '../../contexts/userContext';
 
+const tryParseInt = (x) => parseInt(x) ?? x;
+
 const sortProviders = {
-  [SORT_PRIORITY]: (table1, table2) => table1.last_course_datetime - table2.last_course_datetime,
-  [SORT_NUMBER_ASCENDING]: (table1, table2) => table1.number - table2.number,
-  [SORT_NUMBER_DESCENDING]: (table1, table2) => table2.number - table1.number,
+  [SORT_PRIORITY]: (table1, table2) => table1.last_course_datetime.toMillis() - table2.last_course_datetime.toMillis(),
+  [SORT_NUMBER_ASCENDING]: (table1, table2) => tryParseInt(table1.number) - tryParseInt(table2.number),
+  [SORT_NUMBER_DESCENDING]: (table1, table2) => tryParseInt(table2.number) - tryParseInt(table1.number),
 }
 function _RestaurantDashboardPage() {
-
   const realtimeCtx = React.useContext(realtimeServiceContext);
   const userCtx = React.useContext(userContext);
 
-  var status = ['alarm', 'warning', 'random'];
-  status.random = function () {
-    return this[Math.floor(Math.random() * this.length)];
-  };
-
   const [sort, setSort] = useState(SORT_PRIORITY);
-
   const tables = realtimeCtx.tables;
-
   const [sortedTables, _setSortedTables] = useState([]);
-
 
   const setSortedTables = (newTables) => {
     newTables.sort(sortProviders[sort]);
-    _setSortedTables(newTables);
+    _setSortedTables([...newTables]);
   }
   useEffect(() => setSortedTables(tables), [tables, sort]);
 
