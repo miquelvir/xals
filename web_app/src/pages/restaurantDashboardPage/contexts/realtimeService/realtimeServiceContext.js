@@ -4,6 +4,7 @@ import { useLoginWithAccessToken } from "../../hooks/useLoginWithAccessToken/use
 import { io } from "socket.io-client";
 import { parseTable, parseTables } from "./_tableUtils";
 import { useSnackbar } from "notistack";
+import { useQueueState } from "../../../../hooks/useQueueState/useQueueState";
 
 const ENDPOINT = process.env.REACT_APP_BACKEND_URL;
 
@@ -74,53 +75,46 @@ export const RealtimeServiceContextProvider = ({ children }) => {
     /************ context provider **********/
 
     // new
-    const [newTablesQueue, setNewTablesQueue] = useState([]);
+    const newItems = useQueueState();
     useEffect(() => {
         if (socket === null) return;
-        if (newTablesQueue.length === 0) return;
+        if (newItems.isEmpty()) return;
 
-        newTablesQueue.map(table => {
+        newItems.queue.map(table => {
             socket.emit("v1.tables.new", {number: table});
         });
         
-        setNewTablesQueue([]);
-    }, [newTablesQueue, socket]);
-    const addTable = (table) => {
-        setNewTablesQueue([...newTablesQueue, table]);
-    }
+        newItems.serveAll();
+    }, [newItems, socket]);
+    const addTable = (table) => newItems.push(table);
 
     // finish
-    const [finishTablesQueue, setFinishTablesQueue] = useState([]);
+    const finishedTables = useQueueState();
     useEffect(() => {
         if (socket === null) return;
-        if (finishTablesQueue.length === 0) return;
+        if (finishedTables.isEmpty()) return;
 
-        finishTablesQueue.map(id => {
+        finishedTables.queue.map(id => {
             socket.emit("v1.tables.finish", {id: id});
         });
         
-        setFinishTablesQueue([]);
-    }, [finishTablesQueue, socket]);
-    const finishTable = (id) => {
-        setFinishTablesQueue([...finishTablesQueue, id]);
-    }
+        finishedTables.serveAll();
+    }, [finishedTables, socket]);
+    const finishTable = (id) => finishedTables.push(id);
 
     // next
-    const [nextTablesQueue, setNextCourseQueue] = useState([]);
+    const nextTables = useQueueState();
     useEffect(() => {
         if (socket === null) return;
-        if (nextTablesQueue.length === 0) return;
+        if (nextTables.isEmpty()) return;
 
-        nextTablesQueue.map(id => {
+        nextTables.queue.map(id => {
             socket.emit("v1.tables.next", {id: id});
         });
         
-        setNextCourseQueue([]);
-    }, [nextTablesQueue, socket]);
-    const nextCourse = (id) => {
-        setNextCourseQueue([...nextTablesQueue, id]);
-    }
-
+        nextTables.serveAll();
+    }, [nextTables, socket]);
+    const nextCourse = (id) => nextTables.push(id);
 
     const contextProvider = {
         tables: Object.values(tables),
