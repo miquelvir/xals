@@ -36,7 +36,7 @@ class TablesService:
 
         table.courses.append(
             Course(
-                name="[[finished]]",
+                name=table.next_course,
                 id=Course.generate_new_id(),
                 table_id=table.id,
                 timestamp=datetime.datetime.utcnow(),

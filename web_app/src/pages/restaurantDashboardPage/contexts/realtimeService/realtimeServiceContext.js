@@ -13,7 +13,7 @@ export const realtimeServiceContext = React.createContext(
         setTables: (tables) => {},
         addTable: (table) => {},
         finishTable: (id) => {},
-        nextCourse: (id) => {}
+        nextCourse: (id) => {},
     }
 );
 
