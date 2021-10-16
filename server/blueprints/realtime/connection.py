@@ -28,9 +28,7 @@ def connected():
 
     restaurant_id = get_current_user_restaurant_id()
 
-    tables = Table.query.filter_by(
-        restaurant_id=restaurant_id, finished=False
-    ).all()
+    tables = Table.query.filter_by(restaurant_id=restaurant_id, finished=False).all()
 
     socketio.emit(
         "v1.tables",
