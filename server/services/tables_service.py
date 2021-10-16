@@ -82,4 +82,3 @@ class TablesService:
         server.db.session.commit()
 
         return temp_table
-
