@@ -8,7 +8,6 @@ import clsx from 'clsx';
 
 const defaultAttributes = {
       'p-6': true,
-      'm-4': true,
       'max-w-sm': false,
       'bg-white': true,
       'inline-block': false,

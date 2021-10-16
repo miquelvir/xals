@@ -43,7 +43,7 @@ function _RestaurantDashboardPage() {
     </div>
 
     <div className="px-4">
-      <div className="flex flex-wrap  -mx-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         <NewTableCard addNewTable={realtimeCtx.addTable} existingTableNumbers={tables.map(table => table.number)} />
 
         {sortedTables.map(table =>
