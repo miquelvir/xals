@@ -29,8 +29,8 @@ class Table(MyBase):
     def next_course(self):
         courses = {
             0: "welcome",
-            1: "first course",
-            2: "second course",
+            1: "1st",
+            2: "2nd",
             3: "desserts",
         }
         return courses.get(len(self.courses), "other")
