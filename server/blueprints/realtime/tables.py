@@ -20,8 +20,6 @@ class NewTableOut(BaseModel):
     table: Table.Schema
 
 
-
-
 @socketio.on("v1.tables.new")
 @authenticated_only
 def v1_tables_new(data):
@@ -116,4 +114,3 @@ def v1_tables_delete(data):
         include_self=True,
         json=True,
     )
-
