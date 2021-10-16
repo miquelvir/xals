@@ -49,7 +49,7 @@ function ActionMenu({
       description={`last course was served at ${twoPadding(lastCourse.hour)}:${twoPadding(lastCourse.minute)}`}
       actions={<React.Fragment>
           <NoButton onClick={handleHide} text="cancel" />
-            <YesButton onClick={handleNext} text={table.next_course} />
+            <YesButton onClick={handleNext} text={"next course"} />
             <Button onClick={handleFinish} text="finish" />
       </React.Fragment>}
       {...props} />
