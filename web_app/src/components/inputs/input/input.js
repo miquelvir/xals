@@ -21,7 +21,7 @@ export default function Input({
                form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
                meta,
              }) => <div>
-             {label && <label for={name} className="block text-sm font-medium text-gray-700">{label}</label>}
+             {label && <label for={name} className={`block text-sm font-medium ${palette.text}`}>{label}</label>}
              
              {meta.touched && meta.error && (
                    <label for={name} className="block text-sm font-medium text-red-700">{meta.error}</label>
