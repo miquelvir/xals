@@ -70,7 +70,7 @@ def v1_tables_finish(data):
 
 @socketio.on("v1.tables.next")
 @authenticated_only
-def v1_tables_finish(data):
+def v1_tables_next(data):
     try:
         table_data = FinishedTable(**data)
     except ValidationError:
