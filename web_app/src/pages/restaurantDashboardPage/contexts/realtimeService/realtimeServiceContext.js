@@ -15,6 +15,7 @@ export const realtimeServiceContext = React.createContext(
         addTable: (table) => {},
         finishTable: (id) => {},
         nextCourse: (id) => {},
+        deleteTable: (id) => {}
     }
 );
 
@@ -70,6 +71,16 @@ export const RealtimeServiceContextProvider = ({ children }) => {
 
             enqueueSnackbar(`table ${table.number} has been served... now waiting for ${table.next_course}`, {variant: 'success'});
         });
+        socket.on("v1.tables.delete", data => {
+            const table = data.table;
+
+            setTables(tables => {
+                delete tables[table.id];
+                return {...tables}
+            });
+
+            enqueueSnackbar(`table ${table.number} has been deleted`, {variant: 'warning'});
+        });
     }, [socket]);
 
     /************ context provider **********/
@@ -116,12 +127,27 @@ export const RealtimeServiceContextProvider = ({ children }) => {
     }, [nextTables, socket]);
     const nextCourse = (id) => nextTables.push(id);
 
+    // next
+    const deleteTables = useQueueState();
+    useEffect(() => {
+        if (socket === null) return;
+        if (deleteTables.isEmpty()) return;
+
+        deleteTables.queue.map(id => {
+            socket.emit("v1.tables.delete", {id: id});
+        });
+        
+        deleteTables.serveAll();
+    }, [deleteTables, socket]);
+    const deleteTable = (id) => deleteTables.push(id);
+
     const contextProvider = {
         tables: Object.values(tables),
         setTables: () => {},
         addTable: addTable,
         finishTable: finishTable,
-        nextCourse: nextCourse
+        nextCourse: nextCourse,
+        deleteTable: deleteTable
     };
 
     return <realtimeServiceContext.Provider value={contextProvider}>

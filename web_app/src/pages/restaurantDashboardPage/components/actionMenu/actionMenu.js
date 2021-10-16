@@ -28,6 +28,17 @@ function ActionMenu({
             }})
     };
 
+    const handleDelete = () => {
+        handleHide();
+        confirm({
+            handleSuccess: () => {
+                realtimeCtx.deleteTable(table.id);
+            },
+            handleCancel: () => {
+                handleShow();
+            }})
+    };
+
     const isLastCourse = table.next_course === 'desserts';
 
     const handleNext = () => {
@@ -60,7 +71,8 @@ function ActionMenu({
       actions={<React.Fragment>
           <NoButton onClick={handleHide} text="cancel" />
             <YesButton onClick={handleNext} text={isLastCourse? "desserts & finalize": "next course"} />
-            <Button onClick={handleFinish} text="finish" />
+            {!isLastCourse && <Button onClick={handleFinish} text="finish" />}
+            <Button onClick={handleDelete} text="delete" />
       </React.Fragment>}
       {...props} />
     </React.Fragment>;
