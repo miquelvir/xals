@@ -3,7 +3,6 @@ import { useAccessToken } from "../../hooks/useAccessToken/useAccessToken";
 import { useLoginWithAccessToken } from "../../hooks/useLoginWithAccessToken/useLoginWithAccessToken";
 import { io } from "socket.io-client";
 import { parseTable, parseTables } from "./_tableUtils";
-import { userContext } from "../../../../contexts/userContext";
 import { useSnackbar } from "notistack";
 
 const ENDPOINT = process.env.REACT_APP_BACKEND_URL;

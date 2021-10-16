@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import YesButton from '../../../../components/buttons/yesButton/yesButton';
 import Button from '../../../../components/buttons/button/button';
 import { questionContext } from '../../../../contexts/questionContext';
+import { userContext } from '../../../../contexts/userContext';
 
 export default function NewTableMenu({
   handleHide = () => { },
@@ -12,7 +13,8 @@ export default function NewTableMenu({
   existingTableNumbers = [],
   ...props
 }) {
-  const defaultTables = ['15', '0', '12', '111', '1213', '2', '5', '9']; // TODO API
+  const userCtx = React.useContext(userContext);
+  const defaultTables = (userCtx.params['defaultTables'] ?? []).map(table => table.name);
 
   const handleNewTable = (tableNumber) => {
     return new Promise(function (resolve, reject) {
