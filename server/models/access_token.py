@@ -18,7 +18,7 @@ class AccessToken(MyBase, UserMixin):
     comment = db.Column(db.Text, nullable=True, unique=False)
     token = db.Column(db.Text, nullable=False, unique=True)
 
-    restaurant_id = db.Column(db.Text, db.ForeignKey("restaurant.id"))
+    restaurant_id = db.Column(db.Text, db.ForeignKey("restaurant.id", ondelete='CASCADE'))
 
     issuer_id = db.Column(db.Text, db.ForeignKey("admin.id", ondelete='SET NULL'))
 
