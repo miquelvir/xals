@@ -16,13 +16,15 @@ class Restaurant(MyBase):
     access_tokens = db.relationship(
         "AccessToken",
         backref="restaurant",
+        passive_deletes=True
     )
     admins = db.relationship(
         "Admin",
         backref="restaurant",
+        passive_deletes=True
     )
-    default_tables = db.relationship("DefaultTable", backref="table")
-    tables = db.relationship("Table", backref="restaurant")
+    default_tables = db.relationship("DefaultTable", backref="table", passive_deletes=True)
+    tables = db.relationship("Table", backref="restaurant", passive_deletes=True)
 
     class Schema(BaseModel):
         id: str
