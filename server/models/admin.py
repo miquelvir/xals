@@ -15,12 +15,12 @@ class Admin(MyBase, UserMixin):
     id = db.Column(db.Text, primary_key=True)
     email = db.Column(db.Text, nullable=False, unique=True)
 
-    restaurant_id = db.Column(db.Text, db.ForeignKey("restaurant.id", ondelete="CASCADE"))
+    restaurant_id = db.Column(
+        db.Text, db.ForeignKey("restaurant.id", ondelete="CASCADE")
+    )
 
     access_tokens = db.relationship(
-        "AccessToken",
-        backref="issuer",
-        passive_deletes=True
+        "AccessToken", backref="issuer", passive_deletes=True
     )
 
     def login(self, token: str) -> bool:
