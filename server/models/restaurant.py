@@ -14,16 +14,12 @@ class Restaurant(MyBase):
     warning_minutes = db.Column(db.Integer, nullable=False, default=15)
 
     access_tokens = db.relationship(
-        "AccessToken",
-        backref="restaurant",
-        passive_deletes=True
+        "AccessToken", backref="restaurant", passive_deletes=True
     )
-    admins = db.relationship(
-        "Admin",
-        backref="restaurant",
-        passive_deletes=True
+    admins = db.relationship("Admin", backref="restaurant", passive_deletes=True)
+    default_tables = db.relationship(
+        "DefaultTable", backref="table", passive_deletes=True
     )
-    default_tables = db.relationship("DefaultTable", backref="table", passive_deletes=True)
     tables = db.relationship("Table", backref="restaurant", passive_deletes=True)
 
     class Schema(BaseModel):
