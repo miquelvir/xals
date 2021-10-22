@@ -20,7 +20,7 @@ class AccessToken(MyBase, UserMixin):
 
     restaurant_id = db.Column(db.Text, db.ForeignKey("restaurant.id", ondelete='CASCADE'))
 
-    issuer_id = db.Column(db.Text, db.ForeignKey("admin.id", ondelete='SET NULL'))
+    issuer_id = db.Column(db.Text, db.ForeignKey("admin.id", ondelete="SET NULL"))
 
     @classmethod
     def new(cls, restaurant_id, issuer_id, comment=""):
