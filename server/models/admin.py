@@ -20,13 +20,8 @@ class Admin(MyBase, UserMixin):
     )
 
     access_tokens = db.relationship(
-        "AccessToken", backref="issuer", passive_deletes=True
+        "AccessToken", backref="issuer", cascade="all, delete"
     )
-
-    def login(self, token: str) -> bool:
-        """checks if the token is a valid google sign in token for this email"""
-        # todo !!! do not merge !!! use G Sign in
-        return True
 
     def get_id(self):
         return f"{Admin.PREFIX}{self.id}"
