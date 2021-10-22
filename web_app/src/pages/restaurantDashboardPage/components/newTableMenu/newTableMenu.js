@@ -6,6 +6,8 @@ import Button from '../../../../components/buttons/button/button';
 import { questionContext } from '../../../../contexts/questionContext';
 import { userContext } from '../../../../contexts/userContext';
 
+const tryParseInt = (x) => parseInt(x) ?? x;
+
 export default function NewTableMenu({
   handleHide = () => { },
   handleShow = () => { },
@@ -17,7 +19,9 @@ export default function NewTableMenu({
   
     const [defaultTables, setDefaultTables] = useState([]);
     useEffect(() => {
-      setDefaultTables((userCtx.params['defaultTables'] ?? []).map(table => table.name).sort());
+      setDefaultTables((userCtx.params['defaultTables'] ?? [])
+      .map(table => table.name)
+      .sort((a, b) => tryParseInt(a) - tryParseInt(b)));
     }, [userCtx.params['defaultTables']]);
     
   const handleNewTable = (tableNumber) => {
