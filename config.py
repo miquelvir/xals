@@ -45,9 +45,7 @@ class DevelopmentConfig(Config):
     CSRF_COOKIE_SAMESITE = "Lax"  # allow development frontend server
     FRONTEND_SERVER_URL = "https://127.0.0.1:3000"
 
-    SQLALCHEMY_DATABASE_URI = "sqlite:///%s" % os.path.join(
-        os.path.abspath(os.path.dirname(__file__)), "", "people.db"
-    )
+    SQLALCHEMY_DATABASE_URI = "postgres://bxdyxoqsvvhyxt:ef4120efdf1acb51df3c13535e6a4e30fa60e9b19423b7e9a0b8e1842db77631@ec2-176-34-168-83.eu-west-1.compute.amazonaws.com:5432/d5vibot3fktq2o"
 
 
 class DevelopmentBuiltConfig(DevelopmentConfig):
@@ -76,7 +74,7 @@ class ProductionConfig(Config):
     SESSION_COOKIE_SAMESITE = "Strict"
 
     BACKEND_SERVER_PORT = "443"
-    BACKEND_SERVER_HOST = "xals.herokuapp.com"
+    BACKEND_SERVER_HOST = os.getenv("BACKEND_SERVER_HOST")
     BACKEND_SERVER_URL = "https://%s:%s" % (BACKEND_SERVER_HOST, BACKEND_SERVER_PORT)
     FRONTEND_SERVER_URL = BACKEND_SERVER_URL
 
@@ -87,7 +85,7 @@ class HerokuManualLiveConfig(ProductionConfig):
 
     SECRET_KEY = "super-secret"
 
-    FRONTEND_SERVER_URL = "https://xals.herokuapp.com"
+    FRONTEND_SERVER_URL = os.getenv("BACKEND_SERVER_HOST")
     BACKEND_SERVER_PORT = "443"
     BACKEND_SERVER_HOST = "centrifuga4.herokuapp.com"
 

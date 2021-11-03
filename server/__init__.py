@@ -88,7 +88,7 @@ def init_app(config=None):
 
     migrate.init_app(app, db)
 
-    allowed_origins = "*" if app.config["DEVELOPMENT"] else "https://xals.herokuapp.com"
+    allowed_origins = "*" if app.config["DEVELOPMENT"] else app.config['BACKEND_SERVER_HOST']
     socketio.init_app(app, cors_allowed_origins=allowed_origins)
 
     with app.app_context():
