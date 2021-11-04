@@ -45,7 +45,9 @@ class DevelopmentConfig(Config):
     CSRF_COOKIE_SAMESITE = "Lax"  # allow development frontend server
     FRONTEND_SERVER_URL = "https://127.0.0.1:3000"
 
-    SQLALCHEMY_DATABASE_URI = "postgres://bxdyxoqsvvhyxt:ef4120efdf1acb51df3c13535e6a4e30fa60e9b19423b7e9a0b8e1842db77631@ec2-176-34-168-83.eu-west-1.compute.amazonaws.com:5432/d5vibot3fktq2o"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///%s" % os.path.join(
+        os.path.abspath(os.path.dirname(__file__)), "", "people.db"
+    )
 
 
 class DevelopmentBuiltConfig(DevelopmentConfig):
