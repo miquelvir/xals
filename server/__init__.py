@@ -89,7 +89,9 @@ def init_app(config=None):
     migrate.init_app(app, db)
 
     allowed_origins = (
-        "*" if app.config["DEVELOPMENT"] else "https://"+app.config["BACKEND_SERVER_HOST"]
+        "*"
+        if app.config["DEVELOPMENT"]
+        else "https://" + app.config["BACKEND_SERVER_HOST"]
     )
     socketio.init_app(app, cors_allowed_origins=allowed_origins)
 
