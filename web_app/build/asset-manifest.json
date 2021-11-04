@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "https://fb.unicohotels.com/static/css/main.53181a0a.chunk.css",
+    "main.js": "https://fb.unicohotels.com/static/js/main.c0a805a9.chunk.js",
+    "main.js.map": "https://fb.unicohotels.com/static/js/main.c0a805a9.chunk.js.map",
+    "runtime-main.js": "https://fb.unicohotels.com/static/js/runtime-main.00a9ce2d.js",
+    "runtime-main.js.map": "https://fb.unicohotels.com/static/js/runtime-main.00a9ce2d.js.map",
+    "static/js/2.c753e853.chunk.js": "https://fb.unicohotels.com/static/js/2.c753e853.chunk.js",
+    "static/js/2.c753e853.chunk.js.map": "https://fb.unicohotels.com/static/js/2.c753e853.chunk.js.map",
+    "static/js/3.9f6e8810.chunk.js": "https://fb.unicohotels.com/static/js/3.9f6e8810.chunk.js",
+    "static/js/3.9f6e8810.chunk.js.map": "https://fb.unicohotels.com/static/js/3.9f6e8810.chunk.js.map",
+    "index.html": "https://fb.unicohotels.com/index.html",
+    "static/css/main.53181a0a.chunk.css.map": "https://fb.unicohotels.com/static/css/main.53181a0a.chunk.css.map",
+    "static/js/2.c753e853.chunk.js.LICENSE.txt": "https://fb.unicohotels.com/static/js/2.c753e853.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.00a9ce2d.js",
+    "static/js/2.c753e853.chunk.js",
+    "static/css/main.53181a0a.chunk.css",
+    "static/js/main.c0a805a9.chunk.js"
+  ]
+}
