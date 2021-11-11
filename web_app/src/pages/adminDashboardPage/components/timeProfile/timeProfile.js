@@ -4,7 +4,7 @@ import YesButton from "../../../../components/buttons/yesButton/yesButton";
 import { useSnackbar } from 'notistack';
 import { patchRestaurant } from "../../services/restaurants";
 
-export default function TimeProfile({restaurantId, onPatch, profileName, profileValue}){
+export default function TimeProfile({restaurantId, prefix, onPatch, profileName, profileValue}){
     const { enqueueSnackbar } = useSnackbar();
 
     return <div className='py-4'><Formik
@@ -29,7 +29,7 @@ export default function TimeProfile({restaurantId, onPatch, profileName, profile
             <div className='flex-grow'>
             <Input name="profile"/>
             </div>
-            <YesButton text="save" type="submit" disabled={isSubmitting} loading={isSubmitting} />
+            <YesButton text={`save ${prefix}`} w={'w-32'} type="submit" disabled={isSubmitting} loading={isSubmitting} />
         </div>
         </Form>
                 

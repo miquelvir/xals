@@ -70,7 +70,7 @@ def v1_tables_finish(data):
 
 @socketio.on("v1.tables.next")
 @authenticated_only
-def v1_tables_finish(data):
+def v1_tables_next(data):
     try:
         table_data = FinishedTable(**data)
     except ValidationError:
@@ -86,6 +86,30 @@ def v1_tables_finish(data):
     socketio.emit(
         "v1.tables.next",
         json.loads(NewTableOut(table=table.to_schema()).json()),
+        room=get_current_user_room_id(),
+        include_self=True,
+        json=True,
+    )
+
+
+@socketio.on("v1.tables.delete")
+@authenticated_only
+def v1_tables_delete(data):
+    try:
+        table_data = FinishedTable(**data)
+    except ValidationError:
+        return
+
+    try:
+        table = TablesService.delete(
+            restaurant_id=get_current_user_restaurant_id(), table_id=table_data.id
+        )
+    except KeyError:
+        return
+
+    socketio.emit(
+        "v1.tables.delete",
+        json.loads(NewTableOut(table=table).json()),
         room=get_current_user_room_id(),
         include_self=True,
         json=True,

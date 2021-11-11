@@ -28,11 +28,31 @@ function ActionMenu({
             }})
     };
 
-    const handleNext = () => {
+    const handleDelete = () => {
         handleHide();
         confirm({
             handleSuccess: () => {
-                realtimeCtx.nextCourse(table.id);
+                realtimeCtx.deleteTable(table.id);
+            },
+            handleCancel: () => {
+                handleShow();
+            }})
+    };
+
+    const isLastCourse = table.next_course === 'desserts';
+
+    const handleNext = () => {
+        handleHide();
+
+        if (!isLastCourse) {
+            realtimeCtx.nextCourse(table.id);
+            return;
+        }
+        
+        confirm({
+            title: 'serve desserts and finalize table?',
+            handleSuccess: () => {
+                realtimeCtx.finishTable(table.id);
             },
             handleCancel: () => {
                 handleShow();
@@ -41,6 +61,7 @@ function ActionMenu({
     }
     const lastCourse = table.last_course_datetime.toLocal();
 
+   
    return <React.Fragment>
        <ConfirmModal />
        <TextActionsModal
@@ -49,8 +70,9 @@ function ActionMenu({
       description={`last course was served at ${twoPadding(lastCourse.hour)}:${twoPadding(lastCourse.minute)}`}
       actions={<React.Fragment>
           <NoButton onClick={handleHide} text="cancel" />
-            <YesButton onClick={handleNext} text={table.next_course} />
-            <Button onClick={handleFinish} text="finish" />
+            <YesButton onClick={handleNext} text={isLastCourse? "desserts & finalize": "next course"} />
+            {!isLastCourse && <Button onClick={handleFinish} text="finish" />}
+            <Button onClick={handleDelete} text="delete" />
       </React.Fragment>}
       {...props} />
     </React.Fragment>;

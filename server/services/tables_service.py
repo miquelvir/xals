@@ -36,7 +36,7 @@ class TablesService:
 
         table.courses.append(
             Course(
-                name="[[finished]]",
+                name=table.next_course,
                 id=Course.generate_new_id(),
                 table_id=table.id,
                 timestamp=datetime.datetime.utcnow(),
@@ -66,3 +66,19 @@ class TablesService:
         server.db.session.commit()
 
         return table
+
+    @staticmethod
+    def delete(restaurant_id, table_id):
+        table = Table.query.filter_by(
+            restaurant_id=restaurant_id, id=table_id
+        ).one_or_none()
+
+        if table is None:
+            raise KeyError("no table found for this id")
+
+        temp_table = table.to_schema()
+
+        server.db.session.delete(table)
+        server.db.session.commit()
+
+        return temp_table

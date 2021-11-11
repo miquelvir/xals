@@ -15,17 +15,13 @@ class Admin(MyBase, UserMixin):
     id = db.Column(db.Text, primary_key=True)
     email = db.Column(db.Text, nullable=False, unique=True)
 
-    restaurant_id = db.Column(db.Text, db.ForeignKey("restaurant.id"))
-
-    access_tokens = db.relationship(
-        "AccessToken",
-        backref="issuer",
+    restaurant_id = db.Column(
+        db.Text, db.ForeignKey("restaurant.id", ondelete="CASCADE")
     )
 
-    def login(self, token: str) -> bool:
-        """checks if the token is a valid google sign in token for this email"""
-        # todo !!! do not merge !!! use G Sign in
-        return True
+    access_tokens = db.relationship(
+        "AccessToken", backref="issuer", cascade="all, delete"
+    )
 
     def get_id(self):
         return f"{Admin.PREFIX}{self.id}"

@@ -10,4 +10,4 @@ class Course(MyBase):
     name = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False)
 
-    table_id = db.Column(db.Text, db.ForeignKey("table.id"))
+    table_id = db.Column(db.Text, db.ForeignKey("table.id", ondelete="CASCADE"))

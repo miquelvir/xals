@@ -12,6 +12,7 @@ Source code of XALS, the restaurant course timer.
 [`DEPLOY DOCS TO GH-PAGES`](https://github.com/miquelvir/xals/actions/workflows/deploy-docs.yml)
 
 STAGING: https://xals.herokuapp.com/
+PRODUCTION: https://fb.unicohotels.com/
 
 # SET UP FOR DEVELOPMENT
 ## INSTALLING

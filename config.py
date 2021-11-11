@@ -76,7 +76,7 @@ class ProductionConfig(Config):
     SESSION_COOKIE_SAMESITE = "Strict"
 
     BACKEND_SERVER_PORT = "443"
-    BACKEND_SERVER_HOST = "xals.herokuapp.com"
+    BACKEND_SERVER_HOST = os.getenv("BACKEND_SERVER_HOST")
     BACKEND_SERVER_URL = "https://%s:%s" % (BACKEND_SERVER_HOST, BACKEND_SERVER_PORT)
     FRONTEND_SERVER_URL = BACKEND_SERVER_URL
 
@@ -87,7 +87,7 @@ class HerokuManualLiveConfig(ProductionConfig):
 
     SECRET_KEY = "super-secret"
 
-    FRONTEND_SERVER_URL = "https://xals.herokuapp.com"
+    FRONTEND_SERVER_URL = os.getenv("BACKEND_SERVER_HOST")
     BACKEND_SERVER_PORT = "443"
     BACKEND_SERVER_HOST = "centrifuga4.herokuapp.com"
 

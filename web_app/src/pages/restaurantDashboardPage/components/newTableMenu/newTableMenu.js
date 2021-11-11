@@ -1,9 +1,12 @@
 import TextActionsModal from '../../../../components/textActionsModal/textActionsModal';
 import NoButton from '../../../../components/buttons/noButton/noButton';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import YesButton from '../../../../components/buttons/yesButton/yesButton';
 import Button from '../../../../components/buttons/button/button';
 import { questionContext } from '../../../../contexts/questionContext';
+import { userContext } from '../../../../contexts/userContext';
+
+const tryParseInt = (x) => parseInt(x) ?? x;
 
 export default function NewTableMenu({
   handleHide = () => { },
@@ -12,8 +15,15 @@ export default function NewTableMenu({
   existingTableNumbers = [],
   ...props
 }) {
-  const defaultTables = ['15', '0', '12', '111', '1213', '2', '5', '9']; // TODO API
-
+  const userCtx = React.useContext(userContext);
+  
+    const [defaultTables, setDefaultTables] = useState([]);
+    useEffect(() => {
+      setDefaultTables((userCtx.params['defaultTables'] ?? [])
+      .map(table => table.name)
+      .sort((a, b) => tryParseInt(a) - tryParseInt(b)));
+    }, [userCtx.params['defaultTables']]);
+    
   const handleNewTable = (tableNumber) => {
     return new Promise(function (resolve, reject) {
       addNewTable(tableNumber);

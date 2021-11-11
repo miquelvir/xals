@@ -31,8 +31,8 @@ jobs:
           CI: false
           REACT_CHECK_NEEDS: true
           REACT_APP_API_VERSION: v1
-          REACT_APP_BACKEND_URL: https://xals.herokuapp.com
-          PUBLIC_URL: https://xals.herokuapp.com
+          REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_HOST_URL }}
+          PUBLIC_URL: ${{ secrets.REACT_APP_BACKEND_HOST_URL }}
           REACT_APP_GOOGLE_CLIENT_ID: ${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }}
           INLINE_RUNTIME_CHUNK: false
           DOCS_URL: https://miquelvir.github.io/xals/

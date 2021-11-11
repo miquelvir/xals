@@ -31,6 +31,7 @@ export const ZoneTimeProfile = ({ restaurantId }) => {
             restaurantId={restaurantId}
             profileValue={profiles.alarm_minutes} 
             profileName={'alarm_minutes'}
+            prefix={'alarm'}
         />
 
         <TimeProfile 
@@ -38,6 +39,7 @@ export const ZoneTimeProfile = ({ restaurantId }) => {
             restaurantId={restaurantId}
             profileValue={profiles.warning_minutes} 
             profileName={'warning_minutes'}
+            prefix={'warning'}
             />
         </div>
     </Zone>

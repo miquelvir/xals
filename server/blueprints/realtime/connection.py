@@ -13,7 +13,7 @@ from server.blueprints.realtime._utils import (
     get_current_user_room_id,
     get_current_user_restaurant_id,
 )
-from server.models import AccessToken, Table
+from server.models import AccessToken, Table, Restaurant, DefaultTable
 from server.services.tables_service import TablesService
 
 
@@ -26,9 +26,9 @@ class AllActiveTables(BaseModel):
 def connected():
     join_room(get_current_user_room_id())
 
-    tables = Table.query.filter_by(
-        restaurant_id=get_current_user_restaurant_id(), finished=False
-    ).all()
+    restaurant_id = get_current_user_restaurant_id()
+
+    tables = Table.query.filter_by(restaurant_id=restaurant_id, finished=False).all()
 
     socketio.emit(
         "v1.tables",

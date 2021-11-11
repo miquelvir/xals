@@ -130,4 +130,7 @@ def login_access_token():
         "restaurantName": token.restaurant.name,
         "warningMinutes": token.restaurant.warning_minutes,
         "alarmMinutes": token.restaurant.alarm_minutes,
+        "defaultTables": [
+            t.to_schema().dict() for t in token.restaurant.default_tables
+        ],
     }, 200

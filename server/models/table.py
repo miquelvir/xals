@@ -15,7 +15,9 @@ class Table(MyBase):
     finished = db.Column(db.Boolean, nullable=False, default=False)
 
     courses = db.relationship("Course", backref="table")
-    restaurant_id = db.Column(db.Text, db.ForeignKey("restaurant.id"))
+    restaurant_id = db.Column(
+        db.Text, db.ForeignKey("restaurant.id", ondelete="CASCADE")
+    )
 
     @hybrid_property
     def last_course_datetime(self):
@@ -29,8 +31,8 @@ class Table(MyBase):
     def next_course(self):
         courses = {
             0: "welcome",
-            1: "first course",
-            2: "second course",
+            1: "1st",
+            2: "2nd",
             3: "desserts",
         }
         return courses.get(len(self.courses), "other")
