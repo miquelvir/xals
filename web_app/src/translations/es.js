@@ -1,6 +1,6 @@
 export const es = {
     "new": "nuevo",
-    "administratorEmail": "correu d'administrador",
+    "administratorEmail": "correo de administrador",
     "descriptionAddAdmin": "esto añadirá un nuevo administrador root en el sistema; los administradores tienen acceso completo a todos los restaurantes y usuarios (incluyendo a otros administradores)",
     "errorAdminRetrieval": "no se han podido obtener los administradores root",
     "addAdmin": "nuevo administrador root añadido",
@@ -20,7 +20,7 @@ export const es = {
     "markedFinish": "se ha marcado como finalizada",
     "servedWaiting": "ha sido servida... ahora esperando a",
     "has been deleted": "ha sido eliminada",
-    "errorPageAccess": "no puedes acceder a esta pagina",
+    "errorPageAccess": "no puedes acceder a esta página",
     "something went wrong": "algo ha ido mal",
     "no": "no",
     "yes": "si",
