@@ -5,6 +5,7 @@ import YesButton from '../../../../components/buttons/yesButton/yesButton';
 import Button from '../../../../components/buttons/button/button';
 import { questionContext } from '../../../../contexts/questionContext';
 import { userContext } from '../../../../contexts/userContext';
+import { useTranslation } from 'react-i18next';
 
 const tryParseInt = (x) => parseInt(x) ?? x;
 
@@ -16,7 +17,8 @@ export default function NewTableMenu({
   ...props
 }) {
   const userCtx = React.useContext(userContext);
-  
+  const { t, i18n } = useTranslation();
+
     const [defaultTables, setDefaultTables] = useState([]);
     useEffect(() => {
       setDefaultTables((userCtx.params['defaultTables'] ?? [])
@@ -39,7 +41,7 @@ export default function NewTableMenu({
   const handleAskCustomInput = () => {
     handleHide();
     prompt.prompt({
-      title: "table #",
+      title: "table #", //todo: this one?
       handleSubmit: (result) => new Promise(function (resolve, reject) {
         handleNewTable(result).then(() => resolve(), () => reject())
       }),
@@ -55,12 +57,12 @@ export default function NewTableMenu({
   return <React.Fragment>
     <TextActionsModal
       handleHide={handleHide}
-      title="new table2"
-      description="start timer for a new table"
+      title={t("new table2")}
+      description={t("startTimerTable")}
       disabled={loading !== false}
       actions={<React.Fragment>
-        <NoButton onClick={handleHide} text="cancel" disabled={loading!==false} />
-        <YesButton onClick={handleAskCustomInput} text="custom" disabled={loading!==false} />
+        <NoButton onClick={handleHide} text={t("cancel")} disabled={loading!==false} />
+        <YesButton onClick={handleAskCustomInput} text={t("custom")} disabled={loading!==false} />
       </React.Fragment>}
       {...props}>
 

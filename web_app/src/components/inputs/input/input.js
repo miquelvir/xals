@@ -7,7 +7,7 @@ import { palette } from '../../../palette';
 export default function Input({
     name,
     label=null,
-    type='text',
+    type='text', //todo: this one?
     lead=null,
     trail=null,
     placeholder='',

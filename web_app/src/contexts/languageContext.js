@@ -19,7 +19,7 @@ export const LanguageContextProvider = ({ children }) => {
     const localStorageLanguage = localStorage.getItem(LOCALSTORAGE_LANGUAGE);
     const [language, _setLanguage] = useState(LANGUAGES.includes(localStorageLanguage)? localStorageLanguage: LANGUAGE_EN);
     const setLanguage = (newLanguage) => {
-        if (!LANGUAGES.includes(newLanguage)) throw new Error(`invalid language '${newLanguage}' is not one of the valid options: '${LANGUAGES}'`);
+        if (!LANGUAGES.includes(newLanguage)) throw new Error(`invalid language '${newLanguage}' is not one of the valid options: '${LANGUAGES}'`); //todo: this?
         _setLanguage(newLanguage);
         localStorage.setItem(LOCALSTORAGE_LANGUAGE, newLanguage);
         i18n.changeLanguage(newLanguage);

@@ -5,8 +5,10 @@ import { io } from "socket.io-client";
 import { parseTable, parseTables } from "./_tableUtils";
 import { useSnackbar } from "notistack";
 import { useQueueState } from "../../../../hooks/useQueueState/useQueueState";
+import { useTranslation } from 'react-i18next';
 
-const ENDPOINT = process.env.REACT_APP_BACKEND_URL;
+const ENDPOINT = process.env.REACT_APP_BACKEND_URL;ç
+const { t, i18n } = useTranslation();
 
 export const realtimeServiceContext = React.createContext(
     {
@@ -59,7 +61,7 @@ export const RealtimeServiceContextProvider = ({ children }) => {
                 return {...tables}
             });
 
-            enqueueSnackbar(`table ${table.number} has been marked as finished`, {variant: 'success'});
+            enqueueSnackbar(`${t("table")} ${table.number} ${t("markedFinish")}`, {variant: 'success'});
         });
         socket.on("v1.tables.next", data => {
             const table = parseTable(data.table);
@@ -69,7 +71,7 @@ export const RealtimeServiceContextProvider = ({ children }) => {
                 return {...tables}
             });
 
-            enqueueSnackbar(`table ${table.number} has been served... now waiting for ${table.next_course}`, {variant: 'success'});
+            enqueueSnackbar(`${t("table")} ${table.number} ${t("servedWaiting")} ${table.next_course}`, {variant: 'success'});
         });
         socket.on("v1.tables.delete", data => {
             const table = data.table;
@@ -79,7 +81,7 @@ export const RealtimeServiceContextProvider = ({ children }) => {
                 return {...tables}
             });
 
-            enqueueSnackbar(`table ${table.number} has been deleted`, {variant: 'warning'});
+            enqueueSnackbar(`${t("table")} ${table.number} ${t("has been deleted")}`, {variant: 'warning'});
         });
     }, [socket]);
 

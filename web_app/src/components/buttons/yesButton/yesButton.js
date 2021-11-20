@@ -1,4 +1,5 @@
 import Button from "../button/button";
+import {useTranslation} from "react-i18next";
 
 /**
  * Yes (green) button component
@@ -9,9 +10,12 @@ export default function YesButton({
   onClick = () => { },
   ...props
 }) {
+
+  const { t, i18n } = useTranslation();
+
   return <Button
     onClick={onClick}
-    text={text}
+    text={t(text)}
     bgColor='bg-green-500 active:hover:bg-green-600'
     textColor='text-white'
     ring='focus:ring-green-500'

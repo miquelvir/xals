@@ -5,6 +5,7 @@ import React from 'react';
 import YesButton from '../buttons/yesButton/yesButton';
 import Input from '../inputs/input/input';
 import {Formik, Form} from 'formik';
+import {useTranslation} from "react-i18next";
 
 export default function QuestionModal({
   title = null,
@@ -15,7 +16,8 @@ export default function QuestionModal({
   handleSubmit = (_) => new Promise.resolve(),
   ...props
 }) {
-  
+
+  const { t, i18n } = useTranslation();
   return <Formik
        initialValues={{ question: '' }}
        onSubmit={(values, { setSubmitting, setErrors}) => {
@@ -23,7 +25,7 @@ export default function QuestionModal({
             handleHide();
             setSubmitting(false);
           }, () => {
-            setErrors({question: "unable to finalize request"});
+            setErrors({question: "unable to finalize request"}); //todo: this one?
             setSubmitting(false);
           });
        }}
@@ -39,8 +41,8 @@ export default function QuestionModal({
                 <NoButton onClick={() => {
                   handleHide();
                   handleCancel();
-                  }} text="cancel" disabled={isSubmitting} />
-                <YesButton text="submit" type="submit" disabled={isSubmitting} loading={isSubmitting} />
+                  }} text={t("cancel")} disabled={isSubmitting} />
+                <YesButton text={t("submit")} type="submit" disabled={isSubmitting} loading={isSubmitting} />
               </React.Fragment>}
               {...props}>
 
