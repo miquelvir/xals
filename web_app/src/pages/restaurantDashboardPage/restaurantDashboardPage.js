@@ -49,9 +49,9 @@ function _RestaurantDashboardPage() {
     <TableCard table={table} key={table.id} />)}
 </div>;
 
-const AlertsMenu = () => <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+/*const AlertsMenu = () => <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
  {notifications.map(x => x.toString())}
-</div>;
+</div>;*/
 
   return <div>
     <div className='p-2 pt-4 pl-8 pr-8 inline-block w-full'>
@@ -60,14 +60,16 @@ const AlertsMenu = () => <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 l
       </p></div>
       <div className='float-right'>
         <SortButton sort={sort} setSort={setSort} />
-        <AlertsButton menu={menu} setMenu={setMenu} />
+        { 
+          // <AlertsButton menu={menu} setMenu={setMenu} />
+        }
         <ThemeButton />
         <LanguageButton /></div>
 
     </div>
 
     <div className="p-4">
-      {menu == MENU_HOME? <HomeMenu />: <AlertsMenu />}
+      {menu == MENU_HOME? <HomeMenu />: null}
     </div>
   </div>;
 }
