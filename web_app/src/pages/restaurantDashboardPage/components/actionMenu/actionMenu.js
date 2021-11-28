@@ -41,11 +41,11 @@ function ActionMenu({
 
     const isLastCourse = table.next_course === 'desserts';
 
-    const handleNext = () => {
+    const handleNext = (desserts = false) => {
         handleHide();
 
         if (!isLastCourse) {
-            realtimeCtx.nextCourse(table.id);
+            realtimeCtx.nextCourse(table.id, desserts);
             return;
         }
         
@@ -65,15 +65,15 @@ function ActionMenu({
    return <React.Fragment>
        <ConfirmModal />
        <TextActionsModal
-      handleHide={handleHide}
-      title={`Table ${table.number}`}
-      description={`last course was served at ${twoPadding(lastCourse.hour)}:${twoPadding(lastCourse.minute)}`}
-      actions={<React.Fragment>
-          <NoButton onClick={handleHide} text="cancel" />
-            <YesButton onClick={handleNext} text={isLastCourse? "desserts & finalize": "next course"} />
-            {!isLastCourse && <Button onClick={handleFinish} text="finish" />}
-            <Button onClick={handleDelete} text="delete" />
-      </React.Fragment>}
+            handleHide={handleHide}
+            title={`Table ${table.number}`}
+            description={`last course was served at ${twoPadding(lastCourse.hour)}:${twoPadding(lastCourse.minute)}`}
+            actions={<React.Fragment>
+                    <NoButton onClick={handleHide} text="cancel" />
+                    { !isLastCourse && <YesButton onClick={() => handleNext(true)} text="desserts" /> }
+                    <YesButton onClick={() => handleNext(false)} text={isLastCourse? "finalize": "next"} />
+                    <Button onClick={handleDelete} text="delete" />
+            </React.Fragment>}
       {...props} />
     </React.Fragment>;
 }

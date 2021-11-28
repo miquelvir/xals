@@ -11,7 +11,7 @@ export const useQueueState = (default_=[]) => {
     const serve = (idx) => setQueue(queue => { 
         queue.splice(idx, 1);
         return setQueue([...queue]);
-        }
+    }
     );
     
     return {
