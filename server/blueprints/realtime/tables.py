@@ -85,7 +85,9 @@ def v1_tables_next(data):
 
     try:
         table = TablesService.next_course(
-            restaurant_id=get_current_user_restaurant_id(), table_id=table_data.id, name=table_data.name
+            restaurant_id=get_current_user_restaurant_id(),
+            table_id=table_data.id,
+            name=table_data.name,
         )
     except KeyError:
         return
