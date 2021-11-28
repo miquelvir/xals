@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 
 export const MENU_HOME = 'home';
@@ -21,3 +22,4 @@ function AlertsButton({
 }
 
 export default AlertsButton;
+*/

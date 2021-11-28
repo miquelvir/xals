@@ -1,3 +1,4 @@
+/*
 import BaseCard from './baseCard';
 import { StopWatch } from '../stopWatch/stopWatch';
 import ActionMenu from '../actionMenu/actionMenu';
@@ -36,7 +37,9 @@ function TableCard({
             <div className="flex space-x-4 pt-4" >
                <div className="text-left">
                   <span className={`inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2 bottom-0 left-0 ${theme.fg}`}>
-                     {table.next_course}
+                     { 
+                        table.next_course
+                     }
                   </span>
                </div>
                <div className="flex-1">
@@ -54,3 +57,4 @@ function TableCard({
 }
 
 export default TableCard;
+*/
