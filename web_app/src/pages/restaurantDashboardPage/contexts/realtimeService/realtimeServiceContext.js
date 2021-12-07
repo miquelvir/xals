@@ -17,7 +17,11 @@ export const realtimeServiceContext = React.createContext(
         addTable: (table) => {},
         finishTable: (id) => {},
         nextCourse: (id) => {},
-        deleteTable: (id) => {}
+        deleteTable: (id) => {},
+        /*onCourseServed: {
+            suscribe: (fun) => {},
+            unsuscribe: (fun) => {}
+        }*/
     }
 );
 
@@ -32,6 +36,16 @@ export const RealtimeServiceContextProvider = ({ children }) => {
     const [restaurantId, accessToken] = useAccessToken();
     const [loggedIn, _] = useLoginWithAccessToken(restaurantId, accessToken);
     
+    /*********** onCourseServed callback ****/
+    /*const onCourseServedCallbacks = useQueueState([]);
+    const _onCourseServed = {
+        suscribe: (fun) => onCourseServedCallbacks.push(fun),
+        unsuscribe: (fun) => onCourseServedCallbacks.serve(fun)
+    };
+    const onCourseServed = (table) => {
+        onCourseServedCallbacks.queue.forEach(callback => callback(table));
+    }*/
+
     /**************** socket ****************/
     const [socket, setSocket] = useState(null);
 
@@ -44,6 +58,7 @@ export const RealtimeServiceContextProvider = ({ children }) => {
         setSocket(newSocket);
         return () => newSocket.close();
     }, [loggedIn]);
+    
 
     
     useEffect(() => {
@@ -88,7 +103,6 @@ export const RealtimeServiceContextProvider = ({ children }) => {
     }, [socket]);
 
     /************ context provider **********/
-
     // new
     const newItems = useQueueState();
     useEffect(() => {
@@ -123,15 +137,20 @@ export const RealtimeServiceContextProvider = ({ children }) => {
         if (socket === null) return;
         if (nextTables.isEmpty()) return;
 
-        nextTables.queue.map(id => {
-            socket.emit("v1.tables.next", {id: id});
+        nextTables.queue.map(table => {
+            socket.emit("v1.tables.next", {id: table.id, name: table.name});
+            console.log(table);
         });
         
         nextTables.serveAll();
     }, [nextTables, socket]);
-    const nextCourse = (id) => nextTables.push(id);
 
-    // next
+    const nextCourse = (id, desserts = false) => {
+        console.log(tables[id], tables[id].next_course);
+        nextTables.push({id: id, name: desserts? 'desserts': parseInt(tables[id].next_course)+1})
+    };
+
+    // delete
     const deleteTables = useQueueState();
     useEffect(() => {
         if (socket === null) return;
@@ -151,7 +170,8 @@ export const RealtimeServiceContextProvider = ({ children }) => {
         addTable: addTable,
         finishTable: finishTable,
         nextCourse: nextCourse,
-        deleteTable: deleteTable
+        deleteTable: deleteTable,
+        // onCourseServed: _onCourseServed
     };
 
     return <realtimeServiceContext.Provider value={contextProvider}>

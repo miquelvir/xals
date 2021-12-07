@@ -44,6 +44,11 @@ class FinishedTable(BaseModel):
     id: str
 
 
+class NextCoureTable(BaseModel):
+    id: str
+    name: str
+
+
 @socketio.on("v1.tables.finish")
 @authenticated_only
 def v1_tables_finish(data):
@@ -72,13 +77,17 @@ def v1_tables_finish(data):
 @authenticated_only
 def v1_tables_next(data):
     try:
-        table_data = FinishedTable(**data)
-    except ValidationError:
+        table_data = NextCoureTable(**data)
+    except ValidationError as e:
         return
+
+    print(table_data.id, table_data.name)
 
     try:
         table = TablesService.next_course(
-            restaurant_id=get_current_user_restaurant_id(), table_id=table_data.id
+            restaurant_id=get_current_user_restaurant_id(),
+            table_id=table_data.id,
+            name=table_data.name,
         )
     except KeyError:
         return

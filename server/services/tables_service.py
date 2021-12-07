@@ -47,7 +47,7 @@ class TablesService:
         return table
 
     @staticmethod
-    def next_course(restaurant_id, table_id):
+    def next_course(restaurant_id, table_id, name):
         table = Table.query.filter_by(
             restaurant_id=restaurant_id, id=table_id
         ).one_or_none()
@@ -57,7 +57,7 @@ class TablesService:
 
         table.courses.append(
             Course(
-                name=table.next_course,
+                name=name,
                 id=Course.generate_new_id(),
                 table_id=table.id,
                 timestamp=datetime.datetime.utcnow(),

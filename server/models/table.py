@@ -29,13 +29,10 @@ class Table(MyBase):
 
     @hybrid_property
     def next_course(self):
-        courses = {
-            0: "welcome",
-            1: "1st",
-            2: "2nd",
-            3: "desserts",
-        }
-        return courses.get(len(self.courses), "other")
+        for course in self.courses:
+            if course.name == "desserts":
+                return "desserts"
+        return len(self.courses)
 
     class Schema(BaseModel):
         restaurant_id: str
