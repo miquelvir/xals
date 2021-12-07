@@ -25,7 +25,7 @@ export default function QuestionModal({
             handleHide();
             setSubmitting(false);
           }, () => {
-            setErrors({question: "unable to finalize request"}); //todo: this one?
+            setErrors({question: t("unable to finalize request")});
             setSubmitting(false);
           });
        }}

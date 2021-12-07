@@ -8,6 +8,7 @@ import { useSnackbar } from 'notistack';
 import { getRestaurantDefaultTables, postRestaurantDefaultTables, deleteRestaurantDefaultTables } from "../../services/defaultTables";
 import { useCollectionState } from "../../../../hooks/useCollectionState/useCollectionState";
 import { useState } from "react";
+import {useTranslation} from "react-i18next";
 
 export const ZoneDefaultTables = ({ restaurantId }) => {
     const [tables, setTables, tableUtils] = useCollectionState('name');
@@ -23,19 +24,19 @@ export const ZoneDefaultTables = ({ restaurantId }) => {
 
     const confirm = React.useContext(confirmContext);
     const prompt = React.useContext(questionContext);
-  
+    const { t, i18n } = useTranslation();
     const handleDeleteDefaultTable = (name) => {
       // TODO API
       confirm({
-        title: `Do you want to delete Table ${name}?`,
-        description: `Deleting Table ${name} will only remove it from the default tables list.`,
+        title: `${t("deleteTableQuestion")} ${name}?`,
+        description: `${t("Deleting Table")} ${name} ${t("onlyDeleteFromList")}`,
         handleSuccess: () => {
           setLoading(name);
             deleteRestaurantDefaultTables(restaurantId, name).then(() => {
                 tableUtils.remove(name);
-                enqueueSnackbar("deleted default table", { variant: 'success' });
+                enqueueSnackbar(t("deleted default table"), { variant: 'success' });
             }).catch(() => {
-                enqueueSnackbar("unable to delete default table", { variant: 'error' });
+                enqueueSnackbar(t("unable to delete default table"), { variant: 'error' });
             }).finally(() => setLoading(null));
             
         }
@@ -45,16 +46,16 @@ export const ZoneDefaultTables = ({ restaurantId }) => {
     const handleAddNewDefaultTable = () => {
   
       prompt.prompt({
-        title: 'table #',
-        description: 'what is the name of the new table you want to add?',
+        title: t("table #"),
+        description: t("what is the name of the new table you want to add?"),
         handleSubmit: (name) => {
             return new Promise(function (resolve, reject) {
                 postRestaurantDefaultTables(restaurantId, name).then((table) => {
                     tableUtils.add(table);
-                    enqueueSnackbar("added new default table", { variant: 'success' });
+                    enqueueSnackbar(t("added new default table"), { variant: 'success' });
                     resolve();
                 }).catch(() => {
-                    enqueueSnackbar("unable to add new default table", { variant: 'error' });
+                    enqueueSnackbar(t("unable to add new default table"), { variant: 'error' });
                     reject();
                 })
                 })
@@ -65,7 +66,7 @@ export const ZoneDefaultTables = ({ restaurantId }) => {
     return <Zone title="default tables">
       {tables.map(table => <Button onClick={() => handleDeleteDefaultTable(table.name)} text={table.name} key={table.name} loading={loading===table.name} />)}
   
-      <YesButton onClick={handleAddNewDefaultTable} text={"ADD NEW"} />
+      <YesButton onClick={handleAddNewDefaultTable} text={t("ADD NEW")} />
     </Zone>;
   }
   

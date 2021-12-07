@@ -49,9 +49,8 @@ export const ZoneRootAdministrators = ({ privacyFilter }) => {
       ))}
     </div>
     <div className='grid justify-items-center  pt-8'>
-      <YesButton onClick={handleNewAdministrator} text={"ADD NEW"} w='w-64'/>
+      <YesButton onClick={handleNewAdministrator} text={t("ADD NEW")} w='w-64'/>
     </div>
 
   </Zone>
 }
-//todo: ask add new

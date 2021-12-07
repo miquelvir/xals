@@ -28,6 +28,15 @@ export const en = {
     "difficultUndone": "this action might not be easily undone",
     "confirm": "confirm",
     "submit": "submit",
-
-
+    "unable to finalize request": "unable to finalize request",
+    "deleteTableQuestion": "Do you want to delete Table",
+    "Deleting Table": "Deleting Table",
+    "onlyDeleteFromList":"will only remove it from the default tables list.",
+    "deleted default table": "deleted default table",
+    "unable to delete default table": "unable to delete default table",
+    "table #": "table #",
+    "nameTableQuestion": "what is the name of the new table you want to add?",
+    "added new default table":"added new default table",
+    "unable to add new default table": "unable to add new default table",
+    "ADD NEW": "ADD NEW"
 };

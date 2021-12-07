@@ -28,5 +28,16 @@ export const es = {
     "difficultUndone": "esta acción podria no deshacerse fácilmente",
     "confirm": "confirmar",
     "submit": "enviar",
+    "unable to finalize request": "no se ha podido continuar con la solicitud",
+    "deleteTableQuestion": "Quieres borrar la Mesa",
+    "Deleting Table": "Borrar la Mesa",
+    "onlyDeleteFromList": "solo la sacará de la lista de mesas predeterminadas.",
+    "deleted default table": "mesa por defecto eliminada",
+    "unable to delete default table": "no se ha podido eliminar la mesa predeterminada.",
+    "table #": "mesa #",
+    "nameTableQuestion": "cuál es el nombre de la mesa que quieres añadir?",
+    "added new default table": "nueva mesa predeterminada añadida",
+    "unable to add new default table": "no se ha podido añadir la nueva mesa predeterminada.",
+    "ADD NEW": "AÑADIR NUEVA"
 
 };

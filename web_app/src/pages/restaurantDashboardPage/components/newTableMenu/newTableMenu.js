@@ -41,7 +41,7 @@ export default function NewTableMenu({
   const handleAskCustomInput = () => {
     handleHide();
     prompt.prompt({
-      title: "table #", //todo: this one?
+      title: t("table #"),
       handleSubmit: (result) => new Promise(function (resolve, reject) {
         handleNewTable(result).then(() => resolve(), () => reject())
       }),

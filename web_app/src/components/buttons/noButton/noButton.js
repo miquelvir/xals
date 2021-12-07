@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
  */
 export default function NoButton({
     attributes={},
-    text="no", //todo: how to translate this one
+    text="no",
     onClick= () => {},
     ...props
     }) {
@@ -15,7 +15,7 @@ export default function NoButton({
 
   return <Button 
             onClick={onClick}
-            text={t(text)} //todo: like this?
+            text={t(text)} //
             bgColor='bg-red-600 hover:active:bg-red-700'
             textColor='text-white'
             ring='focus:ring-red-500'

@@ -1,0 +1,21 @@
+.center{
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+}
+
+.headerName{
+    position: relative;
+    font-weight: bold;
+    text-align: center;
+    font-size: xx-large;
+    top: 50px;
+}
+
+.descriptionName{
+    position: relative;
+    display: block;
+    text-align: center;
+    top: 25px;
+}

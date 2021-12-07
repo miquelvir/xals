@@ -7,8 +7,8 @@ import { useSnackbar } from "notistack";
 import { useQueueState } from "../../../../hooks/useQueueState/useQueueState";
 import { useTranslation } from 'react-i18next';
 
-const ENDPOINT = process.env.REACT_APP_BACKEND_URL;ç
-const { t, i18n } = useTranslation();
+const ENDPOINT = process.env.REACT_APP_BACKEND_URL;
+
 
 export const realtimeServiceContext = React.createContext(
     {
@@ -34,6 +34,8 @@ export const RealtimeServiceContextProvider = ({ children }) => {
     
     /**************** socket ****************/
     const [socket, setSocket] = useState(null);
+
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
         if (!loggedIn) return;

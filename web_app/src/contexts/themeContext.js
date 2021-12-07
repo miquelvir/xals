@@ -21,7 +21,7 @@ export const themeContext = React.createContext(
 export const ThemeContextProvider = ({ children }) => {
     const [theme, _setTheme] = useState(localStorage.getItem(LOCALSTORAGE_THEME) === THEME_DARK? THEME_DARK: THEME_LIGHT);
     const setTheme = (newTheme) => {
-        if (!THEMES.includes(newTheme)) throw new Error(`invalid theme '${newTheme}' is not one of the valid options: '${THEMES}'`); //todo: this?
+        if (!THEMES.includes(newTheme)) throw new Error(`invalid theme '${newTheme}' is not one of the valid options: '${THEMES}'`);
         _setTheme(newTheme);
         localStorage.setItem(LOCALSTORAGE_THEME, newTheme);
     }
