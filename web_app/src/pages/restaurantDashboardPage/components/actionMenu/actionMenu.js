@@ -7,6 +7,7 @@ import Button from '../../../../components/buttons/button/button';
 import YesButton from '../../../../components/buttons/yesButton/yesButton';
 import NoButton from '../../../../components/buttons/noButton/noButton';
 import { realtimeServiceContext } from '../../contexts/realtimeService/realtimeServiceContext';
+import { useTranslation } from 'react-i18next';
 
 function ActionMenu({
     table,
@@ -16,6 +17,7 @@ function ActionMenu({
 }) {
     const confirm = React.useContext(confirmContext);
     const realtimeCtx = React.useContext(realtimeServiceContext);
+    const { t, i18n } = useTranslation();
 
     const handleFinish = () => {
         handleHide();
@@ -67,7 +69,7 @@ function ActionMenu({
        <TextActionsModal
             handleHide={handleHide}
             title={`Table ${table.number}`}
-            description={`last course was served at ${twoPadding(lastCourse.hour)}:${twoPadding(lastCourse.minute)}`}
+            description={`{t("timeLastCourse")} ${twoPadding(lastCourse.hour)}:${twoPadding(lastCourse.minute)}`}
             actions={<React.Fragment>
                     <NoButton onClick={handleHide} text="cancel" />
                     { !isLastCourse && <YesButton onClick={() => handleNext(true)} text="desserts" /> }
