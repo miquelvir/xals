@@ -7,16 +7,17 @@ import { patchRestaurantAccessToken as patchRestaurantAccessTokenService } from 
 
 export default function AccessUrl({privacyFilter, restaurantId, token, onDelete, onPatch}){
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    
-    
+    const { t, i18n } = useTranslation();
+
+
     const handleCopyUrlToClipboard = () => {
         // openInNewTab(accessUrl.url);
         if (privacyFilter) {
-            enqueueSnackbar('disable the privacy mode on the top right corner first', {variant: 'warning'});
+            enqueueSnackbar(t("disablePrivMode"), {variant: 'warning'});
             return;
         }
         navigator.clipboard.writeText(token.url);
-        enqueueSnackbar('the url has been copied to your clipboard, keep it private!', {variant: 'success'});
+        enqueueSnackbar(t("urlCopied"), {variant: 'success'});
     }
 
     const handleSubmit = (comment) => {
@@ -30,9 +31,9 @@ export default function AccessUrl({privacyFilter, restaurantId, token, onDelete,
        patchRestaurantAccessTokenService(restaurantId, token.id, values.comment).then((newToken) => {
         onPatch(token.id, newToken);
         setSubmitting(false);
-        enqueueSnackbar("access token comment saved", { variant: "success" });
+        enqueueSnackbar(t("tokenCommentSaved"), { variant: "success" });
       }, () => {
-        setErrors({comment: "unable to finalize request"});
+        setErrors({comment: "unableEndReq"});
         setSubmitting(false);
       });
     }}
@@ -45,8 +46,8 @@ export default function AccessUrl({privacyFilter, restaurantId, token, onDelete,
             <Input name="comment"/>
             </div>
 
-            <NoButton text="delete" disabled={isSubmitting} onClick={onDelete} />
-            <YesButton text="save" type="submit" disabled={isSubmitting} loading={isSubmitting} />
+            <NoButton text={t("delete")} disabled={isSubmitting} onClick={onDelete} />
+            <YesButton text={t("save")} type="submit" disabled={isSubmitting} loading={isSubmitting} />
 
             
         </div>

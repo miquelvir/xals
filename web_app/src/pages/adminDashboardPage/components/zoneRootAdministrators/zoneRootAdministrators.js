@@ -18,20 +18,20 @@ export const ZoneRootAdministrators = ({ privacyFilter }) => {
   useEffect(() => {
     getSuperAdministrators()
       .then((administators) => setAdministrators(administators))
-      .catch(_ => enqueueSnackbar(t("errorAdminRetrieval"), { variant: 'error' }))
+      .catch(_ => enqueueSnackbar(t("unableGetRAdmin"), { variant: 'error' }))
   }, []);
 
   const handleNewAdministrator = () => {
     question.prompt({
-      title: t("administratorEmail"), description: t("descriptionAddAdmin"),
+      title: t("administratorEmail"), description: t("descriptionAddRAdmin"),
       handleSubmit: (email) => {
         return new Promise(function (resolve, reject) {
           postSuperAdministrator(email).then((administrator) => {
             administratorUtils.add(administrator);
-            enqueueSnackbar(t("addAdmin"), { variant: 'success' });
+            enqueueSnackbar(t("addRAdmin"), { variant: 'success' });
             resolve();
           }).catch(() => {
-            enqueueSnackbar(t("errorAddAdmin"), { variant: 'error' });
+            enqueueSnackbar(t("unableAddRAdmin"), { variant: 'error' });
             reject();
           })
         })
@@ -39,7 +39,7 @@ export const ZoneRootAdministrators = ({ privacyFilter }) => {
     })
   };
 
-  return <Zone title={t("root administrators")}>
+  return <Zone title={t("rAdmins")}>
     <div className='grid grid-cols-1 divide-y divide-gray-500'>
       {administrators.map(administrator => (
         <Admin key={administrator.id} admin={administrator} privacyFilter={privacyFilter} 

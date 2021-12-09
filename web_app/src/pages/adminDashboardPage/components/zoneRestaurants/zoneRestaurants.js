@@ -12,28 +12,29 @@ export const ZoneRestaurants = ({ setRestaurant }) => {
     const [restaurants, setRestaurants, restaurantsUtils] = useCollectionState();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const question = React.useContext(questionContext);
-  
+    const { t, i18n } = useTranslation();
+
     useEffect(() => {
       getRestaurants()
         .then((restaurants) => setRestaurants(restaurants))
-        .catch(_ => enqueueSnackbar("unable to retrieve restaurants", { variant: 'error' }))
+        .catch(_ => enqueueSnackbar(t("unableGetRests"), { variant: 'error' }))
     }, []);
   
     const handleNewRestaurant = () => {
       question.prompt({
-        title: "restaurant name", description: "this will add a new restaurant to the system",
+        title: t("restName"), description: t("newRestDescription"),
         handleSubmit: (name) => {
           return new Promise(function (resolve, reject) {
             postRestaurant(name).then((restaurant) => {
               restaurantsUtils.add(restaurant);
-              enqueueSnackbar("added new restaurant", { variant: 'success' });
+              enqueueSnackbar(t("addRest"), { variant: 'success' });
               resolve();
             }).catch(() => {
-              enqueueSnackbar("unable to add new restaurant", { variant: 'error' });
+              enqueueSnackbar(t("unableAddRest"), { variant: 'error' });
               reject();
             })
           })
-        }, handleCancel: () => enqueueSnackbar("cancelled", { variant: 'warning' })
+        }, handleCancel: () => enqueueSnackbar(t("cancelled"), { variant: 'warning' })
       })
     };
   
@@ -44,7 +45,7 @@ export const ZoneRestaurants = ({ setRestaurant }) => {
         ))}
       </div>
       <div className='grid justify-items-center pt-8'>
-        <YesButton onClick={handleNewRestaurant} text={"ADD NEW"} w='w-64' />
+        <YesButton onClick={handleNewRestaurant} text={t("ADD NEW")} w='w-64' />
       </div>
   
     </Zone>

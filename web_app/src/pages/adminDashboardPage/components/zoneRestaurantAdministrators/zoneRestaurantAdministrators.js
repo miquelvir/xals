@@ -12,28 +12,29 @@ export const ZoneRestaurantAdministrators = ({ restaurantId, privacyFilter }) =>
   const [administrators, setAdministrators, administratorUtils] = useCollectionState();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const question = React.useContext(questionContext);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     getRestaurantAdministrators(restaurantId)
       .then((administators) => setAdministrators(administators))
-      .catch(_ => enqueueSnackbar("unable to retrieve restaurant administrators", { variant: 'error' }))
+      .catch(_ => enqueueSnackbar(t("unableGetAdmins"), { variant: 'error' }))
   }, [restaurantId]);
 
   const handleNewAdministrator = () => {
     question.prompt({
-      title: "administrator email", description: "this will add a new administrator to the system; restaurant administrators can manage the access urls of their restaurants and the default tables",
+      title: t("administratorEmail"), description: t("descriptionAddAdmin") ,
       handleSubmit: (email) => {
         return new Promise(function (resolve, reject) {
           postRestaurantAdministrator(restaurantId, email).then((administrator) => {
             administratorUtils.add(administrator);
-            enqueueSnackbar("added new restaurant administrator", { variant: 'success' });
+            enqueueSnackbar(t("addAdmin"), { variant: 'success' });
             resolve();
           }).catch(() => {
-            enqueueSnackbar("unable to add new restaurant administrator", { variant: 'error' });
+            enqueueSnackbar(t("unableAddAdmin"), { variant: 'error' });
             reject();
           })
         })
-      }, handleCancel: () => enqueueSnackbar("cancelled", { variant: 'warning' })
+      }, handleCancel: () => enqueueSnackbar(t("cancelled"), { variant: 'warning' })
     })
   };
 
@@ -45,7 +46,7 @@ export const ZoneRestaurantAdministrators = ({ restaurantId, privacyFilter }) =>
       ))}
     </div>
     <div className='grid justify-items-center  pt-8'>
-      <YesButton onClick={handleNewAdministrator} text={"ADD NEW"} w='w-64' />
+      <YesButton onClick={handleNewAdministrator} text={t("ADD NEW")} w='w-64' />
     </div>
 
   </Zone>

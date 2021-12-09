@@ -10,9 +10,10 @@ import { getRestaurant } from "../../services/restaurants";
 export const ZoneTimeProfile = ({ restaurantId }) => {
     const { enqueueSnackbar } = useSnackbar();
     const [profiles, setProfiles] = useState({
-        'alarm_minutes': 20,
+        'alarm_minutes': 20, //TODO ASK
         'warning_minutes': 15
     });
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
         getRestaurant(restaurantId)
@@ -20,7 +21,7 @@ export const ZoneTimeProfile = ({ restaurantId }) => {
             'alarm_minutes': restaurant.alarm_minutes,
             'warning_minutes': restaurant.warning_minutes
         }))
-        .catch(() => enqueueSnackbar('unable to retrieve restaurant', {variant: 'error'}));
+        .catch(() => enqueueSnackbar(t("unableGetRest"), {variant: 'error'}));
     }, [restaurantId]);
 
 

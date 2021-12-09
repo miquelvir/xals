@@ -18,7 +18,7 @@ export const ZoneDefaultTables = ({ restaurantId }) => {
     useEffect(() => {
         getRestaurantDefaultTables(restaurantId)
         .then((tables) => setTables(tables))
-        .catch(_ => enqueueSnackbar("unable to retrieve default tables", { variant: 'error' }))
+        .catch(_ => enqueueSnackbar(t("unableGetTables"), { variant: 'error' }))
     }, [restaurantId]);
 
 
@@ -26,7 +26,6 @@ export const ZoneDefaultTables = ({ restaurantId }) => {
     const prompt = React.useContext(questionContext);
     const { t, i18n } = useTranslation();
     const handleDeleteDefaultTable = (name) => {
-      // TODO API
       confirm({
         title: `${t("deleteTableQuestion")} ${name}?`,
         description: `${t("Deleting Table")} ${name} ${t("onlyDeleteFromList")}`,
@@ -34,9 +33,9 @@ export const ZoneDefaultTables = ({ restaurantId }) => {
           setLoading(name);
             deleteRestaurantDefaultTables(restaurantId, name).then(() => {
                 tableUtils.remove(name);
-                enqueueSnackbar(t("deleted default table"), { variant: 'success' });
+                enqueueSnackbar(t("deletedTable"), { variant: 'success' });
             }).catch(() => {
-                enqueueSnackbar(t("unable to delete default table"), { variant: 'error' });
+                enqueueSnackbar(t("unableDelTable"), { variant: 'error' });
             }).finally(() => setLoading(null));
             
         }
@@ -47,15 +46,15 @@ export const ZoneDefaultTables = ({ restaurantId }) => {
   
       prompt.prompt({
         title: t("table #"),
-        description: t("what is the name of the new table you want to add?"),
+        description: t("nameTableQuestion"),
         handleSubmit: (name) => {
             return new Promise(function (resolve, reject) {
                 postRestaurantDefaultTables(restaurantId, name).then((table) => {
                     tableUtils.add(table);
-                    enqueueSnackbar(t("added new default table"), { variant: 'success' });
+                    enqueueSnackbar(t("addedTable"), { variant: 'success' });
                     resolve();
                 }).catch(() => {
-                    enqueueSnackbar(t("unable to add new default table"), { variant: 'error' });
+                    enqueueSnackbar(t("unableAddTable"), { variant: 'error' });
                     reject();
                 })
                 })

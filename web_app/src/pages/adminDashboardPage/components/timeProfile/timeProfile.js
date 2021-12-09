@@ -6,6 +6,7 @@ import { patchRestaurant } from "../../services/restaurants";
 
 export default function TimeProfile({restaurantId, prefix, onPatch, profileName, profileValue}){
     const { enqueueSnackbar } = useSnackbar();
+    const { t, i18n } = useTranslation();
 
     return <div className='py-4'><Formik
     initialValues={{'profile': profileValue}}
@@ -15,9 +16,9 @@ export default function TimeProfile({restaurantId, prefix, onPatch, profileName,
       patchRestaurant(restaurantId, {[profileName]: newValue}).then((newValue) => {
         onPatch(newValue[profileName]);
         setSubmitting(false);
-        enqueueSnackbar("time profile saved", { variant: "success" });
+        enqueueSnackbar(t("timeProfSaved"), { variant: "success" });
       }, () => {
-        setErrors({comment: "unable to finalize request"});
+        setErrors({comment: t("unableEndReq")});
         setSubmitting(false);
       });
     }}
@@ -29,7 +30,7 @@ export default function TimeProfile({restaurantId, prefix, onPatch, profileName,
             <div className='flex-grow'>
             <Input name="profile"/>
             </div>
-            <YesButton text={`save ${prefix}`} w={'w-32'} type="submit" disabled={isSubmitting} loading={isSubmitting} />
+            <YesButton text={`${t(save)} ${prefix}`} w={'w-32'} type="submit" disabled={isSubmitting} loading={isSubmitting} />
         </div>
         </Form>
                 

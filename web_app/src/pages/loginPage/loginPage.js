@@ -14,34 +14,34 @@ function LoginPage() {
   
   let history = useHistory();
   const location = useLocation();
-
+  const { t, i18n } = useTranslation();
   
   const onSuccess = (res) => {
     attemptLogin(res.tokenObj.id_token)
     .then(([loggedIn, data]) => {
       if (!loggedIn){
-        enqueueSnackbar("user does not exist", {variant: 'warning'});
+        enqueueSnackbar(t("userNotExist"), {variant: 'warning'});
         return;
       }
       userCtx.setType(data.type);
       userCtx.setParams(data);
       const {from} = location.state || {from: {pathname: "/admin"}};
       history.push(from);
-      enqueueSnackbar("logged in", {variant: 'success'});
+      enqueueSnackbar(t("logIn"), {variant: 'success'});
     })
     .catch(() => {
-      enqueueSnackbar("unable to log in with the server", {variant: 'error'});
+      enqueueSnackbar(t("unableLogInServer"), {variant: 'error'});
     })
   }
   
   const onFailure = (res) => {
-    enqueueSnackbar("unable to log in with Google", {variant: 'error'});
+    enqueueSnackbar(t("unableLogInGoogle"), {variant: 'error'});
   }
 
   return <div className="flex items-center justify-center h-screen">
     <GoogleLogin
       clientId={clientId}
-      buttonText="Login"
+      buttonText={t("Login")}
       onSuccess={onSuccess}
       onFailure={onFailure}
       cookiePolicy={'single_host_origin'} />

@@ -8,20 +8,21 @@ const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 export default function SignOutButton({}) {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { t, i18n } = useTranslation();
 
   let history = useHistory();
     const onLogoutSuccess = () => {
       logout().then(() => {
-        enqueueSnackbar('logged out', {variant: 'success'})
+        enqueueSnackbar(t("logOut"), {variant: 'success'})
         history.push('/login');
       }).catch(() => {
-        enqueueSnackbar('unable to log out with server', {variant: 'error'})
+        enqueueSnackbar(t("unableLogOutServer"), {variant: 'error'})
       })
     
     }
     
     const onLogoutFailure = () => {
-      enqueueSnackbar('unable to out with Google', {variant: 'error'})
+      enqueueSnackbar(t("unableLogOutGoogle"), {variant: 'error'})
     }
 
   const { signOut } = useGoogleLogout({
