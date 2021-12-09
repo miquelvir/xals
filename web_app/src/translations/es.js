@@ -1,24 +1,30 @@
 export const es = {
     //one word translations
-    "new": "nuevx",
+    "newMasc": "nuevo",
+    "newFem": "nuevo",
     "cancelled": "canceladx",
     "table": "mesa",
     "cancel": "cancelar",
     "finish": "acabar",
     "delete": "eliminar",
-    "custom": "personalizadx",
+    "custom": "personalizada",
     "no": "no",
     "yes": "si",
     "confirm": "confirmar",
     "submit": "enviar",
-    "ADD NEW": "AÑADIR NUEVX",
+    "AddNewMasc": "AÑADIR NUEVO",
+    "AddNewFem": "AÑADIR NUEVA",
     "save": "guardar",
-    "admin": "administradorx",
+    "admin": "administrar",
     "description": "descripción",
     "table #": "mesa #",
     "finalize":"finalizar",
     "next":"siguiente",
     "desserts": "postres",
+    "alarm": "alarma",
+    "warning": "aviso",
+    "restaurants": "restaurantes",
+    "time profile": "perfil de tiempo",
 
     //administrators
     "administratorEmail": "email del administradorx",
@@ -29,10 +35,10 @@ export const es = {
     "adminNotDel":"administradorx no eliminadx",
     "descriptionAddAdmin": "esta acción añadirá unx nuevx administradorx al sistema; lxs administradorxs de un restaurante pueden gestionar los enlaces de acceso de su restaurante y las mesas predeterminadas",
     "addAdmin": "se ha añadido unx nuevx administradorx",
-
+    "restAdmins": "administradorxs del restaurante",
 
     //card pop-up
-    "timeLastCourse":"el último plato se sirviço a la(s)",
+    "timeLastCourse":"el último plato se sirvió a la(s)",
     "dessertsAndEnd": "postres y terminar",
     "next course": "siguiente plato",
     "new table": "nueva mesa",
@@ -41,7 +47,7 @@ export const es = {
     "servedWaiting": "ha sido servida... ahora esperando a",
     "askContinue": "¿Desea continuar?",
     "difficultUndone": "esta acción no se podrá deshacer fácilmente",
-
+    "serveDessertsAndEnd":"¿servir los postres y terminar mesa?",
 
 
     //table management
@@ -52,6 +58,7 @@ export const es = {
     "nameTableQuestion": "¿Cuál es el nombre de la mesa que quieres añadir?",
     "addedTable":"se ha añadido una nueva mesa predeterminada",
     "has been deleted":"ha sido eliminada",
+    "default tables": "mesas predeterminadas",
 
 
     //restaurant management
@@ -77,7 +84,8 @@ export const es = {
     "timeProfSaved":"el perfil de tiempo se ha guardado",
     "delToken": "el token de acceso ha sido eliminado",
     "descriptionUsesToken": "escribe una pequeña descripción sobre para qué va a ser usado este enlace (por ejemplo: con quién se va a compartir, qué equipo va a tener acceso al enlace...)",
-
+    "access URLs": "enlaces de acceso",
+  
     //errors
     "unableEndReq": "no se ha podido continuar con la solicitud",
     "errorPageAccess": "no puede acceder a esta página",

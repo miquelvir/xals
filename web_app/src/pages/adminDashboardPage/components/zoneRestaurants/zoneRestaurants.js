@@ -39,14 +39,14 @@ export const ZoneRestaurants = ({ setRestaurant }) => {
       })
     };
   
-    return <Zone title="restaurants">
+    return <Zone title={t("restaurants")}>
       <div className='grid grid-cols-1 divide-y divide-gray-500'>
         {restaurants.map(restaurant => (
           <Restaurant key={restaurant.id} patchRestaurant={restaurantsUtils.patch} deleteRestaurant={restaurantsUtils.remove} restaurant={restaurant} setRestaurant={setRestaurant} />
         ))}
       </div>
       <div className='grid justify-items-center pt-8'>
-        <YesButton onClick={handleNewRestaurant} text={t("ADD NEW")} w='w-64' />
+        <YesButton onClick={handleNewRestaurant} text={t("AddNewMasc")} w='w-64' />
       </div>
   
     </Zone>

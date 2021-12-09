@@ -88,7 +88,7 @@ export const RealtimeServiceContextProvider = ({ children }) => {
                 return {...tables}
             });
 
-            enqueueSnackbar(`${t("table")} ${table.number} ${t("servedWaiting")} ${table.next_course}`, {variant: 'success'});
+            enqueueSnackbar(`${t("table")} ${table.number} ${t("servedWaiting")} ${t(table.next_course)}`, {variant: 'success'});
         });
         socket.on("v1.tables.delete", data => {
             const table = data.table;

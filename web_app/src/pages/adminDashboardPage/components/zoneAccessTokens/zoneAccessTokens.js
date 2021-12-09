@@ -61,7 +61,7 @@ export const ZoneAccessTokens = ({ restaurantId, privacyFilter }) => {
         tokenUtils.patch(id, token);
     }
 
-    return <Zone title="access URLs">
+    return <Zone title={t("access URLs")}>
         <div className='grid grid-cols-1 divide-y divide-gray-500 dark:divide-gray-100'>
             {tokens.map(token => <AccessUrl 
             key={token.id}
@@ -73,7 +73,7 @@ export const ZoneAccessTokens = ({ restaurantId, privacyFilter }) => {
         </div>
 
         <div className='grid justify-items-center  pt-8'>
-            <YesButton onClick={handleNewAccessToken} text={t("new")} w='w-64' />
+            <YesButton onClick={handleNewAccessToken} text={t("newMasc")} w='w-64' />
         </div>
     </Zone>
 }

@@ -31,7 +31,7 @@ export default function TimeProfile({restaurantId, prefix, onPatch, profileName,
             <div className='flex-grow'>
             <Input name="profile"/>
             </div>
-            <YesButton text={`${t("save")} ${prefix}`} w={'w-32'} type="submit" disabled={isSubmitting} loading={isSubmitting} />
+            <YesButton text={`${t("save")} ${t(prefix)}`} w={'w-32'} type="submit" disabled={isSubmitting} loading={isSubmitting} />
         </div>
         </Form>
                 

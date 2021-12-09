@@ -26,7 +26,7 @@ export const ZoneTimeProfile = ({ restaurantId }) => {
     }, [restaurantId]);
 
 
-    return <Zone title="time profile">
+    return <Zone title={t("time profile")}>
         <div className='grid grid-cols-1 divide-y divide-gray-500 dark:divide-gray-100'>
         <TimeProfile 
             onPatch={(minutes) => setProfiles({...profiles, 'alarm_minutes': minutes})}
