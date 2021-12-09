@@ -4,6 +4,7 @@ import ActionMenu from '../actionMenu/actionMenu';
 import React from 'react';
 import { useState } from 'react';
 import { userContext } from '../../../../contexts/userContext';
+import {useTranslation} from "react-i18next";
 
 const STATUS_ALARM = 'alarm';
 const STATUS_WARNING = 'warning';
@@ -34,6 +35,7 @@ function TableCard({
 
    const [status, setStatus] = useState('ok');
    const theme = useTheme(status);
+   const { t, i18n } = useTranslation();
 
    const handleStatus = (delta) => {
       const minutes = delta / (1000 * 60);
@@ -57,7 +59,7 @@ function TableCard({
             <div className="flex space-x-4 pt-4" >
                <div className="text-left">
                   <span className={`inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2 bottom-0 left-0 ${theme.fg}`}>
-                     {table.next_course}
+                     {t(table.next_course)}
                   </span>
                </div>
                <div className="flex-1">

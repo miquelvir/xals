@@ -29,7 +29,7 @@ function NewTableCard({
    [palette.text]: true}} {...props} disabled={false}>
       <div className='h-full w-full flex flex-wrap content-center text-center justify-center'>
             <p className="font-mono text-4xl">
-               {t('new')} 
+               {t('newFem')}
             </p>
             </div>
    </BaseCard></React.Fragment>;

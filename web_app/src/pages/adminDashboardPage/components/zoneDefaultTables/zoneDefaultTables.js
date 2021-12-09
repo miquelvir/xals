@@ -62,10 +62,10 @@ export const ZoneDefaultTables = ({ restaurantId }) => {
       })
     }
   
-    return <Zone title="default tables">
+    return <Zone title={t("default tables")}>
       {tables.map(table => <Button onClick={() => handleDeleteDefaultTable(table.name)} text={table.name} key={table.name} loading={loading===table.name} />)}
   
-      <YesButton onClick={handleAddNewDefaultTable} text={t("ADD NEW")} />
+      <YesButton onClick={handleAddNewDefaultTable} text={t("AddNewFem")} />
     </Zone>;
   }
   

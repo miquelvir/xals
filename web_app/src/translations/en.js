@@ -1,6 +1,7 @@
 export const en = {
     //one word translations
-    "new": "new",
+    "newMasc": "new",
+    "newFem": "new",
     "cancelled": "cancelled",
     "table": "table",
     "cancel": "cancel",
@@ -11,7 +12,8 @@ export const en = {
     "yes": "yes",
     "confirm": "confirm",
     "submit": "submit",
-    "ADD NEW": "ADD NEW",
+    "AddNewMasc": "ADD NEW",
+    "AddNewFem": "ADD NEW",
     "save": "save",
     "admin": "admin",
     "description": "description",
@@ -19,6 +21,11 @@ export const en = {
     "finalize":"finalize",
     "next":"next",
     "desserts": "desserts",
+    "alarm": "alarm",
+    "warning": "warning",
+    "restaurants": "restaurants",
+    "time profile": "time profile",
+
 
     //administrators
     "administratorEmail": "administrator email",
@@ -29,7 +36,7 @@ export const en = {
     "adminNotDel":"administrator not deleted",
     "descriptionAddAdmin": "this will add a new administrator to the system; restaurant administrators can manage the access urls of their restaurants and the default tables",
     "addAdmin": "added new restaurant administrator",
-
+    "restAdmins": "restaurant administrators",
 
     //card pop-up
     "timeLastCourse":"last course was served at",
@@ -41,7 +48,7 @@ export const en = {
     "servedWaiting": "has been served... now waiting for",
     "askContinue": "Do you wish to continue?",
     "difficultUndone": "this action might not be easily undone",
-
+    "serveDessertsAndEnd":"serve desserts and finalize table?",
 
 
     //table management
@@ -52,6 +59,7 @@ export const en = {
     "nameTableQuestion": "what is the name of the new table you want to add?",
     "addedTable":"added new default table",
     "has been deleted":"has been deleted",
+    "default tables": "default tables",
 
 
     //restaurant management
@@ -61,6 +69,7 @@ export const en = {
     "restName": "restaurant name",
     "newRestDescription": "this will add a new restaurant to the system",
     "addRest": "added new restaurant",
+
 
     //logins
     "logOut": "logged out",
@@ -77,6 +86,7 @@ export const en = {
     "timeProfSaved":"time profile saved",
     "delToken": "deleted access token",
     "descriptionUsesToken": "write a small description of the uses of this url (good examples would include who will this access url be given to, or which team will have access to it)",
+    "access URLs": "access URLs",
 
     //errors
     "unableEndReq": "unable to finalize request",

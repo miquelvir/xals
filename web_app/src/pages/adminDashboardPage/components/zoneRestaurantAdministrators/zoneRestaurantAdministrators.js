@@ -39,7 +39,7 @@ export const ZoneRestaurantAdministrators = ({ restaurantId, privacyFilter }) =>
     })
   };
 
-  return <Zone title="restaurant administrators">
+  return <Zone title={t("restAdmins")}>
     <div className='grid grid-cols-1 divide-y divide-gray-500'>
       {administrators.map(administrator => (
         <Admin key={administrator.id} admin={administrator} privacyFilter={privacyFilter} deleteAdministrator={administratorUtils.remove}
@@ -47,7 +47,7 @@ export const ZoneRestaurantAdministrators = ({ restaurantId, privacyFilter }) =>
       ))}
     </div>
     <div className='grid justify-items-center  pt-8'>
-      <YesButton onClick={handleNewAdministrator} text={t("ADD NEW")} w='w-64' />
+      <YesButton onClick={handleNewAdministrator} text={t("AddNewMasc")} w='w-64' />
     </div>
 
   </Zone>
