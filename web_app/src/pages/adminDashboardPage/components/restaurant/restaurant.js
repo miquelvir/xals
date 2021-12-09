@@ -8,6 +8,7 @@ import { useSnackbar } from 'notistack';
 import { confirmContext } from "../../../../contexts/confirmContext";
 import React from "react";
 import { patchRestaurant as patchRestaurantService, deleteRestaurant as deleteRestaurantService, patchRestaurant } from "../../services/restaurants";
+import {useTranslation} from "react-i18next";
 
 export default function Restaurant({restaurant, setRestaurant, patchRestaurant, deleteRestaurant}){
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();

@@ -7,6 +7,7 @@ import { useCollectionState } from "../../../../hooks/useCollectionState/useColl
 import { useSnackbar} from 'notistack';
 import { questionContext } from "../../../../contexts/questionContext";
 import { getRestaurants, postRestaurant } from "../../services/restaurants";
+import {useTranslation} from "react-i18next";
 
 export const ZoneRestaurants = ({ setRestaurant }) => {
     const [restaurants, setRestaurants, restaurantsUtils] = useCollectionState();

@@ -6,6 +6,7 @@ import { confirmContext } from "../../../../contexts/confirmContext";
 import TimeProfile from "../timeProfile/timeProfile";
 import { useState, useEffect } from "react";
 import { getRestaurant } from "../../services/restaurants";
+import {useTranslation} from "react-i18next";
 
 export const ZoneTimeProfile = ({ restaurantId }) => {
     const { enqueueSnackbar } = useSnackbar();

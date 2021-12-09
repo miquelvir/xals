@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useGoogleLogout} from 'react-google-login';
 import { useSnackbar } from 'notistack';
 import { logout } from '../../services/logout';
+import {useTranslation} from "react-i18next";
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 

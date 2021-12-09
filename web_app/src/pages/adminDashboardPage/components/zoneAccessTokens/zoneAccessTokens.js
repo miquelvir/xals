@@ -8,6 +8,7 @@ import React from "react";
 import { confirmContext } from "../../../../contexts/confirmContext";
 import { questionContext } from "../../../../contexts/questionContext";
 import { useEffect } from "react";
+import {useTranslation} from "react-i18next";
 
 export const ZoneAccessTokens = ({ restaurantId, privacyFilter }) => {
     const [tokens, setTokens, tokenUtils] = useCollectionState();

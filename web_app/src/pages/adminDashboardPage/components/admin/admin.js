@@ -7,6 +7,7 @@ import NoButton from "../../../../components/buttons/noButton/noButton";
 import { useSnackbar } from 'notistack';
 import { confirmContext } from "../../../../contexts/confirmContext";
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 export default function Admin({admin, privacyFilter, deleteAdministrator, deleteAdministratorService}){
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();

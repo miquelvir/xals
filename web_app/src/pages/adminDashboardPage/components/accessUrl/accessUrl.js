@@ -4,6 +4,7 @@ import YesButton from "../../../../components/buttons/yesButton/yesButton";
 import NoButton from "../../../../components/buttons/noButton/noButton";
 import { useSnackbar } from 'notistack';
 import { patchRestaurantAccessToken as patchRestaurantAccessTokenService } from "../../services/restaurantAccessTokens";
+import {useTranslation} from "react-i18next";
 
 export default function AccessUrl({privacyFilter, restaurantId, token, onDelete, onPatch}){
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();

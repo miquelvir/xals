@@ -3,6 +3,7 @@ import { Formik, Form} from "formik";
 import YesButton from "../../../../components/buttons/yesButton/yesButton";
 import { useSnackbar } from 'notistack';
 import { patchRestaurant } from "../../services/restaurants";
+import {useTranslation} from "react-i18next";
 
 export default function TimeProfile({restaurantId, prefix, onPatch, profileName, profileValue}){
     const { enqueueSnackbar } = useSnackbar();
@@ -30,7 +31,7 @@ export default function TimeProfile({restaurantId, prefix, onPatch, profileName,
             <div className='flex-grow'>
             <Input name="profile"/>
             </div>
-            <YesButton text={`${t(save)} ${prefix}`} w={'w-32'} type="submit" disabled={isSubmitting} loading={isSubmitting} />
+            <YesButton text={`${t("save")} ${prefix}`} w={'w-32'} type="submit" disabled={isSubmitting} loading={isSubmitting} />
         </div>
         </Form>
                 

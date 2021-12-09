@@ -7,6 +7,7 @@ import Zone from '../zone/zone';
 import YesButton from '../../../../components/buttons/yesButton/yesButton';
 import Admin from '../admin/admin';
 import { getRestaurantAdministrators, postRestaurantAdministrator, deleteRestaurantAdministrator } from '../../services/restaurantAdministrators';
+import {useTranslation} from "react-i18next";
 
 export const ZoneRestaurantAdministrators = ({ restaurantId, privacyFilter }) => {
   const [administrators, setAdministrators, administratorUtils] = useCollectionState();

@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useSnackbar } from 'notistack';
 import { userContext } from '../../contexts/userContext';
 import { attemptLogin } from './services/loginWithGoogle';
+import {useTranslation} from "react-i18next";
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
