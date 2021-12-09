@@ -111,7 +111,4 @@ export const en = {
     "unableLogInServer":"unable to log in with the server",
     "unableLogInGoogle": "unable to log in with Google"
 
-
-
-
 };
