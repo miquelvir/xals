@@ -50,7 +50,6 @@ export const es = {
     "serveDessertsAndEnd":"¿servir los postres y terminar mesa?",
 
 
-
     //table management
     "deleteTableQuestion": "¿Quiere eliminar la mesa",
     "Deleting Table": "Borrando mesa",
@@ -86,6 +85,7 @@ export const es = {
     "delToken": "el token de acceso ha sido eliminado",
     "descriptionUsesToken": "escribe una pequeña descripción sobre para qué va a ser usado este enlace (por ejemplo: con quién se va a compartir, qué equipo va a tener acceso al enlace...)",
     "access URLs": "enlaces de acceso",
+  
     //errors
     "unableEndReq": "no se ha podido continuar con la solicitud",
     "errorPageAccess": "no puede acceder a esta página",

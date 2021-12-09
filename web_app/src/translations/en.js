@@ -26,7 +26,6 @@ export const en = {
     "restaurants": "restaurants",
     "time profile": "time profile",
 
-
     //administrators
     "administratorEmail": "administrator email",
     "descriptionAddRAdmin": "this will add a new root administrator to the system; root administrators have complete access to all restaurants and users (including other administrators)",
@@ -69,7 +68,6 @@ export const en = {
     "restName": "restaurant name",
     "newRestDescription": "this will add a new restaurant to the system",
     "addRest": "added new restaurant",
-
 
     //logins
     "logOut": "logged out",
