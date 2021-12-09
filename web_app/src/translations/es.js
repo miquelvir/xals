@@ -101,4 +101,5 @@ export const es = {
     "unableLogInServer":"no se ha podido iniciar sesión con el servidor",
     "unableLogInGoogle": "uno se ha podido iniciar sesión con Google"
 
+
 };
