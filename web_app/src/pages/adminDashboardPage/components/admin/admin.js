@@ -7,23 +7,25 @@ import NoButton from "../../../../components/buttons/noButton/noButton";
 import { useSnackbar } from 'notistack';
 import { confirmContext } from "../../../../contexts/confirmContext";
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 export default function Admin({admin, privacyFilter, deleteAdministrator, deleteAdministratorService}){
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const confirm = React.useContext(confirmContext);
-    
+    const { t, i18n } = useTranslation();
+
     const handleDelete = () => {
       confirm({
         handleSuccess: () => {
           deleteAdministratorService(admin.id).then(() => {
             deleteAdministrator(admin.id);
-            enqueueSnackbar("administrator deleted", { variant: "success" });
+            enqueueSnackbar(t("adminDel"), { variant: "success" });
           }).catch(() => {
-            enqueueSnackbar("unable to delete administrator", { variant: "error" });
+            enqueueSnackbar("unableDelAdmin", { variant: "error" });
           });
         },
         handleCancel: () => {
-            enqueueSnackbar("administrator not deleted", { variant: "success" });
+            enqueueSnackbar("adminNotDel", { variant: "success" });
         }});
     }
 
@@ -41,7 +43,7 @@ export default function Admin({admin, privacyFilter, deleteAdministrator, delete
             <Input disabled name="email"/>
             </div>
 
-            <NoButton text="delete" onClick={handleDelete} disabled={isSubmitting} />
+            <NoButton text={t("delete")} onClick={handleDelete} disabled={isSubmitting} />
         </div>
 
         </Form>

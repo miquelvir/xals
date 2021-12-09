@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useSnackbar } from 'notistack';
 import { userContext } from '../../contexts/userContext';
 import { attemptLogin } from './services/loginWithGoogle';
+import {useTranslation} from "react-i18next";
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
@@ -14,34 +15,34 @@ function LoginPage() {
   
   let history = useHistory();
   const location = useLocation();
-
+  const { t, i18n } = useTranslation();
   
   const onSuccess = (res) => {
     attemptLogin(res.tokenObj.id_token)
     .then(([loggedIn, data]) => {
       if (!loggedIn){
-        enqueueSnackbar("user does not exist", {variant: 'warning'});
+        enqueueSnackbar(t("userNotExist"), {variant: 'warning'});
         return;
       }
       userCtx.setType(data.type);
       userCtx.setParams(data);
       const {from} = location.state || {from: {pathname: "/admin"}};
       history.push(from);
-      enqueueSnackbar("logged in", {variant: 'success'});
+      enqueueSnackbar(t("logIn"), {variant: 'success'});
     })
     .catch(() => {
-      enqueueSnackbar("unable to log in with the server", {variant: 'error'});
+      enqueueSnackbar(t("unableLogInServer"), {variant: 'error'});
     })
   }
   
   const onFailure = (res) => {
-    enqueueSnackbar("unable to log in with Google", {variant: 'error'});
+    enqueueSnackbar(t("unableLogInGoogle"), {variant: 'error'});
   }
 
   return <div className="flex items-center justify-center h-screen">
     <GoogleLogin
       clientId={clientId}
-      buttonText="Login"
+      buttonText={t("Login")}
       onSuccess={onSuccess}
       onFailure={onFailure}
       cookiePolicy={'single_host_origin'} />

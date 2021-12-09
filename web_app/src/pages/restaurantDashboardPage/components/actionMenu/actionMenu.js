@@ -52,7 +52,7 @@ function ActionMenu({
         }
         
         confirm({
-            title: 'serve desserts and finalize table?',
+            title: 'serve desserts and finalize table?', //TODO ASK
             handleSuccess: () => {
                 realtimeCtx.finishTable(table.id);
             },
@@ -68,13 +68,13 @@ function ActionMenu({
        <ConfirmModal />
        <TextActionsModal
             handleHide={handleHide}
-            title={`Table ${table.number}`}
-            description={`{t("timeLastCourse")} ${twoPadding(lastCourse.hour)}:${twoPadding(lastCourse.minute)}`}
+            title={`${t("table")} ${table.number}`}
+            description={`${t("timeLastCourse")} ${twoPadding(lastCourse.hour)}:${twoPadding(lastCourse.minute)}`}
             actions={<React.Fragment>
-                    <NoButton onClick={handleHide} text="cancel" />
-                    { !isLastCourse && <YesButton onClick={() => handleNext(true)} text="desserts" /> }
-                    <YesButton onClick={() => handleNext(false)} text={isLastCourse? "finalize": "next"} />
-                    <Button onClick={handleDelete} text="delete" />
+                    <NoButton onClick={handleHide} text={t("cancel")} />
+                    { !isLastCourse && <YesButton onClick={() => handleNext(true)} text={t("desserts")} /> }
+                    <YesButton onClick={() => handleNext(false)} text={isLastCourse? t("finalize"): t("next")} />
+                    <Button onClick={handleDelete} text={t("delete")} />
             </React.Fragment>}
       {...props} />
     </React.Fragment>;

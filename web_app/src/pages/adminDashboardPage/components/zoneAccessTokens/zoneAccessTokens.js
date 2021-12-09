@@ -8,29 +8,31 @@ import React from "react";
 import { confirmContext } from "../../../../contexts/confirmContext";
 import { questionContext } from "../../../../contexts/questionContext";
 import { useEffect } from "react";
+import {useTranslation} from "react-i18next";
 
 export const ZoneAccessTokens = ({ restaurantId, privacyFilter }) => {
     const [tokens, setTokens, tokenUtils] = useCollectionState();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const confirm = React.useContext(confirmContext);
     const prompt = React.useContext(questionContext);
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
         getRestaurantAccessTokens(restaurantId)
         .then((tokens) => setTokens(tokens))
-        .catch(_ => enqueueSnackbar("unable to retrieve access tokens", { variant: 'error' }))
+        .catch(_ => enqueueSnackbar(t("unableGetTokens"), { variant: 'error' }))
     }, [restaurantId]);
 
     const handleDeleteAccessToken = (id) => {
       confirm({
-        title: `Do you want to delete the access token?`,
-        description: `Deleting the access token will render that url invalid (even for people who already had it).`,
+        title: t("delTokenQuest"),
+        description: t("delTokenDescription"),
         handleSuccess: () => {
             deleteRestaurantAccessToken(restaurantId, id).then(() => {
                 tokenUtils.remove(id);
-                enqueueSnackbar("deleted access token", { variant: 'success' });
+                enqueueSnackbar(t("delToken"), { variant: 'success' });
             }).catch(() => {
-                enqueueSnackbar("unable to delete access token", { variant: 'error' });
+                enqueueSnackbar(t("unableDelToken"), { variant: 'error' });
             });
         }
       })
@@ -38,16 +40,16 @@ export const ZoneAccessTokens = ({ restaurantId, privacyFilter }) => {
 
     const handleNewAccessToken = () => {
       prompt.prompt({
-        title: 'description',
-        description: 'write a small description of the uses of this url (good examples would include who will this access url be given to, or which team will have access to it)',
+        title: t("description"),
+        description: t("descriptionUsesToken"),
         handleSubmit: (name) => {
             return new Promise(function (resolve, reject) {
                 postRestaurantAccessToken(restaurantId, name).then((table) => {
                     tokenUtils.add(table);
-                    enqueueSnackbar("added new default table", { variant: 'success' });
+                    enqueueSnackbar(t("addedTable"), { variant: 'success' });
                     resolve();
                 }).catch(() => {
-                    enqueueSnackbar("unable to add new default table", { variant: 'error' });
+                    enqueueSnackbar(t("unableAddTable"), { variant: 'error' });
                     reject();
                 })
                 })
@@ -71,7 +73,7 @@ export const ZoneAccessTokens = ({ restaurantId, privacyFilter }) => {
         </div>
 
         <div className='grid justify-items-center  pt-8'>
-            <YesButton onClick={handleNewAccessToken} text="new" w='w-64' />
+            <YesButton onClick={handleNewAccessToken} text={t("new")} w='w-64' />
         </div>
     </Zone>
 }

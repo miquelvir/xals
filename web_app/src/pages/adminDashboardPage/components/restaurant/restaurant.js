@@ -8,24 +8,26 @@ import { useSnackbar } from 'notistack';
 import { confirmContext } from "../../../../contexts/confirmContext";
 import React from "react";
 import { patchRestaurant as patchRestaurantService, deleteRestaurant as deleteRestaurantService, patchRestaurant } from "../../services/restaurants";
+import {useTranslation} from "react-i18next";
 
 export default function Restaurant({restaurant, setRestaurant, patchRestaurant, deleteRestaurant}){
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     const confirm = React.useContext(confirmContext);
+    const { t, i18n } = useTranslation();
 
     const handleDelete = () => {
       confirm({
         handleSuccess: () => {
           deleteRestaurantService(restaurant.id).then(() => {
               deleteRestaurant(restaurant.id);
-              enqueueSnackbar("restaurant deleted", { variant: "success" });
+              enqueueSnackbar(t("restDel"), { variant: "success" });
             }).catch(() => {
-              enqueueSnackbar("unable to delete restaurant", { variant: "error" });
+              enqueueSnackbar(t("unableDelRest"), { variant: "error" });
             })
             
         },
         handleCancel: () => {
-            enqueueSnackbar("restaurant not deleted", { variant: "success" });
+            enqueueSnackbar(t("restNotDel"), { variant: "success" });
         }});
     }
 
@@ -38,9 +40,9 @@ export default function Restaurant({restaurant, setRestaurant, patchRestaurant, 
        patchRestaurantService(restaurant.id, {'name': values.name}).then((newRestaurant) => {
          patchRestaurant(restaurant.id, newRestaurant);
          setSubmitting(false);
-         enqueueSnackbar("restaurant name saved", { variant: "success" });
+         enqueueSnackbar(t("NameSaved"), { variant: "success" });
        }, () => {
-         setErrors({comment: "unable to finalize request"});
+         setErrors({comment: t("unableEndReq")});
          setSubmitting(false);
        });
     }}
@@ -53,9 +55,9 @@ export default function Restaurant({restaurant, setRestaurant, patchRestaurant, 
             <Input name="name"/>
             </div>
 
-            <NoButton text="delete" onClick={handleDelete} disabled={isSubmitting} />
-            <YesButton text="save" type="submit" disabled={isSubmitting} loading={isSubmitting} />
-            <Button text="admin" onClick={handleGoToAdmin} disabled={isSubmitting} />
+            <NoButton text={t("delete")} onClick={handleDelete} disabled={isSubmitting} />
+            <YesButton text={t("save")} type="submit" disabled={isSubmitting} loading={isSubmitting} />
+            <Button text={t("admin")} onClick={handleGoToAdmin} disabled={isSubmitting} />
         </div>
 
         </Form>

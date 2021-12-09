@@ -57,7 +57,7 @@ export default function NewTableMenu({
   return <React.Fragment>
     <TextActionsModal
       handleHide={handleHide}
-      title={t("new table2")}
+      title={t("new table")}
       description={t("startTimerTable")}
       disabled={loading !== false}
       actions={<React.Fragment>

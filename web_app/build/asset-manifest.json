@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "https://fb.unicohotels.com/static/css/main.2f19cf92.chunk.css",
-    "main.js": "https://fb.unicohotels.com/static/js/main.dafb20cf.chunk.js",
-    "main.js.map": "https://fb.unicohotels.com/static/js/main.dafb20cf.chunk.js.map",
-    "runtime-main.js": "https://fb.unicohotels.com/static/js/runtime-main.7263578f.js",
-    "runtime-main.js.map": "https://fb.unicohotels.com/static/js/runtime-main.7263578f.js.map",
-    "static/js/2.8706341b.chunk.js": "https://fb.unicohotels.com/static/js/2.8706341b.chunk.js",
-    "static/js/2.8706341b.chunk.js.map": "https://fb.unicohotels.com/static/js/2.8706341b.chunk.js.map",
-    "static/js/3.ef789bb4.chunk.js": "https://fb.unicohotels.com/static/js/3.ef789bb4.chunk.js",
-    "static/js/3.ef789bb4.chunk.js.map": "https://fb.unicohotels.com/static/js/3.ef789bb4.chunk.js.map",
-    "index.html": "https://fb.unicohotels.com/index.html",
-    "static/css/main.2f19cf92.chunk.css.map": "https://fb.unicohotels.com/static/css/main.2f19cf92.chunk.css.map",
-    "static/js/2.8706341b.chunk.js.LICENSE.txt": "https://fb.unicohotels.com/static/js/2.8706341b.chunk.js.LICENSE.txt"
+    "main.css": "/static/css/main.4fdf61e5.chunk.css",
+    "main.js": "/static/js/main.fc3eb874.chunk.js",
+    "main.js.map": "/static/js/main.fc3eb874.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.2e1f6853.js",
+    "runtime-main.js.map": "/static/js/runtime-main.2e1f6853.js.map",
+    "static/js/2.5e3abca5.chunk.js": "/static/js/2.5e3abca5.chunk.js",
+    "static/js/2.5e3abca5.chunk.js.map": "/static/js/2.5e3abca5.chunk.js.map",
+    "static/js/3.ef789bb4.chunk.js": "/static/js/3.ef789bb4.chunk.js",
+    "static/js/3.ef789bb4.chunk.js.map": "/static/js/3.ef789bb4.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.4fdf61e5.chunk.css.map": "/static/css/main.4fdf61e5.chunk.css.map",
+    "static/js/2.5e3abca5.chunk.js.LICENSE.txt": "/static/js/2.5e3abca5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.7263578f.js",
-    "static/js/2.8706341b.chunk.js",
-    "static/css/main.2f19cf92.chunk.css",
-    "static/js/main.dafb20cf.chunk.js"
+    "static/js/runtime-main.2e1f6853.js",
+    "static/js/2.5e3abca5.chunk.js",
+    "static/css/main.4fdf61e5.chunk.css",
+    "static/js/main.fc3eb874.chunk.js"
   ]
 }

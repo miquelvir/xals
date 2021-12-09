@@ -25,7 +25,7 @@ export const useLoginWithAccessToken = (restaurantId, accessToken) => {
                 userCtx.setType(TYPE_ACCESS_TOKEN);
                 userCtx.setParams(params);
             })
-            .catch(_ => enqueueSnackbar(t("something went wrong"), {variant: 'error'}));
+            .catch(_ => enqueueSnackbar(t("SthWrong"), {variant: 'error'}));
     }, [restaurantId, accessToken]);
 
     return [userCtx.loggedIn, () => userCtx.setType(TYPE_ACCESS_TOKEN)];
