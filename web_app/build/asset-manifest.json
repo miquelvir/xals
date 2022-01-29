@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "https://fb.unicohotels.com/static/css/main.2f19cf92.chunk.css",
-    "main.js": "https://fb.unicohotels.com/static/js/main.daeeb19d.chunk.js",
-    "main.js.map": "https://fb.unicohotels.com/static/js/main.daeeb19d.chunk.js.map",
+    "main.js": "https://fb.unicohotels.com/static/js/main.ae6324cf.chunk.js",
+    "main.js.map": "https://fb.unicohotels.com/static/js/main.ae6324cf.chunk.js.map",
     "runtime-main.js": "https://fb.unicohotels.com/static/js/runtime-main.7263578f.js",
     "runtime-main.js.map": "https://fb.unicohotels.com/static/js/runtime-main.7263578f.js.map",
     "static/js/2.c299e530.chunk.js": "https://fb.unicohotels.com/static/js/2.c299e530.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.7263578f.js",
     "static/js/2.c299e530.chunk.js",
     "static/css/main.2f19cf92.chunk.css",
-    "static/js/main.daeeb19d.chunk.js"
+    "static/js/main.ae6324cf.chunk.js"
   ]
 }

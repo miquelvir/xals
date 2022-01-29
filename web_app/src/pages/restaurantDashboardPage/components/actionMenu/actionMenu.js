@@ -52,7 +52,7 @@ function ActionMenu({
         }
         
         confirm({
-            title: t('serve desserts and finalize table?'), //TODO ASK
+            title: t('serveDessertsAndEnd'),
             handleSuccess: () => {
                 realtimeCtx.finishTable(table.id);
             },
