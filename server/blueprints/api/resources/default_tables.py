@@ -49,7 +49,7 @@ class RestaurantDefaultTableCollectionResource(MethodView):
         default_table_schema = NewDefaultTableSchema(**data)
         name = default_table_schema.name
 
-        if name == '':
+        if name == "":
             raise BadRequest("default tables can't be empty")
 
         if (
