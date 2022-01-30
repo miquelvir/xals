@@ -46,7 +46,7 @@ class FinishedTable(BaseModel):
 
 class NextCoureTable(BaseModel):
     id: str
-    name: str
+    to_desserts: bool
 
 
 @socketio.on("v1.tables.finish")
@@ -81,13 +81,11 @@ def v1_tables_next(data):
     except ValidationError as e:
         return
 
-    print(table_data.id, table_data.name)
-
     try:
         table = TablesService.next_course(
             restaurant_id=get_current_user_restaurant_id(),
             table_id=table_data.id,
-            name=table_data.name,
+            to_desserts=table_data.to_desserts,
         )
     except KeyError:
         return

@@ -36,7 +36,7 @@ function AdminDashboardPage() {
         </p>
       </div>
       <div className='float-right'>
-        {(userCtx.isSuperAdminLoggedIn && restaurant !== null) && <BackToRootButton setRestaurant={setRestaurant} />}
+        {(userCtx.isSuperAdminLoggedIn && restaurant !== null) && <BackToRootButton handleClick={() => setRestaurant(null)} />}
         <ThemeButton />
         <LanguageButton />
         <PrivacyButton privacyFilter={privacyFilter} setPrivacyFilter={setPrivacyFilter} />

@@ -4,6 +4,7 @@ from pydantic import ValidationError
 from werkzeug.exceptions import BadRequest
 
 from server.blueprints.api.errors import Forbidden
+from server.blueprints.api.resources.statistics import AverageWaitingTime, AverageWaitingTimePerCourse
 from server.errors.authorization import Forbidden as RawForbidden
 
 from server.blueprints.api.resources.restaurants import (
@@ -76,6 +77,16 @@ api_blueprint.add_url_rule(
 api_blueprint.add_url_rule(
     "/restaurants/<restaurant_id>/accessTokens/<id_>",
     view_func=RestaurantAccessTokensResource.as_view("restaurant_accessToken"),
+)
+
+# STATISTICS
+api_blueprint.add_url_rule(
+    "/statistics/waitingTime/historic",
+    view_func=AverageWaitingTime.as_view("statistics_averageWaitingTime")
+)
+api_blueprint.add_url_rule(
+    "/statistics/waitingTime/courses",
+    view_func=AverageWaitingTimePerCourse.as_view("statistics_averageWaitingTimePerCourse")
 )
 
 

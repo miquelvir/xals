@@ -16,6 +16,7 @@ class TablesService:
                 table_id=table.id,
                 name="[[welcome]]",
                 timestamp=datetime.datetime.utcnow(),
+                waiting_time=None
             )
         )
         server.db.session.add(table)
@@ -36,10 +37,11 @@ class TablesService:
 
         table.courses.append(
             Course(
-                name=table.next_course,
+                name='desserts',
                 id=Course.generate_new_id(),
                 table_id=table.id,
                 timestamp=datetime.datetime.utcnow(),
+                waiting_time=(datetime.datetime.utcnow()-table.last_course_datetime).total_seconds()
             )
         )
         server.db.session.commit()
@@ -47,7 +49,7 @@ class TablesService:
         return table
 
     @staticmethod
-    def next_course(restaurant_id, table_id, name):
+    def next_course(restaurant_id, table_id, to_desserts: bool):
         table = Table.query.filter_by(
             restaurant_id=restaurant_id, id=table_id
         ).one_or_none()
@@ -57,12 +59,17 @@ class TablesService:
 
         table.courses.append(
             Course(
-                name=name,
+                name=table.next_course,
                 id=Course.generate_new_id(),
                 table_id=table.id,
                 timestamp=datetime.datetime.utcnow(),
+                waiting_time=(datetime.datetime.utcnow()-table.last_course_datetime).total_seconds()
             )
         )
+
+        if to_desserts:
+            table.to_desserts = True
+
         server.db.session.commit()
 
         return table

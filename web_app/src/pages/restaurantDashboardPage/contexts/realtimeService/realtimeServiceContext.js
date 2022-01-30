@@ -138,7 +138,7 @@ export const RealtimeServiceContextProvider = ({ children }) => {
         if (nextTables.isEmpty()) return;
 
         nextTables.queue.map(table => {
-            socket.emit("v1.tables.next", {id: table.id, name: table.name});
+            socket.emit("v1.tables.next", table);
             console.log(table);
         });
         
@@ -147,7 +147,7 @@ export const RealtimeServiceContextProvider = ({ children }) => {
 
     const nextCourse = (id, desserts = false) => {
         console.log(tables[id], tables[id].next_course);
-        nextTables.push({id: id, name: desserts? 'desserts': parseInt(tables[id].next_course)+1})
+        nextTables.push({id: id, to_desserts: desserts});
     };
 
     // delete

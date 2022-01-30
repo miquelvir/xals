@@ -36,6 +36,9 @@ export const en = {
     "descriptionAddAdmin": "this will add a new administrator to the system; restaurant administrators can manage the access urls of their restaurants and the default tables",
     "addAdmin": "added new restaurant administrator",
     "restAdmins": "restaurant administrators",
+    "shortcuts": "shortcuts",
+    "statistics": "statistics",
+    "historic-average-waiting-time": "historic average waiting time (in minutes)",
 
     //card pop-up
     "timeLastCourse":"last course was served at",

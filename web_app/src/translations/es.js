@@ -36,6 +36,9 @@ export const es = {
     "descriptionAddAdmin": "esta acción añadirá unx nuevx administradorx al sistema; lxs administradorxs de un restaurante pueden gestionar los enlaces de acceso de su restaurante y las mesas predeterminadas",
     "addAdmin": "se ha añadido unx nuevx administradorx",
     "restAdmins": "administradorxs del restaurante",
+    "shortcuts": "enlaces",
+    "statistics": "estadísticas",
+    "historic-average-waiting-time": "tiempo de espera medio histórico (en minutos)",
 
     //card pop-up
     "timeLastCourse":"el último plato se sirvió a la(s)",

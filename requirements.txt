@@ -11,6 +11,7 @@ cffi==1.14.6
 chardet==4.0.0
 click==7.1.2
 colorama==0.4.4
+cryptography==35.0.0
 dataclasses==0.6
 dependency-injector==4.35.2
 dnspython==1.16.0
@@ -24,7 +25,6 @@ Flask-SeaSurf==0.3.1
 Flask-SocketIO==5.1.1
 Flask-SQLAlchemy==2.5.1
 flask-talisman==0.8.1
-gevent==21.8.0
 gevent-websocket==0.10.1
 google-auth==2.3.0
 greenlet==1.1.2
@@ -51,6 +51,7 @@ pyasn1-modules==0.2.8
 pycparser==2.20
 pydantic==1.8.2
 PyJWT==1.7.1
+pyOpenSSL==21.0.0
 pyparsing==2.4.7
 pyrsistent==0.18.0
 pytest==6.2.4
