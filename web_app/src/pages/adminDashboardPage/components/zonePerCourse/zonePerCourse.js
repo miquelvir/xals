@@ -4,33 +4,21 @@ import YesButton from "../../../../components/buttons/yesButton/yesButton";
 import {useTranslation} from "react-i18next";
 import { BarChart, XAxis, YAxis, Tooltip, Legend, Bar } from "recharts";
 import { themeContext, THEME_DARK } from '../../../../contexts/themeContext';
+import {getHistoricStatsPerCourse} from "../../services/statistics";
 
-export const ZonePerCourse = ({restaurantId}) => {
+
+export const ZonePerCourse = ({ restaurantId, preparedData }) => {
     const { t } = useTranslation();
     const themeCtx = React.useContext(themeContext);
+    const fgColor = themeCtx.theme === THEME_DARK? '#ffffff': '#000000';
 
-    const data = {
-      "average": {
-        "1": 4.1027379999999996, 
-        "2": 2.3365, 
-        "3": 2.891202, 
-        "4": 2.539888, 
-        "desserts": 3.9026294999999998
-      }
-    }; // todo
-    const preparedData = Object.entries(data["average"]).map(d => ({
-        "course": d[0],
-        "averageWaitingTime": d[1] / 60  // to minutes
-      }));
-      const fgColor = themeCtx.theme === THEME_DARK? '#ffffff': '#000000';
-
-    return <Zone title={t("historic-average-waiting-time")}>
+    return <Zone title={t("average-waiting-time-per-course")}>
           <BarChart width={730} height={250} data={preparedData}>
       <XAxis dataKey="course" />
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey="averageWaitingTime" fill={fgColor} />
+      <Bar dataKey="waiting time (minutes)" fill={fgColor} />
     </BarChart>
     </Zone>;
   }

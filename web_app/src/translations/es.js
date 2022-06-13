@@ -25,6 +25,7 @@ export const es = {
     "warning": "aviso",
     "restaurants": "restaurantes",
     "time profile": "perfil de tiempo",
+    "search": "buscar",
 
     //administrators
     "administratorEmail": "email del administradorx",
@@ -38,7 +39,8 @@ export const es = {
     "restAdmins": "administradorxs del restaurante",
     "shortcuts": "enlaces",
     "statistics": "estadísticas",
-    "historic-average-waiting-time": "tiempo de espera medio histórico (en minutos)",
+    "historic-average-waiting-time": "tiempo de espera medio histórico",
+    "average-waiting-time-per-course": "tiempo de espera medio por plato",
 
     //card pop-up
     "timeLastCourse":"el último plato se sirvió a la(s)",

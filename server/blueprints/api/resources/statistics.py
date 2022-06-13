@@ -88,22 +88,9 @@ class AverageWaitingTime(MethodView):
             .group_by(Table.id) \
             .all()
 
-        if len(params.daysOfTheWeek) != 7:  # todo does not work do within sql query
-            tables: Iterable = self._filter_by_day_of_week(tables, params.daysOfTheWeek)
-        return {
-            "average": {
-                "2022-01-20": 3.04999356667,
-                "2022-01-21": 5.0499935666666667,
-                "2022-01-22": 4.0499935666667,
-                "2022-01-23": 5.0499935666,
-                "2022-01-24": 6.0499935667,
-                "2022-01-25": 7.04999367,
-                "2022-01-26": 8.0499666667,
-                "2022-01-27": 7.04966667,
-                "2022-01-28": 8.0496666667,
-                "2022-01-29": 9.04
-            }
-        }
+        # if len(params.daysOfTheWeek) != 7:  # todo does not work do within sql query
+        #    tables: Iterable = self._filter_by_day_of_week(tables, params.daysOfTheWeek)
+
         return {
             'average': self._compute_daily_averages(tables),
         }

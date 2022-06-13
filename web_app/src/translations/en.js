@@ -25,6 +25,7 @@ export const en = {
     "warning": "warning",
     "restaurants": "restaurants",
     "time profile": "time profile",
+    "search": "search",
 
     //administrators
     "administratorEmail": "administrator email",
@@ -38,7 +39,8 @@ export const en = {
     "restAdmins": "restaurant administrators",
     "shortcuts": "shortcuts",
     "statistics": "statistics",
-    "historic-average-waiting-time": "historic average waiting time (in minutes)",
+    "historic-average-waiting-time": "historic average waiting time",
+    "average-waiting-time-per-course": "average waiting time per course",
 
     //card pop-up
     "timeLastCourse":"last course was served at",

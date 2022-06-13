@@ -20,9 +20,9 @@ class Config(object):
     REMEMBER_COOKIE_SECURE = True
     REMEMBER_COOKIE_HTTPONLY = True
 
-    BACKEND_SERVER_PORT = "4999"
+    BACKEND_SERVER_PORT = 4999
     BACKEND_SERVER_HOST = "127.0.0.1"
-    BACKEND_SERVER_URL = f"https://{BACKEND_SERVER_HOST}:{BACKEND_SERVER_PORT}"
+    BACKEND_SERVER_URL = f"http://{BACKEND_SERVER_HOST}:{BACKEND_SERVER_PORT}"
 
     SECRET_KEY = os.getenv("SECRET")
 
@@ -43,7 +43,7 @@ class DevelopmentConfig(Config):
     SSL_KEY = "development/key.pem"
 
     CSRF_COOKIE_SAMESITE = "Lax"  # allow development frontend server
-    FRONTEND_SERVER_URL = "https://127.0.0.1:3000"
+    FRONTEND_SERVER_URL = "http://127.0.0.1:3000"
 
     SQLALCHEMY_DATABASE_URI = "sqlite:///%s" % os.path.join(
         os.path.abspath(os.path.dirname(__file__)), "", "people.db"
