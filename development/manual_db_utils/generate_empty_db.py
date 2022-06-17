@@ -9,6 +9,6 @@ def create():
 
 
 if __name__ == "__main__":
-    app = server.init_app("config.DevelopmentConfig")
+    app, socketio = server.init_app("config.DevelopmentConfig")
     with app.app_context():
         create()
