@@ -86,7 +86,9 @@ class AverageWaitingTime(MethodView):
 
         tables: List = (
             server.db.session.query(
-                func.min(func.cast(Course.timestamp, Date)), func.avg(Course.waiting_time), func.count()
+                func.min(func.cast(Course.timestamp, Date)),
+                func.avg(Course.waiting_time),
+                func.count(),
             )
             .join(Table)
             .filter(Table.restaurant_id == params.restaurantId)
