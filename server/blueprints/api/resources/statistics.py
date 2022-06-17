@@ -55,19 +55,23 @@ class AverageWaitingTime(MethodView):
         return sum_ / count if sum_ != 0 else -1
 
     @staticmethod
-    def _filter_by_day_of_week(date_min_max_count: Iterable, days_of_week: List[DayOfTheWeek]):
+    def _filter_by_day_of_week(
+        date_min_max_count: Iterable, days_of_week: List[DayOfTheWeek]
+    ):
         for date, waiting_time, count in date_min_max_count:
-            if datetime.datetime.strptime(date, '%Y-%m-%d').weekday() in days_of_week:
+            if datetime.datetime.strptime(date, "%Y-%m-%d").weekday() in days_of_week:
                 yield date, waiting_time, count
 
     @admin_required
     def get(self) -> AverageWaitingTimeSchema.dict:
         params = dict(request.args)
-        if 'daysOfTheWeek' in params:
+        if "daysOfTheWeek" in params:
             try:
-                params['daysOfTheWeek'] = list(map(int, params['daysOfTheWeek'].split(',')))
+                params["daysOfTheWeek"] = list(
+                    map(int, params["daysOfTheWeek"].split(","))
+                )
             except ValueError:
-                raise BadRequest('daysOfTheWeek must be a comma-separated list of ints')
+                raise BadRequest("daysOfTheWeek must be a comma-separated list of ints")
 
         params = AverageWaitingTimeParamsSchema(**params)
 
@@ -79,20 +83,24 @@ class AverageWaitingTime(MethodView):
         if restaurant is None:
             raise NotFound("restaurant not found")
 
-        tables: List = server.db.session.query(func.Date(Course.timestamp), func.avg(Course.waiting_time), func.count()) \
-            .join(Table) \
-            .filter(Table.restaurant_id == params.restaurantId) \
-            .filter(Course.timestamp.between(params.startDate, params.endDate)) \
-            .filter(func.Time(Course.timestamp) <= params.endTime) \
-            .filter(params.startTime <= func.Time(Course.timestamp)) \
-            .group_by(Table.id) \
+        tables: List = (
+            server.db.session.query(
+                func.Date(Course.timestamp), func.avg(Course.waiting_time), func.count()
+            )
+            .join(Table)
+            .filter(Table.restaurant_id == params.restaurantId)
+            .filter(Course.timestamp.between(params.startDate, params.endDate))
+            .filter(func.Time(Course.timestamp) <= params.endTime)
+            .filter(params.startTime <= func.Time(Course.timestamp))
+            .group_by(Table.id)
             .all()
+        )
 
         # if len(params.daysOfTheWeek) != 7:  # todo does not work do within sql query
         #    tables: Iterable = self._filter_by_day_of_week(tables, params.daysOfTheWeek)
 
         return {
-            'average': self._compute_daily_averages(tables),
+            "average": self._compute_daily_averages(tables),
         }
 
 
@@ -100,11 +108,13 @@ class AverageWaitingTimePerCourse(MethodView):
     @admin_required
     def get(self) -> AverageWaitingTimeSchema.dict:
         params = dict(request.args)
-        if 'daysOfTheWeek' in params:
+        if "daysOfTheWeek" in params:
             try:
-                params['daysOfTheWeek'] = list(map(int, params['daysOfTheWeek'].split(',')))
+                params["daysOfTheWeek"] = list(
+                    map(int, params["daysOfTheWeek"].split(","))
+                )
             except ValueError:
-                raise BadRequest('daysOfTheWeek must be a comma-separated list of ints')
+                raise BadRequest("daysOfTheWeek must be a comma-separated list of ints")
 
         params = AverageWaitingTimeParamsSchema(**params)
 
@@ -116,19 +126,21 @@ class AverageWaitingTimePerCourse(MethodView):
         if restaurant is None:
             raise NotFound("restaurant not found")
 
-        name_waiting: List = server.db.session.query(Course.name, func.avg(Course.waiting_time)) \
-            .join(Table) \
-            .filter(Table.restaurant_id == params.restaurantId) \
-            .filter(Course.timestamp.between(params.startDate, params.endDate)) \
-            .filter(func.Time(Course.timestamp) <= params.endTime) \
-            .filter(params.startTime <= func.Time(Course.timestamp)) \
-            .filter(Course.name != '[[welcome]]') \
-            .group_by(Course.name) \
+        name_waiting: List = (
+            server.db.session.query(Course.name, func.avg(Course.waiting_time))
+            .join(Table)
+            .filter(Table.restaurant_id == params.restaurantId)
+            .filter(Course.timestamp.between(params.startDate, params.endDate))
+            .filter(func.Time(Course.timestamp) <= params.endTime)
+            .filter(params.startTime <= func.Time(Course.timestamp))
+            .filter(Course.name != "[[welcome]]")
+            .group_by(Course.name)
             .all()
+        )
 
         # if len(params.daysOfTheWeek) != 7:  # todo does not work do within sql query
         #    tables: Iterable = self._filter_by_day_of_week(tables, params.daysOfTheWeek)
 
         return {
-            'average': {name: waiting for name, waiting in name_waiting},
+            "average": {name: waiting for name, waiting in name_waiting},
         }

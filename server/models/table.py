@@ -15,7 +15,7 @@ class Table(MyBase):
     finished = db.Column(db.Boolean, nullable=False, default=False)
     to_desserts = db.Column(db.Boolean, nullable=False, default=False)
 
-    courses = db.relationship("Course", backref="table", cascade='all, delete')
+    courses = db.relationship("Course", backref="table", cascade="all, delete")
     restaurant_id = db.Column(
         db.Text, db.ForeignKey("restaurant.id", ondelete="CASCADE")
     )
@@ -31,7 +31,7 @@ class Table(MyBase):
     @hybrid_property
     def next_course(self):
         if self.to_desserts:
-            return 'desserts'
+            return "desserts"
         return len(self.courses)
 
     class Schema(BaseModel):

@@ -2,7 +2,9 @@ from os.path import join, dirname
 
 from dotenv import load_dotenv
 
-load_dotenv(join(dirname(__file__), "../../.env"))  # use instead pycharm environment vars
+load_dotenv(
+    join(dirname(__file__), "../../.env")
+)  # use instead pycharm environment vars
 
 import server
 from development.manual_db_utils.generate_empty_db import create

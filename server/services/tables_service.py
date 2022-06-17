@@ -16,7 +16,7 @@ class TablesService:
                 table_id=table.id,
                 name="[[welcome]]",
                 timestamp=datetime.datetime.utcnow(),
-                waiting_time=None
+                waiting_time=None,
             )
         )
         server.db.session.add(table)
@@ -37,11 +37,13 @@ class TablesService:
 
         table.courses.append(
             Course(
-                name='desserts',
+                name="desserts",
                 id=Course.generate_new_id(),
                 table_id=table.id,
                 timestamp=datetime.datetime.utcnow(),
-                waiting_time=(datetime.datetime.utcnow()-table.last_course_datetime).total_seconds()
+                waiting_time=(
+                    datetime.datetime.utcnow() - table.last_course_datetime
+                ).total_seconds(),
             )
         )
         server.db.session.commit()
@@ -63,7 +65,9 @@ class TablesService:
                 id=Course.generate_new_id(),
                 table_id=table.id,
                 timestamp=datetime.datetime.utcnow(),
-                waiting_time=(datetime.datetime.utcnow()-table.last_course_datetime).total_seconds()
+                waiting_time=(
+                    datetime.datetime.utcnow() - table.last_course_datetime
+                ).total_seconds(),
             )
         )
 
