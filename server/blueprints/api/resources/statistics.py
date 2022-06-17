@@ -7,7 +7,7 @@ from flask.views import MethodView
 from flask_login import current_user
 from pydantic import BaseModel
 from werkzeug.exceptions import NotFound, BadRequest
-from sqlalchemy import Time, func
+from sqlalchemy import Time, func, Date
 import server
 
 from server.blueprints.api.utils import (
@@ -38,6 +38,7 @@ class AverageWaitingTime(MethodView):
     def _compute_daily_averages(date_min_max_count: Iterable):
         averages = {}
         for date, waiting_time, count in date_min_max_count:
+            date = date.strftime("%Y-%m-%d")
             if date not in averages:
                 averages[date] = []
             averages[date].append(waiting_time)
@@ -85,13 +86,14 @@ class AverageWaitingTime(MethodView):
 
         tables: List = (
             server.db.session.query(
-                func.Date(Course.timestamp), func.avg(Course.waiting_time), func.count()
+                func.min(func.cast(Course.timestamp, Date)), func.avg(Course.waiting_time), func.count()
             )
             .join(Table)
             .filter(Table.restaurant_id == params.restaurantId)
-            .filter(Course.timestamp.between(params.startDate, params.endDate))
-            .filter(func.Time(Course.timestamp) <= params.endTime)
-            .filter(params.startTime <= func.Time(Course.timestamp))
+            .filter(func.cast(Course.timestamp, Date) <= params.endDate)
+            .filter(params.startDate <= func.cast(Course.timestamp, Date))
+            .filter(func.cast(Course.timestamp, Time) <= params.endTime)
+            .filter(params.startTime <= func.cast(Course.timestamp, Time))
             .group_by(Table.id)
             .all()
         )
@@ -130,9 +132,10 @@ class AverageWaitingTimePerCourse(MethodView):
             server.db.session.query(Course.name, func.avg(Course.waiting_time))
             .join(Table)
             .filter(Table.restaurant_id == params.restaurantId)
-            .filter(Course.timestamp.between(params.startDate, params.endDate))
-            .filter(func.Time(Course.timestamp) <= params.endTime)
-            .filter(params.startTime <= func.Time(Course.timestamp))
+            .filter(func.cast(Course.timestamp, Time) <= params.endTime)
+            .filter(params.startTime <= func.cast(Course.timestamp, Time))
+            .filter(func.cast(Course.timestamp, Date) <= params.endDate)
+            .filter(params.startDate <= func.cast(Course.timestamp, Date))
             .filter(Course.name != "[[welcome]]")
             .group_by(Course.name)
             .all()
