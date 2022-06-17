@@ -3,7 +3,8 @@ from development.manual_db_utils.generate_empty_db import create
 from server.models import (
     Restaurant,
     Admin,
-    AccessToken, Table,
+    AccessToken,
+    Table,
 )
 from random import randint, choice, sample
 
@@ -22,8 +23,11 @@ def fill_all():
             if idx == 0:
                 courses[idx].waiting_time = 0
             else:
-                courses[idx].waiting_time = int((courses[idx].timestamp-courses[idx-1].timestamp).total_seconds())
-
+                courses[idx].waiting_time = int(
+                    (
+                        courses[idx].timestamp - courses[idx - 1].timestamp
+                    ).total_seconds()
+                )
 
     print("committing... [1]")
     server.db.session.commit()
