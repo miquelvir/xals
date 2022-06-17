@@ -80,7 +80,11 @@ class ProductionConfig(Config):
     BACKEND_SERVER_URL = "https://%s:%s" % (BACKEND_SERVER_HOST, BACKEND_SERVER_PORT)
     FRONTEND_SERVER_URL = BACKEND_SERVER_URL
 
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL").replace("postgres://", "postgresql://") if os.getenv("DATABASE_URL") is not None else None
+    SQLALCHEMY_DATABASE_URI = (
+        os.getenv("DATABASE_URL").replace("postgres://", "postgresql://")
+        if os.getenv("DATABASE_URL") is not None
+        else None
+    )
 
 
 class HerokuManualLiveConfig(ProductionConfig):
